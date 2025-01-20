@@ -3,7 +3,7 @@ import { Personnel } from '../models/personnel';
 
 export const getPersonnels = async (req: Request, res: Response) => {
     try {
-        const personnels = await Personnel.findALL();
+        const personnels = await Personnel.findAll();
         res.status(200).json(personnels);
     } catch (error) {
         res.status(500).json({error: 'Erreur lors de la récupération des personnels'});
