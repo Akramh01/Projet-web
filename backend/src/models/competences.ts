@@ -1,58 +1,34 @@
-import { Model, DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/bd';
 
-export class Missions extends Model {
-  public idM!: number;
-  public titre!: string;
-  public description!: string;
-  public date_debut!: Date;
-  public date_fin!: Date;
-  public statut!: 'préparation' | 'planifiée' | 'en cours' | 'terminée';
-  public priorite!: 'basse' | 'moyenne' | 'haute';
-  public anomalies!: string;
+export class Competences extends Model {
+  public idC!: string;           // Identifiant unique
+  public nom_fr!: string;        // Nom en français
+  public nom_en!: string;        // Nom en anglais
 }
 
-Missions.init(
+Competences.init(
   {
-    idM: {
-      type: DataTypes.INTEGER,
+    idC: {
+      type: DataTypes.STRING(10),
       autoIncrement: true,
       primaryKey: true,
     },
-    titre: {
-      type: DataTypes.STRING(100),
+    nom_fr: {
+      type: DataTypes.STRING(50),
       allowNull: false,
     },
-    description: {
-      type: DataTypes.TEXT,
+    nom_en: {
+      type: DataTypes.STRING(50),
       allowNull: false,
-    },
-    date_debut: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    date_fin: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    statut: {
-      type: DataTypes.ENUM('préparation', 'planifiée', 'en cours', 'terminée'),
-      allowNull: false,
-    },
-    priorite: {
-      type: DataTypes.ENUM('basse', 'moyenne', 'haute'),
-      defaultValue: 'moyenne',
-    },
-    anomalies: {
-      type: DataTypes.TEXT,
     },
   },
   {
     sequelize,
-    modelName: 'Missions',
-    tableName: 'missions',
+    modelName: 'Competences',
+    tableName: 'Competences',
     timestamps: false,
   }
 );
 
-export default Missions;
+export default Competences;

@@ -2,15 +2,17 @@ import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/bd';
 
 export class Employes extends Model {
-  public id!: number;
+  public idE!: number;
   public prenom!: string;
   public nom!: string;
-  public date_entree!: Date;
+  public date_embauche!: Date;
+  public poste!: string;
+  public statut!: string;
 }
 
     Employes.init(
   {
-    id: {
+    idE: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -23,8 +25,16 @@ export class Employes extends Model {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    date_entree: {
+      date_embauche: {
       type: DataTypes.DATE,
+      allowNull: false,
+    },
+    poste: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    statut: {
+      type: DataTypes.STRING(20),
       allowNull: false,
     },
   },
