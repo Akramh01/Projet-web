@@ -1,14 +1,14 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/bd';
 
-export class Personnel extends Model {
+export class Employes extends Model {
   public id!: number;
   public prenom!: string;
   public nom!: string;
   public date_entree!: Date;
 }
 
-Personnel.init(
+    Employes.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -30,8 +30,10 @@ Personnel.init(
   },
   {
     sequelize,
-    modelName: 'Personnel',
+    modelName: 'Employes',
     tableName: 'Employes',
     timestamps: false,
   }
 );
+
+export default Employes;

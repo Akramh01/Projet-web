@@ -1,0 +1,50 @@
+import {Model, DataTypes} from 'sequelize';
+import sequelize from '../config/bd';
+import { Employes } from './employes';
+import Competences from './competences';
+
+
+export class Avoir extends Model {
+    public idE!: number;
+    public idC!: string;
+    public niveau !: 'débutant' | 'intermédiaire' | 'expert' 
+}
+
+Avoir.init(
+    {
+        ideE: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            references: {
+                model: Employes,
+                key: 'idE',
+            },
+            onDelete: 'CASCADE',
+        },
+        idC: {
+            type: DataTypes.STRING,
+            primaryKey: true,
+            references: {
+                model: Competences,
+                key: 'idC',
+            },
+            onDelete: 'CASCADE',
+        },
+        niveau: {
+            type: DataTypes.ENUM('débutant', 'intermédiaire', 'expert'),
+            allowNull: false,
+        }
+    },
+    {
+        sequelize,
+        modelName: 'Avoir',
+        tableName: 'Avoir',
+        timestamps: false,
+    }
+);
+
+// Définir les associations
+Avoir.belongsTo(Employes, { foreignKey: 'idE' });
+Avoir.belongsTo(Competences, { foreignKey: 'idC' });
+
+export default Avoir;

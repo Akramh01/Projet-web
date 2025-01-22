@@ -1,7 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/bd';
 
-class Missions extends Model {
+export class Missions extends Model {
   public idM!: number;
   public titre!: string;
   public description!: string;

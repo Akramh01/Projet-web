@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import personnelRoutes from './routes/personnelRoutes';
+import personnelRoutes from './routes/employesRoutes';
 import competenceRoutes from './routes/competenceRoutes';
 
 const app = express();
