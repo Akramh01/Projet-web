@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import employesRoutes from './routes/employesRoutes';
@@ -20,6 +20,12 @@ app.use('/employes', employesRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
+});
+
+// Middleware de gestion des erreurs globales
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Erreur interne du serveur' });
 });
 
 app.listen(port, () => {
