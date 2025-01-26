@@ -7,10 +7,7 @@
     <list default="true" id="56fd7e62-fa31-419e-8166-a021ea21c550" name="Changes" comment="Correction modules">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/controllers/employesController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/employesController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/migrations/importCSV.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/routes/employesRoutes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/employesRoutes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/serveur.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/serveur.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/utilitaire/csvParser.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +74,7 @@
       <workItem from="1737536923794" duration="5935000" />
       <workItem from="1737709866206" duration="999000" />
       <workItem from="1737710888936" duration="4319000" />
-      <workItem from="1737904940770" duration="3906000" />
+      <workItem from="1737904940770" duration="5765000" />
     </task>
     <servers />
   </component>

@@ -7,7 +7,7 @@ export const getEmployes = async (req: Request, res: Response) => {
         res.status(200).json(employes);
     } catch (error) {
         console.log(error);
-        res.status(500).json({error: 'Erreur lors de la récupération des employes'});
+        res.status(500).json({error: 'Erreur lors de la récupération des employes.'});
     }
 }
 
@@ -15,12 +15,14 @@ export const addEmployes = async (req: Request, res: Response) => {
     try {
         const { prenom, nom, date_embauche, poste } = req.body;
         if (!nom || !prenom || !date_embauche || !poste) {
-            return res.status(400).json({ error: 'Nom et prénom et date d\'embauche et le poste sont requis' });
+            const error = new Error('Nom et prénom et date d\'embauche et le poste sont requis.');
+            (error as any).status = 400;
+            throw error;
         }
         const newEmployes = await Employes.create({ prenom, nom ,date_embauche, poste, statut: 'Inactif' });
         res.status(201).json(newEmployes);
     } catch {
-        res.status(500).json({error: 'Erreur lors de l’ajout de l\'employe'});
+        res.status(500).json({error: 'Erreur lors de l’ajout de l\'employe.'});
     }
 }
 
@@ -29,12 +31,14 @@ export const getEmployeWithId = async (req: Request, res: Response) => {
       //On recupére les informations avex les paramètres
       const employe = await Employes.findByPk(req.params.idE);
       if(!employe) {
-          return res.status(404).json({error: 'Employé non trouvé'});
+          const error = new Error('Employé non trouvé.');
+          (error as any).status = 404;
+          throw error;
       }
       res.status(200).json(employe);
   } catch (error){
       console.error(error);
-      res.status(500).json({error: 'Erreur lors de la recupération de l\'employe'})
+      res.status(500).json({error: 'Erreur lors de la recupération de l\'employe.'})
     }
 }
 
@@ -44,7 +48,9 @@ export const getEmployeWithName = async (req: Request, res: Response) => {
     const prenom = req.params.prenom;
     // Validation des paramètres
     if (!nom || !prenom) {
-      return res.status(400).json({ error: 'Nom et prénom sont requis' });
+        const error = new Error('Nom et prénom requis.');
+        (error as any).status = 400;
+        throw error;
     }
     //On recupére les informations avex les paramètres
     const employe = await Employes.findOne({
@@ -55,24 +61,30 @@ export const getEmployeWithName = async (req: Request, res: Response) => {
     });
     //Si rien n'est retourné
     if (!employe) {
-        return res.status(404).json({error: 'Employé non trouvé'});
+        const error = new Error('Employé non trouvé.');
+        (error as any).status = 404;
+        throw error;
     }
     res.status(200).json(employe);
   } catch (error) {
       console.log(error);
-      res.status(500).json({error: 'Erreur lors de la recupération de l\'employe'})
+      res.status(500).json({error: 'Erreur lors de la recupération de l\'employe.'})
   }
 }
 
 export const deleteEmploye = async (req: Request, res: Response) => {
     try {
         if (!req.params.idE) {
-            return res.status(400).json({ error: 'ID non fourni.' });
+            const error = new Error('ID manquant.');
+            (error as any).status = 400;
+            throw error;
         }
         // Vérifie si l'employé existe dans la base de données
         const employe = await Employes.findByPk(req.params.idE);
         if (!employe) {
-            return res.status(404).json({ error: 'Employé non trouvé.' });
+            const error = new Error('Employé non trouvé.');
+            (error as any).status = 404;
+            throw error;
         }
         // Supprime l'employé
         await Employes.destroy();

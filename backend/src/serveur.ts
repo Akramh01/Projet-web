@@ -1,30 +1,28 @@
 import dotenv from 'dotenv';
 import express, { Request, Response, NextFunction } from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
 import employesRoutes from './routes/employesRoutes';
 import competenceRoutes from './routes/competenceRoutes';
+import { errorHandler } from './middlewares/errorHandler';
 
 const app = express();
 const port = 3000;
-
-dotenv.config();
-
-// Middleware
-app.use(express.json());
 
 // Routes
 app.use('/employes', employesRoutes);
 //app.use('/competences', competenceRoutes);
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+// Middleware pour les erreurs 404 (si aucune route ne correspond)
+app.use((req, res, next) => {
+  const error = new Error('Route introuvable.');
+  (error as any).status = 404;
+  next(error);
 });
 
-// Middleware de gestion des erreurs globales
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Erreur interne du serveur' });
+// Middleware
+app.use(errorHandler);
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
 });
 
 app.listen(port, () => {
