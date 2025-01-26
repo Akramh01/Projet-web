@@ -1,5 +1,11 @@
 import { Router } from 'express';
-import {getEmployes, addEmployes, getEmployeWithId, getEmployeWithName} from '../controllers/employesController';
+import {
+    getEmployes,
+    addEmployes,
+    getEmployeWithId,
+    getEmployeWithName,
+    deleteEmploye
+} from '../controllers/employesController';
 
 const router = Router();
 
@@ -7,6 +13,8 @@ const router = Router();
 router.get('/', getEmployes);
 router.get('/id/:idE', getEmployeWithId);
 router.get('/name/:nom/:prenom', getEmployeWithName);
-router.post('/add/:nom/:prenom/:date_embauche/:poste', addEmployes);
+router.post('/add', addEmployes);
+router.delete('/delete/:idE', deleteEmploye);
+
 
 export default router;

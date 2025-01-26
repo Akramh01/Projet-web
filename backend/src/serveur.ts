@@ -11,8 +11,7 @@ const port = 3000;
 dotenv.config();
 
 // Middleware
-app.use(bodyParser.json());
-app.use(cors());
+app.use(express.json());
 
 // Routes
 app.use('/employes', employesRoutes);
