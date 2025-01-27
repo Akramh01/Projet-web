@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { getCompetences, addCompetences} from '../controllers/competenceController';
+import { getCompetences, getCompetenceWithId, getCompetenceWithNameFr, getCompetenceWithNameEn} from '../controllers/competenceController';
 
 const router = Router();
 
-router.get('/personnels', getCompetences);
-router.post('/personnels', addCompetences);
+router.get('/', getCompetences);
+router.get('/id/:idC', getCompetenceWithId);
+router.get('/nom-fr/:nom', getCompetenceWithNameFr);
+router.get('/nom-en/:nom', getCompetenceWithNameEn);
 
 export default router;

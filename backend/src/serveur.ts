@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+
 import express, { Request, Response, NextFunction } from 'express';
 import employesRoutes from './routes/employesRoutes';
 import competenceRoutes from './routes/competenceRoutes';
@@ -8,8 +8,8 @@ const app = express();
 const port = 3000;
 
 // Routes
-app.use('/employes', employesRoutes);
-//app.use('/competences', competenceRoutes);
+// app.use('/employes', employesRoutes);
+// app.use('/competences', competenceRoutes);
 
 // Middleware pour les erreurs 404 (si aucune route ne correspond)
 app.use((req, res, next) => {
