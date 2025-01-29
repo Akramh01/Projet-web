@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="56fd7e62-fa31-419e-8166-a021ea21c550" name="Changes" comment="Correction modules">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/models/affecter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/affecter.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/models/missions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/missions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/models/requerir.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/requerir.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/serveur.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/serveur.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +73,7 @@
       <workItem from="1737709866206" duration="999000" />
       <workItem from="1737710888936" duration="4319000" />
       <workItem from="1737904940770" duration="5765000" />
+      <workItem from="1738157860692" duration="2755000" />
     </task>
     <servers />
   </component>
