@@ -96,5 +96,3 @@ export const deleteEmploye = async (req: Request, res: Response) => {
 };
 
 
-//exports.getEmployeWithId = getEmployeWithId;
-//exports.getEmployes = getEmployes;

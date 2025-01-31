@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/', getCompetences);
 router.get('/id/:idC', getCompetenceWithId);
-router.get('/nom-fr/:nom', getCompetenceWithNameFr);
-router.get('/nom-en/:nom', getCompetenceWithNameEn);
+router.get('/nom-fr/:nom_fr', getCompetenceWithNameFr);
+router.get('/nom-en/:nom_en', getCompetenceWithNameEn);
 
 export default router;

@@ -29,15 +29,15 @@ export const getCompetenceWithId = async (req: Request, res: Response) => {
 
 export const getCompetenceWithNameFr = async (req: Request, res: Response) => {
     try {
-      const nom = req.params.nom_fr;
-        
-      if(!nom){
+      const nom_fr = req.params.nom_fr;
+      console.log(nom_fr);
+      if(!nom_fr){
         const error = new Error('Nom en français requis.');
         (error as any).status = 400;
         throw error;
       }
       const competence = await Competences.findOne({
-        where: { nom_fr: nom }, // Recherche sur le champ nom_fr
+        where: { nom_fr: nom_fr }, // Recherche sur le champ nom_fr
       });
   
       if (!competence) {
@@ -55,15 +55,15 @@ export const getCompetenceWithNameFr = async (req: Request, res: Response) => {
 
 export const getCompetenceWithNameEn = async (req: Request, res: Response) => {
     try {
-      const nom = req.params.nom_en;
+      const nom_en = req.params.nom_en;
         
-      if(!nom){
+      if(!nom_en){
         const error = new Error('Nom en Anglais requis.');
         (error as any).status = 400;
         throw error;
       }
       const competence = await Competences.findOne({
-        where: { nom_en: nom }, // Recherche sur le champ nom_en
+        where: { nom_en: nom_en }, // Recherche sur le champ nom_en
       });
   
       if (!competence) {

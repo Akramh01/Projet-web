@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="56fd7e62-fa31-419e-8166-a021ea21c550" name="Changes" comment="Correction modules">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/liste_competences.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/liste_competences.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controllers/competenceController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/competenceController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controllers/employesController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/employesController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/routes/competenceRoutes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/competenceRoutes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.routes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +43,7 @@
     &quot;Node.js.serveur.ts.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;restful&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -74,6 +79,7 @@
       <workItem from="1737710888936" duration="4319000" />
       <workItem from="1737904940770" duration="5765000" />
       <workItem from="1738157860692" duration="2755000" />
+      <workItem from="1738344142569" duration="1680000" />
     </task>
     <servers />
   </component>
