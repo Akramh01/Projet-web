@@ -37,7 +37,7 @@ Affecter.init(
   {
     sequelize,
     modelName: 'Affecter',
-    tableName: 'affecter',
+    tableName: 'Affecter',
     timestamps: false,
   }
 );

@@ -1,4 +1,3 @@
-
 import express, { Request, Response, NextFunction } from 'express';
 import employesRoutes from './routes/employesRoutes';
 import competenceRoutes from './routes/competenceRoutes';
@@ -28,3 +27,4 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+

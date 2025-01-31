@@ -50,7 +50,7 @@ Missions.init(
   {
     sequelize,
     modelName: 'Missions',
-    tableName: 'missions',
+    tableName: 'Missions',
     timestamps: false,
   }
 );
