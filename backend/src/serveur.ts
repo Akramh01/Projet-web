@@ -8,7 +8,7 @@ const port = 3000;
 
 // Routes
 app.use('/employes', employesRoutes);
-//app.use('/competences', competenceRoutes);
+app.use('/competences', competenceRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
