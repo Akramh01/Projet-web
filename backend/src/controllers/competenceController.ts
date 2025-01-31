@@ -30,7 +30,6 @@ export const getCompetenceWithId = async (req: Request, res: Response) => {
 export const getCompetenceWithNameFr = async (req: Request, res: Response) => {
     try {
       const nom_fr = req.params.nom_fr;
-      console.log(nom_fr);
       if(!nom_fr){
         const error = new Error('Nom en français requis.');
         (error as any).status = 400;
