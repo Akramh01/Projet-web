@@ -1,18 +1,20 @@
 import {Model, DataTypes} from 'sequelize';
 import sequelize from '../config/bd';
 import { Employes } from './employes';
-import Competences from './competences';
+import { Competences } from './competences';
 
 
 export class Avoir extends Model {
     public idE!: number;
     public idC!: string;
     public niveau !: 'débutant' | 'intermédiaire' | 'expert' 
+    Competence: any;
+    Employe: any;
 }
 
 Avoir.init(
     {
-        ideE: {
+        idE: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             references: {
