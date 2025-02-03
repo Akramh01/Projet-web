@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getCompetencesWithNameEmployes, getEmployesWithNameCompetences, linkEmployeCompetences } from '../controllers/avoirController';
+import { getCompetencesWithNameEmployes, getEmployesWithNameCompetences, linkEmployeCompetences} from '../controllers/avoirController';
 
 const router = Router();
 

@@ -7,6 +7,8 @@ export class Affecter extends Model {
   public idE!: number;
   public idM!: number;
   public date_affectation!: Date;
+  Employe: any;
+  Mission: any;
 }
 
 Affecter.init(
