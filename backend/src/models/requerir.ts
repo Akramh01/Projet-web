@@ -42,7 +42,7 @@ Requerir.init(
   {
     sequelize,
     modelName: 'Requerir',
-    tableName: 'requerir',
+    tableName: 'Requerir',
     timestamps: false,
   }
 );
