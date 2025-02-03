@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import employesRoutes from './routes/employesRoutes';
 import competenceRoutes from './routes/competenceRoutes';
+import affecterRoutes from './routes/affecterRoutes';
 import { errorHandler } from './middlewares/errorHandler';
 import avoirRoutes from './routes/avoirRoutes';
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use('/employes', employesRoutes);
 app.use('/competences', competenceRoutes);
 app.use('/avoir', avoirRoutes);
+app.use('/affecter', affecterRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
