@@ -5,7 +5,6 @@ import { Missions } from '../models/missions';
 
 
 export const linkMissionEmploye = async (req: Request, res: Response) => {
-    console.log("cc");
   const { idE, idM, date_affectation } = req.body;
 
   try {
