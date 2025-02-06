@@ -1,0 +1,5 @@
+# Ignorer les fichiers d'environnement
+.env
+
+# Ignorer le fichier de configuration de la base de données
+src/config/bd.ts

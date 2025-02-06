@@ -28,7 +28,7 @@ app.use((req, res, next) => {
   next(error);
 });
 
-// Middleware
+ // Middleware
 app.use(errorHandler);
 
 app.listen(port, () => {

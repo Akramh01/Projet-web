@@ -83,6 +83,7 @@ export const getEmployesWithNameCompetences = async (req: Request, res: Response
         res.status(500).json({ message: 'Erreur serveur', error });
     }
 };
+
 export const linkEmployeCompetences = async (req: Request, res: Response) => {
     try {
 
