@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {Component, inject, Injectable} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 
 @Component({
@@ -11,8 +12,12 @@ import {RouterOutlet} from '@angular/router';
     </nav>
     <router-outlet></router-outlet>
   `,
-  imports: [RouterOutlet],
-})
+  imports: [RouterOutlet, HttpClientModule],
+}) @Injectable({providedIn: 'root'})
 export class AppComponent {
-
+  constructor(private http: HttpClient) {
+    this.http.get('http://localhost:3000/competences').subscribe((data) => {
+      console.log(data);
+    });
+  }
 }
