@@ -4,8 +4,8 @@ import { getCompetences, getCompetenceWithId, getCompetenceWithNameFr, getCompet
 const router = Router();
 
 router.get('/', getCompetences);
-router.get('/:idC', getCompetenceWithId);
-router.get('/nom-fr/:nom_fr', getCompetenceWithNameFr);
-router.get('/nom-en/:nom_en', getCompetenceWithNameEn);
+router.get('/id', getCompetenceWithId);
+router.get('/nom-fr', getCompetenceWithNameFr);
+router.get('/nom-en', getCompetenceWithNameEn);
 
 export default router;

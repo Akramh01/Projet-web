@@ -10,8 +10,8 @@ import {
 const router = Router();
 
 router.get('/', getEmployes);
-router.get('/:idE', getEmployeWithId);
-router.get('/name/:nom/:prenom', getEmployeWithName);
+router.get('/id', getEmployeWithId);
+router.get('/name', getEmployeWithName);
 router.post('/', addEmployes);
 router.delete('/:idE', deleteEmploye);
 
