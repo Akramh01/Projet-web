@@ -3,8 +3,8 @@ import { getCompetencesWithNameEmployes, getEmployesWithNameCompetences, linkEmp
 
 const router = Router();
 
-router.get('/competences/:nom/:prenom', getCompetencesWithNameEmployes);
-router.get('/employes/:nomCompetence', getEmployesWithNameCompetences);
+router.get('/competences', getCompetencesWithNameEmployes);
+router.get('/employes', getEmployesWithNameCompetences);
 router.post('/link', linkEmployeCompetences);
 
 export default router;
