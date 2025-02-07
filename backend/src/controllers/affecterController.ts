@@ -15,6 +15,12 @@ export const linkMissionEmploye = async (req: Request, res: Response) => {
       res.status(404).json({ message: 'Employé ou Mission non trouvé' });
     }
 
+    // Mettre à jour le statut de l'employé à "actif" si ce n'est pas déjà le cas
+    if (employe && employe?.statut !== 'Actif') {
+        employe.statut = 'Actif';
+        await employe.save();
+    }
+
     const affectation = await Affecter.create({
       idE,
       idM,
@@ -26,14 +32,16 @@ export const linkMissionEmploye = async (req: Request, res: Response) => {
     console.error('Erreur lors de la création de l\'affectation :', error);
     res.status(500).json({ message: 'Erreur serveur' });
   }
+
 };
 
 export const getEmployesWithIdMission = async (req: Request, res: Response) => {
+    
     try {
-        const idM = req.params.idM;
+        const idM = req.query.idM;
 
         // Vérifier si la mission existe
-        const mission = await Missions.findByPk(idM);
+        const mission = await Missions.findOne({ where: {idM} });
         if (!mission) {
             const error = new Error('Mission non trouvée.');
             (error as any).status = 404;
@@ -42,7 +50,7 @@ export const getEmployesWithIdMission = async (req: Request, res: Response) => {
 
         // Récupérer les employés affectés à cette mission
         const affectations = await Affecter.findAll({
-            where: { idM },
+            where: { idM: mission.idM },
             include: [Employes]
         });
 
@@ -70,10 +78,10 @@ export const getEmployesWithIdMission = async (req: Request, res: Response) => {
 
 export const getMissionsWithIdEmploye = async (req: Request, res: Response) => {
     try {
-        const idE = req.params.idE;
+        const idE = req.query.idE;
 
         // Vérifier si l'employé existe
-        const employe = await Employes.findByPk(idE);
+        const employe = await Employes.findOne({ where: {idE} });
         if (!employe) {
             const error = new Error('Employé non trouvé.');
             (error as any).status = 404;
@@ -82,7 +90,7 @@ export const getMissionsWithIdEmploye = async (req: Request, res: Response) => {
 
         // Récupérer les missions de cet employé
         const affectations = await Affecter.findAll({
-            where: { idE },
+            where: { idE : employe.idE },
             include: [Missions]
         });
 
@@ -130,7 +138,20 @@ export const deleteAffectation = async (req: Request, res: Response) => {
 
         // Supprime l'affectation
         await affectation.destroy();
+
+        // Vérifier si l'employé a encore des missions affectées
+        const affectationsRestantes = await Affecter.count({ where: { idE } });
+
+        if (affectationsRestantes === 0) {
+            const employe = await Employes.findByPk(idE);
+            if (employe) {
+                employe.statut = 'Inactif';
+                await employe.save();
+            }
+        }
+
         res.status(200).json({ message: `Affectation de l'employé ${idE} à la mission ${idM} supprimée avec succès.` });
+
     } catch (error) {
         console.error('Erreur lors de la suppression de l\'affectation :', error);
         // L'erreur est transmise au middleware global (si configuré)
