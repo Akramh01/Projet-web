@@ -1,0 +1,41 @@
+.missions-container {
+    display:flex;
+    gap:20px;
+    justify-content: space-between;
+}
+
+.mission-comumn {
+    background: hsl(0, 0%, 96%);
+    padding: 10px;
+    border-radius: 10px;
+    width: 23%;
+}
+
+.mission-card {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+button {
+    background: #81689D;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.missions-list {
+    margin-top: 10px;
+}
+
+.column-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4a235a;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #4a235a;
+}

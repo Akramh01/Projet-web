@@ -1,18 +1,15 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import {Component, inject, Injectable} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {Component, Injectable} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
+import { MissionsPageComponent } from "./container/missions-page/missions-page.component";
 
 @Component({
   selector: 'app-root',
   template: `
-    <nav>
-      <a href="/">Home</a>
-      |
-      <a href="/user">User</a>
-    </nav>
+    <app-missions-page></app-missions-page>
     <router-outlet></router-outlet>
   `,
-  imports: [RouterOutlet, HttpClientModule],
+  imports: [RouterOutlet, MissionsPageComponent],
 }) @Injectable({providedIn: 'root'})
 export class AppComponent {
   constructor(private http: HttpClient) {
