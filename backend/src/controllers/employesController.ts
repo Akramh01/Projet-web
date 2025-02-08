@@ -13,13 +13,13 @@ export const getEmployes = async (req: Request, res: Response) => {
 
 export const addEmployes = async (req: Request, res: Response) => {
     try {
-        const { prenom, nom, date_embauche, poste } = req.body;
-        if (!nom || !prenom || !date_embauche || !poste) {
-            const error = new Error('Nom et prénom et date d\'embauche et le poste sont requis.');
+        const { prenom, nom, date_embauche } = req.body;
+        if (!nom || !prenom || !date_embauche) {
+            const error = new Error('Nom et prénom et date d\'embauche sont requis.');
             (error as any).status = 400;
             throw error;
         }
-        const newEmployes = await Employes.create({ prenom, nom ,date_embauche, poste, statut: 'Inactif' });
+        const newEmployes = await Employes.create({ prenom, nom ,date_embauche, statut: 'Inactif' });
         res.status(201).json(newEmployes);
     } catch {
         res.status(500).json({error: 'Erreur lors de l’ajout de l\'employe.'});
