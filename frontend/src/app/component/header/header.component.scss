@@ -1,0 +1,48 @@
+
+header{
+    display: flex;
+    padding: 10px 30px;
+    margin-bottom: 20px;
+    background-color: #81689d;
+    color: #ffffff;
+
+    #links{
+        flex-grow: 1;
+        display: flex;
+        gap: 120px;
+        justify-content: center;
+        font-size: 15px;
+        font-weight: bold;
+
+        div {
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+            
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    // #notification {
+    //     margin-left: auto;
+    //     display: flex;
+    //     align-items: center;
+
+    //     img {
+    //         width: 24px;  
+    //         height: 24px;
+    //         cursor: pointer;
+    //         transition: transform 0.2s ease-in-out;
+
+    //         &:hover {
+    //             transform: scale(1.1); // Effet d'agrandissement au survol
+    //         }
+    //     }
+    // }
+}  
+
+// .active {
+//     color: #ffffff;
+//     text-decoration: underline;
+//   }
