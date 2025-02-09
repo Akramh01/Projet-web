@@ -24,25 +24,35 @@ header{
         }
     }
 
-    // #notification {
-    //     margin-left: auto;
-    //     display: flex;
-    //     align-items: center;
+    .logo {
+        position: fixed; /* Fixe le logo à l'écran même en scrollant */
+        top: 20px; /* Distance du haut de l'écran */
+        left: 20px; /* Distance de la gauche de l'écran */
+        width: 100px; /* Ajuste la taille du logo */
+        height: auto; /* Garde les proportions */
+        z-index: 1000; /* S'assure qu'il est au-dessus des autres éléments */
+    }
+    
 
-    //     img {
-    //         width: 24px;  
-    //         height: 24px;
-    //         cursor: pointer;
-    //         transition: transform 0.2s ease-in-out;
+    #notification {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
 
-    //         &:hover {
-    //             transform: scale(1.1); // Effet d'agrandissement au survol
-    //         }
-    //     }
-    // }
+        img {
+            width: 24px;  
+            height: 24px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+
+            &:hover {
+                transform: scale(1.1); // Effet d'agrandissement au survol
+            }
+        }
+    }
 }  
 
-// .active {
-//     color: #ffffff;
-//     text-decoration: underline;
-//   }
+.active {
+    color: #ffffff;
+    text-decoration: underline;
+  }

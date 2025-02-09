@@ -5,7 +5,7 @@ import { MissionsCardComponent } from "../missions-card/missions-card.component"
 
 @Component({
   selector: 'app-missions-list',
-  imports: [CommonModule, MissionsCardComponent, /*CollaborateurCardComponent*/],
+  imports: [CommonModule, MissionsCardComponent,],
   templateUrl: './missions-list.component.html',
   styleUrl: './missions-list.component.scss'
 })

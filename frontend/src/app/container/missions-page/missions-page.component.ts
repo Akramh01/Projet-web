@@ -12,8 +12,8 @@ import { EditMissionPopupComponent } from "../../component/edit-mission-popup/ed
       MissionsFiltersComponent,
       AddMissionButtonComponent,
       MissionsListComponent,
-      AddMissionPopupComponent,
-      EditMissionPopupComponent
+      // AddMissionPopupComponent,
+      // EditMissionPopupComponent
     ],
   templateUrl: './missions-page.component.html',
   styleUrl: './missions-page.component.scss'
