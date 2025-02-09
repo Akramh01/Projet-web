@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MissionsService, Mission } from '../../services/missions.service';
 import { CommonModule } from '@angular/common';
 import { MissionsCardComponent } from "../missions-card/missions-card.component";
-import { CollaborateurCardComponent } from "../collaborateur-card/collaborateur-card.component";
 
 @Component({
   selector: 'app-missions-list',
