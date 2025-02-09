@@ -13,5 +13,11 @@ export interface Collaborateur {
   providedIn: 'root'
 })
 export class CollaborateurService {
+    private apiUrl = 'http://localhost:3000/employes';
     
+      constructor(private http: HttpClient) { }
+    
+      getCollaborateurs(): Observable<Collaborateur[]>{
+        return this.http.get<Collaborateur[]>(this.apiUrl);
+      }
 }
