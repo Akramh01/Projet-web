@@ -3,11 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Mission {
-  id: number;
-  title: string;
-  startDate: Date;
-  priority: string;
-  status: 'en préparation' | 'planifiée' | 'en cours' | 'terminée';
+  idM: number;
+  titre: string;
+  date_debut: Date;
+  date_fin: Date;
+  priorite: string;
+  statut: 'en préparation' | 'planifiée' | 'en cours' | 'terminée';
+  anomalies: string;
 }
 
 @Injectable({

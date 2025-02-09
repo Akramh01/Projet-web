@@ -1,0 +1,41 @@
+.missions-filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* 📌 Espacement entre les filtres */
+    padding: 15px;
+    background: #f4f4f4;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.filter-select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-select:hover {
+    border-color: #5c3c92;
+}
+
+.filter-button {
+    padding: 8px 15px;
+    border: none;
+    background: #5c3c92;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.filter-button:hover {
+    background: #7b1fa2;
+}
