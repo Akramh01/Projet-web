@@ -15,7 +15,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     gap: 10px;
 
     max-width: 1500px; 
@@ -96,7 +96,6 @@
     background-color: #555;
   }
   
-  /* Actions Section */
   .actions-section {
     display: flex;
     align-items: center;
@@ -115,5 +114,7 @@
     color: #b30000;
     cursor: pointer;
     font-size: 18px;
+    padding-left: 4px;
+    padding-top: 4px;
   }
   

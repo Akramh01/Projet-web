@@ -1,41 +1,144 @@
+// .missions-filters {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     gap: 40px;
+//     padding: 15px;
+//     background: #fff;
+//     border-radius: 15px;
+//     margin-bottom: 20px;
+// }
+
+// .filter-select {
+//     padding: 8px 12px;
+//     border: 1px solid #ccc;
+//     border-radius: 8px;
+//     font-size: 14px;
+//     background: white;
+//     cursor: pointer;
+//     transition: all 0.3s ease;
+// }
+
+// .filter-select:hover {
+//     border-color: #5c3c92;
+// }
+
+// .filter-button {
+//     padding: 8px 15px;
+//     border: none;
+//     background: #5c3c92;
+//     color: white;
+//     font-size: 14px;
+//     font-weight: bold;
+//     border-radius: 8px;
+//     cursor: pointer;
+//     transition: background 0.3s ease;
+// }
+
+// .filter-button:hover {
+//     background: #7b1fa2;
+// }
+
+// .search-bar {
+//     display: flex;
+//     align-items: center;
+//     background-color: #f5eefc; /* Fond violet très clair */
+//     border-radius: 20px;
+//     padding: 5px 10px;
+//     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//   }
+  
+//   .search-bar input {
+//     border: none;
+//     outline: none;
+//     background-color: transparent;
+//     padding: 5px;
+//     font-size: 1rem;
+//     color: #666; /* Texte gris */
+//   }
+  
+//   .search-bar input::placeholder {
+//     color: #aaa; /* Placeholder gris clair */
+//   }
+ 
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+
 .missions-filters {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px; /* 📌 Espacement entre les filtres */
-    padding: 15px;
-    background: #f4f4f4;
-    border-radius: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    gap: 40px;
+    padding: 12px 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
 }
 
 .filter-select {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border: 1px solid #d1d1d1;
     border-radius: 8px;
     font-size: 14px;
-    background: white;
+    background: rgb(208, 208, 208);
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .filter-select:hover {
-    border-color: #5c3c92;
+    border-color: #6a1b9a;
+    background: #f5eefc;
 }
 
 .filter-button {
-    padding: 8px 15px;
+    padding: 8px 14px;
     border: none;
-    background: #5c3c92;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 8px;
+    background: #636363;
+    color: rgb(0, 0, 0);
+    font-size: 13px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .filter-button:hover {
-    background: #7b1fa2;
+    background: #717171;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f5eefc; 
+    border-radius: 20px;
+    padding: 6px 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 6px;
+    font-size: 14px;
+    color: #333;
+    width: 150px;
+}
+
+.search-bar input::placeholder {
+    color: #aaa;
+}
+
+.search-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.search-button:hover {
+    color: #8a8a8a;
 }

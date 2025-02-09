@@ -8,7 +8,6 @@ import { MissionsPageComponent } from './container/missions-page/missions-page.c
 export const routes: Routes = [
   // { path: '', component: DashboardComponent },
   { path: 'collaborateurs-page', component: CollaborateursComponent },
-  { path: 'missions-page', component: MissionsPageComponent }  
-  { path: 'missions-page', component: MissionsPageComponent }  
+  { path: 'missions-page', component: MissionsPageComponent }
 ];
 
