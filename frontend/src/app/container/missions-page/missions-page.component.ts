@@ -8,7 +8,13 @@ import { EditMissionPopupComponent } from "../../component/edit-mission-popup/ed
 
 @Component({
   selector: 'app-missions-page',
-  imports: [MissionsFiltersComponent, AddMissionButtonComponent, MissionsListComponent, AddMissionPopupComponent, EditMissionPopupComponent],
+  imports: [
+      MissionsFiltersComponent,
+      AddMissionButtonComponent,
+      MissionsListComponent,
+      AddMissionPopupComponent,
+      EditMissionPopupComponent
+    ],
   templateUrl: './missions-page.component.html',
   styleUrl: './missions-page.component.scss'
 })
