@@ -1,0 +1,58 @@
+
+header{
+    display: flex;
+    padding: 10px 30px;
+    margin-bottom: 20px;
+    background-color: #41315F;
+    color: #ffffff;
+
+    #links{
+        flex-grow: 1;
+        display: flex;
+        gap: 120px;
+        justify-content: center;
+        font-size: 15px;
+        font-weight: bold;
+
+        div {
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+            
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    .logo {
+        position: fixed; /* Fixe le logo à l'écran même en scrollant */
+        top: 20px; /* Distance du haut de l'écran */
+        left: 20px; /* Distance de la gauche de l'écran */
+        width: 100px; /* Ajuste la taille du logo */
+        height: auto; /* Garde les proportions */
+        z-index: 1000; /* S'assure qu'il est au-dessus des autres éléments */
+    }
+    
+
+    #notification {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 24px;  
+            height: 24px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+
+            &:hover {
+                transform: scale(1.1); // Effet d'agrandissement au survol
+            }
+        }
+    }
+}  
+
+.active {
+    color: #ffffff;
+    text-decoration: underline;
+  }
