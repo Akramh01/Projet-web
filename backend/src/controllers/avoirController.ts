@@ -5,11 +5,10 @@ import { Avoir } from '../models/avoir';
 
 export const getCompetencesWithNameEmployes = async (req: Request, res: Response) => {
     try {
-        const nom = req.params.nom;
-        const prenom = req.params.prenom;
+        const idE = req.query.idE;
 
         // Récupérer l'employé par nom et prénom
-        const employe = await Employes.findOne({ where: { nom, prenom } });
+        const employe = await Employes.findOne({ where: { idE } });
         if (!employe) {
             const error = new Error('Employé non trouvé.');
             (error as any).status = 404;
@@ -24,20 +23,11 @@ export const getCompetencesWithNameEmployes = async (req: Request, res: Response
 
         // Structurer la réponse pour regrouper les compétences sous un même employé
         const response = {
-            employe: {
-                idE: employe.idE,
-                nom: employe.nom,
-                prenom: employe.prenom,
-                competences: avoirs.map(avoir => ({
-                    idC: avoir.Competence.idC,
-                    nom_fr: avoir.Competence.nom_fr,
-                    nom_en: avoir.Competence.nom_en,
-                    niveau: avoir.niveau
-                }))
-            }
+            employe,
+            competences: avoirs.map(avoir => avoir.Competence)
         };
 
-        res.status(200).json(response);
+        res.json(response);
     } catch (error) {
         res.status(500).json({ message: 'Erreur serveur', error });
     }
@@ -45,12 +35,12 @@ export const getCompetencesWithNameEmployes = async (req: Request, res: Response
 
 export const getEmployesWithNameCompetences = async (req: Request, res: Response) => {
     try {
-        const nomCompetence = req.params.nomCompetence;
+        //const nomCompetence = req.query.nomCompetence as string;
+        const idC = req.query.idC as string;
 
         // Récupérer la compétence par nom
-        const competence = await Competences.findOne({ where: { nom_fr: nomCompetence } });
+        const competence = await Competences.findOne({ where: { idC } });
         if (!competence) {
-            console.error('Compétence non trouvée');
             const error = new Error('Compétence non trouvée.');
             (error as any).status = 404;
             throw error;
@@ -62,27 +52,18 @@ export const getEmployesWithNameCompetences = async (req: Request, res: Response
             include: [Employes]
         });
 
-        // Structurer la réponse pour regrouper les employés sous un même compétence
+        // Structurer la réponse pour regrouper les employés sous une même compétence
         const response = {
-            competence: {
-                idC: competence.idC,
-                nom_fr: competence.nom_fr,
-                nom_en: competence.nom_en,
-                employes: avoirs.map(avoir => ({
-                    idE: avoir.Employe.idE,
-                    nom: avoir.Employe.nom,
-                    prenom: avoir.Employe.prenom,
-                    niveau: avoir.niveau
-                }))
-            }
+            competence,
+            employes: avoirs.map(avoir => avoir.Employe)
         };
 
-        res.status(200).json(response);
+        res.json(response);
     } catch (error) {
-        console.error('Erreur dans getEmployesWithNameCompetences:', error);
         res.status(500).json({ message: 'Erreur serveur', error });
     }
 };
+
 export const linkEmployeCompetences = async (req: Request, res: Response) => {
     try {
 

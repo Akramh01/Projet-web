@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Missions } from '../models/missions';
 import { Competences } from '../models/competences';
-import Requerir from '../models/requerir';
+import {Requerir} from '../models/requerir';
 
 export const linkMissionCompetence = async (req: Request, res: Response) => {
   const { idC, idM } = req.body;
@@ -33,10 +33,10 @@ export const linkMissionCompetence = async (req: Request, res: Response) => {
 
 export const getCompetencesWithIdMission = async (req: Request, res: Response) => {
     try {
-        const idM = req.params.idM;
+        const idM = req.query.idM;
 
         // Vérifier si la mission existe
-        const mission = await Missions.findByPk(idM);
+        const mission = await Missions.findOne({where: { idM }});
         if (!mission) {
             const error = new Error('Mission non trouvée.');
             (error as any).status = 404;
@@ -74,22 +74,26 @@ export const getCompetencesWithIdMission = async (req: Request, res: Response) =
 
 
 
-export const unlinkCompetence = async (req: Request, res: Response) => {
+export const deleteCompetence = async (req: Request, res: Response) => {
     try {
-        const { idM, idC } = req.params; // Récupérer l'ID de la mission et de la compétence depuis l'URL
+        const  idM   = req.params.idM;
+        const idC = req.params.idC; // Récupérer l'ID de la mission et de la compétence depuis l'URL
 
         // Vérifier si l'association existe avant de supprimer
         const association = await Requerir.findOne({ where: { idM, idC } });
         if (!association) {
-            return res.status(404).json({ message: "Association mission-compétence non trouvée." });
+            const error = new Error('Association mission-compétence non trouvée.');
+            (error as any).status = 404;
+            throw error;
+
         }
 
         // Supprimer l'association
-        await Requerir.destroy();
+        await association.destroy();
 
         res.status(200).json({ message: "Compétence dissociée de la mission avec succès." });
     } catch (error) {
-        console.error('Erreur dans unlinkCompetence:', error);
+        console.error('Erreur dans deleteCompetence:', error);
         res.status(500).json({ message: "Erreur serveur", error });
     }
 };

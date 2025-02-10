@@ -52,29 +52,28 @@ export const addMission = async (req: Request, res: Response) => {
 
 // Récupération d'une mission par ID
 export const getMissionWithId = async (req: Request, res: Response) => {
-   try {
-       const mission = await Missions.findByPk(req.params.idM);
-
-
-       if (!mission) {
-           const error = new Error('Mission non trouvée.');
-           (error as any).status = 404;
-           throw error;
-       }
-
-
-       res.status(200).json(mission);
-   } catch (error) {
-       console.error('Erreur lors de la récupération des informations sur la mission:', error);
-       res.status(500).json({error: 'Erreur lors de la récupération des informations sur la mission'});
-   }
-};
+    try {
+      const idM = req.query.idM as string;
+  
+      // Récupérer la mission par ID
+      const mission = await Missions.findByPk(idM);
+      if (!mission) {
+        const error = new Error('Mission non trouvée.');
+        (error as any).status = 404;
+        throw error;
+      }
+      res.status(200).json(mission);
+    } catch (error) {
+      console.error('Erreur lors de la récupération de la mission:', error);
+      res.status(500).json({ error: 'Erreur lors de la récupération de la mission.' });
+    }
+  };
 
 
 // Récupération d'une mission par titre
 export const getMissionWithTitle = async (req: Request, res: Response) => {
 	try {
-	  const titre = req.params.titre;
+	  const titre = req.query.titre;
 	  
 	  // Validation du paramètre
 	  if (!titre) {
@@ -85,7 +84,7 @@ export const getMissionWithTitle = async (req: Request, res: Response) => {
   
 	  // On récupère la mission avec le titre spécifié
 	  const mission = await Missions.findOne({
-		  where: { titre: titre }
+		  where: { titre }
 	  });
   
 	  // Si aucune mission n'est trouvée
@@ -167,14 +166,6 @@ export const deleteMission = async (req: Request, res: Response) => {
         throw error;
     }
 };
-
-
-exports.getMissions = getMissions;
-exports.addMission = addMission;
-exports.getMissionWithId = getMissionWithId;
-exports.getMissionWithTitle = getMissionWithTitle;
-exports.updateMissionStatut = updateMissionStatut;
-exports.deleteMission = deleteMission;
 
 
 

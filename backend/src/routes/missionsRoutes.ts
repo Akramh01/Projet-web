@@ -4,10 +4,10 @@ import { getMissions, addMission, getMissionWithId, getMissionWithTitle, updateM
 const router = Router();
 
 router.get('/', getMissions);
-router.get('/id/:idM', getMissionWithId);
-router.get('/name/:titre', getMissionWithTitle);
-router.post('/add', addMission);
-router.put('/update/:idM', updateMissionStatut);
-router.delete('/delete/:idM', deleteMission);
+router.get('/id', getMissionWithId);
+router.get('/name', getMissionWithTitle);
+router.post('/', addMission);
+router.put('/:idM', updateMissionStatut);
+router.delete('/:idM', deleteMission);
 
 export default router;

@@ -33,7 +33,6 @@ Requerir.init(
     },
     quantite: {
       type: DataTypes.INTEGER,
-      allowNull: false,
     },
     statut: {
       type: DataTypes.ENUM('en attente', 'partiellement satisfait', 'satisfait'),
