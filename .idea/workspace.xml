@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="56fd7e62-fa31-419e-8166-a021ea21c550" name="Changes" comment="Correction modules">
+      <change afterPath="$PROJECT_DIR$/backend/src/controllers/avoirController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/routes/avoirRoutes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/models/avoir.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/avoir.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/serveur.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/serveur.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2rcFVcdrgQBuKxN1boft2nkm4f8" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.index.html.executor": "Run",
+    "Node.js.employesController.ts.executor": "Run",
+    "Node.js.serveur.ts.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Controller-avoir",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "advanced.settings",
+    "ts.external.directory.path": "C:\\Users\\akram\\OneDrive\\Etudes\\L3\\S2\\Projet\\Projet-web\\backend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\akram\OneDrive\Etudes\L3\S2\Projet\Projet-web\backend\src\controllers" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.222" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="56fd7e62-fa31-419e-8166-a021ea21c550" name="Changes" comment="" />
+      <created>1736850482283</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1736850482283</updated>
+      <workItem from="1736850484669" duration="213000" />
+      <workItem from="1736850720668" duration="131000" />
+      <workItem from="1736887886619" duration="333000" />
+      <workItem from="1737019294068" duration="717000" />
+      <workItem from="1737536729984" duration="165000" />
+      <workItem from="1737536923794" duration="5935000" />
+      <workItem from="1737709866206" duration="999000" />
+      <workItem from="1737710888936" duration="4319000" />
+      <workItem from="1737904940770" duration="5765000" />
+      <workItem from="1738157860692" duration="2755000" />
+      <workItem from="1738344142569" duration="2412000" />
+      <workItem from="1738524719145" duration="1657000" />
+      <workItem from="1738529313423" duration="4616000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Correction modules" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correction modules" />
+  </component>
+</project>
