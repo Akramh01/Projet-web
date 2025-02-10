@@ -1,0 +1,36 @@
+<div class="popup">
+    <div class="avatar">
+        <a href="" class="back-link">
+          <img src="assets/close.svg" alt="close">
+        </a>
+    </div>
+    <div class="modal-content">
+        <h2>Nom Collaborateur</h2>
+        </div>
+    <div class="form-container">
+        <form>
+            <div>
+                <label for="prenom">Prénom :</label>
+                <input id="prenom" formControlName="prenom" placeholder=" prénom">
+            </div>
+            <div>
+                <label for="nom">Nom :</label>
+                <input id="nom" formControlName="nom" placeholder="votre nom">
+            </div>
+           
+            <div>
+                <label for="dateEmbauche ">date d'embauche :</label>
+                <input type="date" id="dateEmbauche " formControlName="dateEmbauche ">
+            </div>
+            
+        </form>
+    </div>
+    <div class="competence-container">
+        <h2 class="competence-title">Compétences</h2>
+        <app-add-comp-colla class="right-button"></app-add-comp-colla>
+    </div>
+    <app-collaboateur-compe></app-collaboateur-compe>
+    <div class="button-container">
+        <button>Modifier</button>
+    </div>
+</div>
