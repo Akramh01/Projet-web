@@ -1,13 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CollaborateurService } from '../../services/collaborateur.service';
-import { CollaborateurCardComponent } from '../collaborateur-card/collaborateur-card.component';
+import { CollaborateurCardComponent } from '../collaborateur-card/collaborateur-card.component'; 
+
 
 @Component({
   selector: 'app-collaborateur-list',
-  imports: [CollaborateurCardComponent],
   templateUrl: './collaborateur-list.component.html',
-  styleUrl: './collaborateur-list.component.scss'
+  styleUrls: ['./collaborateur-list.component.scss'],
+  standalone: true,
+  imports: [CollaborateurCardComponent]
 })
-export class CollaborateurListComponent {
-  
+export class CollaborateurListComponent implements OnInit {
+  collaborateurs: any[] = [];
+
+  constructor(private collaborateurService: CollaborateurService) {}
+
+  ngOnInit(): void {
+    this.collaborateurService.getEmployes().subscribe(data => {
+      this.collaborateurs = data;
+    });
+  }
 }

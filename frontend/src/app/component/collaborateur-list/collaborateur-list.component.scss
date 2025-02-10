@@ -37,8 +37,7 @@
     align-items: center;
     gap: 15px;
   }
-  
-  /* Barre de recherche */
+
   .search-bar {
     display: flex;
     align-items: center;
@@ -55,6 +54,7 @@
     padding: 5px;
     font-size: 1rem;
     color: #666;
+    font-family: 'Montserrat', sans-serif;
   }
   
   .search-bar input::placeholder {
@@ -83,6 +83,7 @@
     font-size: 15px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-family: 'Montserrat', sans-serif;
   }
   
   .add-person-button:hover {

@@ -1,120 +1,117 @@
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
 
-* {
-    margin: 0;
-    padding-left: 0;
-    box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
+.collaborateur-card {
+  background-color: #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  gap: 10px;
+  max-width: 1500px;
+  width: 90%;
+  margin: 20px auto;
+}
 
-  }
-  
-  .collaborateur-card {
-    background-color: #e0e0e0;
-    border-radius: 12px; 
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    gap: 10px;
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 20px; 
+  flex-grow: 1;
+}
 
-    max-width: 1500px; 
-    width: 90%;
-    margin: 20px auto; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .profile-section {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-grow: 1;
-  }
-  
-  .profile-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .avatar {
-    width: 50px;
-    height: 50px;
-    background-color: #fff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    color: #8a8a8a;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .info h3 {
-    font-size: 18px;
-    color: #41315F; 
-  }
-  
-  .info p {
-    font-size: 14px;
-    color: #7a7a7a;
-  }
-  
-  .edit-icon {
-    background-color: #e8e0f6;
-    border-radius: 50%;
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .edit-icon i {
-    font-size: 16px;
-    color: #4d3e8c;
-  }
-  
-  .skills-section {
-    display: flex;
-    gap: 10px;
-    flex-grow: 1;
-    justify-content: center;
-  }
-  
-  .skills-section button {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .skills-section button:hover {
-    background-color: #555;
-  }
-  
-  .actions-section {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .status {
-    background-color: #7a7a7a;
-    color: #fff;
-    border-radius: 12px;
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-  
-  .delete {
-    color: #b30000;
-    cursor: pointer;
-    font-size: 18px;
-    padding-left: 4px;
-    padding-top: 4px;
-  }
-  
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 20px; 
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: #8a8a8a;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.collaborateur-name {
+  font-size: 18px;
+  color: #41315F;
+}
+
+.edit-icon {
+  background-color: #e8e0f6;
+  border-radius: 50%;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.edit-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+.skills-section {
+  display: flex;
+  gap: 10px;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.skills-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.skills-section li {
+  font-size: 14px;
+  color: #7a7a7a;
+}
+
+.actions-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.collaborateur-status {
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+}
+
+.status-active {
+  background-color: rgb(124, 204, 124);
+}
+
+.status-inactive {
+  background-color: rgb(128, 128, 128); 
+}
+
+.delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.delete img {
+  width: 20px;
+  height: 20px;
+}
