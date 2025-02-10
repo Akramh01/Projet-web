@@ -6,7 +6,7 @@ import { CollaborateurCardComponent } from "../collaborateur-card/collaborateur-
 
 @Component({
   selector: 'app-missions-list',
-  imports: [CommonModule, MissionsCardComponent/*, CollaborateurCardComponent*/],
+  imports: [CommonModule, MissionsCardComponent, /*CollaborateurCardComponent*/],
   templateUrl: './missions-list.component.html',
   styleUrl: './missions-list.component.scss'
 })

@@ -1,27 +1,35 @@
 <div class="collaborateur-card">
-    <div class="profile-section">
-      <div class="profile-info">
-        <div class="avatar">
-          <img src="assets/profile.svg" alt="Profil">
-        </div>
-        <div class="info">
-          <h3> Hamid FANID</h3>
-        </div>
+  <div class="profile-section">
+    <div class="profile-info">
+      <div class="avatar">
+        <img src="assets/profile.svg" alt="Profil">
       </div>
-      <button class="edit-icon">
-        <img src="assets/pencil.svg" alt="Modifier">
-      </button>
+      <div class="collaborateur-name">
+        {{ collaborateur.nom }} {{ collaborateur.prenom }}
+      </div>
     </div>
-    <div class="skills-section">
-      <button>Competence 1</button>
-      <button>Competence 2</button>
-      <button>Competence 3</button>
-      <button>Autre +</button>
+    <button class="edit-icon">
+      <img src="assets/pencil.svg" alt="Modifier">
+    </button>
+  </div>
+  <div class="skills-section">
+    <div class="competence-container">
+      @for (competence of competences; track competence.idC) {
+        <div class="competence-rectangle">
+          {{ competence.nom_fr }}
+        </div>
+      }
     </div>
-    <div class="actions-section">
-      <div class="status">Statut</div>
-      <button class="delete">
-        <img src="assets/trash.svg" alt="Supprimer">
-      </button>
+  </div>
+  <div class="actions-section">
+    <div class="collaborateur-status"
+         [class.status-active]="collaborateur.statut === 'Actif'"
+         [class.status-inactive]="collaborateur.statut === 'Inactif'">
+      {{ collaborateur.statut }}
     </div>
+    <button class="delete" (click)="deleteEmploye()">
+      <img src="assets/trash.svg" alt="Supprimer">
+    </button>
+  </div>
 </div>
+
