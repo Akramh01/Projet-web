@@ -1,36 +1,3 @@
-// import { Component, EventEmitter, Input, Output  } from '@angular/core';
-// import { Collaborateur } from 'src/app/services/collaborateur.service';
-
-// @Component({
-//   selector: 'app-collaborateur-card',
-//   imports: [],
-//   templateUrl: './collaborateur-card.component.html',
-//   styleUrl: './collaborateur-card.component.scss',
-//   standalone: true,
-// })
-// export class CollaborateurCardComponent {
-//   @Input() employe!: Collaborateur;
-//     @Output() editCollaborateur = new EventEmitter<Collaborateur>();
-//     edit() {
-//       this.editCollaborateur.emit(this.employe);
-//     }
-// }
-
-// import { Component, Input } from '@angular/core';
-
-// @Component({
-//     selector: 'app-collaborateur-card',
-//     templateUrl: './collaborateur-card.component.html',
-//     styleUrls: ['./collaborateur-card.component.css'],
-// })
-// export class CollaborateurCardComponent {
-//     @Input() prenom!: string;
-//     @Input() nom!: string;
-//     @Input() statut!: string;
-//     @Input() competences!: { idC: string; nom_fr: string }[];
-// }
-
-// collaborateur-card.component.ts
 import { Component, Input } from '@angular/core';
 import { CollaborateurService } from 'src/app/services/collaborateur.service';
 
@@ -49,6 +16,36 @@ export class CollaborateurCardComponent {
   ngOnInit(): void {
     this.collaborateurService.getEmployeWithId(this.collaborateur.idE).subscribe(data => {
       this.competences = data.competences;
+      this.loadCompetences();
     });
   }
+
+  // Méthode pour charger les compétences de l'employé
+  loadCompetences(): void {
+    this.collaborateurService.getCompetencesByEmployeId(this.collaborateur.idE).subscribe(
+      (data) => {
+        console.log('Données reçues :', data); // Afficher les données dans la console
+        this.competences = data.competences;
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des compétences :', error);
+      }
+    );
+  }
+
+  // Méthode pour supprimer un employé
+  deleteEmploye(): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cet employé ?')) {
+      this.collaborateurService.deleteEmploye(this.collaborateur.idE).subscribe(
+        () => {
+          alert('Employé supprimé avec succès !');
+        },
+        (error) => {
+          console.error('Erreur lors de la suppression de l\'employé :', error);
+          alert('Erreur lors de la suppression de l\'employé.');
+        }
+      );
+    }
+  }
+
 }

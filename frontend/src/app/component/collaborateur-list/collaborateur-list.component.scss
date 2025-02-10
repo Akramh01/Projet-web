@@ -43,7 +43,7 @@
     align-items: center;
     background-color: #f5eefc; 
     border-radius: 20px;
-    padding: 5px 10px;
+    padding: 0px 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
@@ -65,13 +65,13 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 16px;
     color: #666;
     transition: all 0.3s ease;
 }
 
-.search-button:hover {
-    color: #8a8a8a;
+.search-button img {
+  width: 40px;
+  height: 40px;
 }
   
   .add-person-button {

@@ -49,6 +49,7 @@
 .collaborateur-name {
   font-size: 18px;
   color: #41315F;
+  font-weight: bold;
 }
 
 .edit-icon {
@@ -73,14 +74,27 @@
   justify-content: center;
 }
 
-.skills-section ul {
-  list-style: none;
-  padding: 0;
+.competence-container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  gap: 10px; 
 }
 
-.skills-section li {
-  font-size: 14px;
-  color: #7a7a7a;
+.competence-rectangle {
+  background-color: #393939; 
+  border-radius: 8px; 
+  padding: 8px 16px; 
+  font-size: 14px; 
+  color: white; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  transition: background-color 0.3s ease; 
+  font-family: 'Montserrat', sans-serif;
+  white-space: nowrap; 
+  
+  &:hover {
+    background-color: #929292; 
+  }
 }
 
 .actions-section {

@@ -36,4 +36,19 @@ export class CollaborateurService {
   deleteEmploye(idE: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${idE}`);
   }
+
+  // Rechercher un employé par nom et prénom
+  searchEmployesByName(nom: string, prenom: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/name?nom=${nom}&prenom=${prenom}`);
+  }
+
+  // Rechercher des employés par compétence
+  searchEmployesByCompetence(nom_fr: string): Observable<any> {
+    return this.http.get(`http://localhost:3000/avoir/employes?idC=${nom_fr}`);
+  }
+
+  // Récupérer les compétences d'un employé par son ID
+  getCompetencesByEmployeId(idE: number): Observable<any> {
+    return this.http.get(`http://localhost:3000/avoir/competences?idE=${idE}`);
+  }
 }

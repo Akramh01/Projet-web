@@ -13,11 +13,13 @@
     </button>
   </div>
   <div class="skills-section">
-    <ul>
+    <div class="competence-container">
       @for (competence of competences; track competence.idC) {
-        <li>{{ competence.nom_fr }}</li>
+        <div class="competence-rectangle">
+          {{ competence.nom_fr }}
+        </div>
       }
-    </ul>
+    </div>
   </div>
   <div class="actions-section">
     <div class="collaborateur-status"
@@ -25,7 +27,7 @@
          [class.status-inactive]="collaborateur.statut === 'Inactif'">
       {{ collaborateur.statut }}
     </div>
-    <button class="delete">
+    <button class="delete" (click)="deleteEmploye()">
       <img src="assets/trash.svg" alt="Supprimer">
     </button>
   </div>
