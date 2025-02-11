@@ -1,0 +1,26 @@
+<div>
+  <h1>Choisissez des compétences :</h1>
+
+  <!-- Affichage des compétences disponibles sous forme de boutons invisibles -->
+  <div *ngIf="isDropdownVisible">
+    <div *ngFor="let competence of getCompetences()">
+      <!-- Boutons invisibles pour chaque compétence -->
+      <button (click)="toggleSelection(competence)" [class.selected]="selectedCompetences.includes(competence.id)">
+        {{ competence.name }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Affichage des compétences sélectionnées -->
+  <div *ngIf="selectedCompetences.length > 0">
+    <h3>Compétences sélectionnées :</h3>
+    <ul>
+      <li *ngFor="let competence of selectedCompetences">{{ competence }}</li>
+    </ul>
+  </div>
+
+  <!-- Bouton pour afficher/masquer les options de sélection -->
+  <button (click)="toggleDropdown()">
+    {{ isDropdownVisible ? 'Masquer les compétences' : 'Afficher les compétences' }}
+  </button>
+</div>

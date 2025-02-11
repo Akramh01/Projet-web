@@ -1,0 +1,16 @@
+<div class="popup">
+  <div class="popup-header">
+    <!-- Le bouton de fermeture doit appeler la méthode closePopup() -->
+    <button (click)="closePopup()" class="close-button">
+      <img src="assets/close.svg" alt="Fermer">
+    </button>
+  </div>
+  <div class="popup-content">
+    <h2>Supprimer cet élément ?</h2>
+    <p>Cette action est irréversible.</p>
+  </div>
+  <div class="popup-footer">
+    <button class="btn btn-danger" (click)="deleteEmploye()">Supprimer</button>
+    <button class="btn btn-secondary">Annuler</button>
+  </div>
+</div>

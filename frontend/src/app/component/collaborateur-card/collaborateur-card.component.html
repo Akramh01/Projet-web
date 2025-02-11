@@ -27,9 +27,16 @@
          [class.status-inactive]="collaborateur.statut === 'Inactif'">
       {{ collaborateur.statut }}
     </div>
-    <button class="delete" (click)="deleteEmploye()">
+    <button class="delete" (click)="openDeletePopup()">
       <img src="assets/trash.svg" alt="Supprimer">
     </button>
   </div>
+  @if(showDeletePopup){
+    <app-delete-c
+      (confirmDelete)="onConfirmDelete()"
+      (cancelDelete)="onCancelDelete()"
+></app-delete-c>
+    
+  }
 </div>
 

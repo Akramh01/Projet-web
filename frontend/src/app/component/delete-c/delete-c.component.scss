@@ -1,0 +1,81 @@
+/* Style global */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #2d2d2d;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  /* Conteneur de la popup */
+  .popup {
+    background-color: #b2a4c7; /* Violet pâle */
+    padding: 20px;
+    width: 300px;
+    border-radius: 20px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: fixed; /* Pour le positionner par rapport à la fenêtre */
+  top: 50%; /* Position verticale au centre */
+  left: 50%; /* Position horizontale au centre */
+  transform: translate(-50%, -50%); /* Décale l'élément pour compenser sa taille */
+  }
+  
+  /* En-tête (avec le bouton de fermeture) */
+  .popup-header {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .close-button img {
+    width: 20px;
+    cursor: pointer;
+  }
+  
+  /* Contenu principal */
+  .popup-content h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .popup-content p {
+    font-size: 0.9rem;
+    color: #e4e4e4;
+  }
+  
+  /* Pied de page (boutons) */
+  .popup-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .btn-danger {
+    background-color: #4c3b6e; /* Couleur violette sombre */
+    color: #ffffff;
+  }
+  
+  .btn-danger:hover {
+    background-color: #1fc027; /* Couleur un peu plus sombre au survol */
+  }
+  
+  .btn-secondary {
+    background-color: #5f4863; /* Couleur grise/violette */
+    color: #ffffff;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #4e3
+  }

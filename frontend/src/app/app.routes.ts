@@ -4,13 +4,18 @@ import { MissionsPageComponent } from './container/missions-page/missions-page.c
 // import { DashboardComponent } from './container/dashboard-page/dashboard-page.component';
 import { PopficheCMComponent } from './container/popfiche-cm/popfiche-cm.component';
 import { PopeditCComponent } from './container/popedit-c/popedit-c.component';
+import { PopaddCComponent } from './container/popadd-c/popadd-c.component';
+import { PopdeleteCComponent } from './container/popdelete-c/popdelete-c.component';
 import { Component } from '@angular/core';
+
 
 export const routes: Routes = [
   // { path: '', component: DashboardComponent },
   { path: 'collaborateurs-page', component: CollaborateursComponent },
   { path: 'missions-page', component: MissionsPageComponent },
   { path :'pop', component:PopficheCMComponent},
-  { path :'modifier',component:PopeditCComponent}
+  { path :'modifier',component:PopeditCComponent},
+  {path :'ajouter',component:PopaddCComponent},
+  {path :'delete',component:PopdeleteCComponent}
 ];
 

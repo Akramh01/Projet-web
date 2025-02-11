@@ -5,7 +5,7 @@
         </a>
     </div>
     <div class="modal-content">
-        <h2>Nom Collaborateur</h2>
+        <h2>Nouveau Collaborateur</h2>
         </div>
     <div class="form-container">
         <form>
@@ -25,13 +25,8 @@
             
         </form>
     </div>
-    <div class="competence-container">
-        <h2 class="competence-title">Compétences</h2>
-        <app-add-comp-colla class="right-button"></app-add-comp-colla>
-    </div>
-    <app-collaboateur-compe [collaborateurId]="collaborateurId"></app-collaboateur-compe>
-
-    <div class="button-container" (click)="onButtonClick()">
-        <button>Modifier</button>
+    <app-add-c></app-add-c>
+    <div class="button-container">
+        <button>Confirmer</button>
     </div>
 </div>

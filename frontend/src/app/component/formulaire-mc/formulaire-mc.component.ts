@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,EventEmitter,Output } from '@angular/core';
 import { CollaboateurCompeComponent } from '../collaboateur-compe/collaboateur-compe.component';
 import { AddCompCollaComponent } from '../add-comp-colla/add-comp-colla.component';
 @Component({
@@ -8,5 +8,12 @@ import { AddCompCollaComponent } from '../add-comp-colla/add-comp-colla.componen
   styleUrl: './formulaire-mc.component.scss'
 })
 export class FormulaireMCComponent {
+  collaborateurId: number = 1;
+ selectedCollaborateur = {}; 
+ @Output() toggleDropdown = new EventEmitter<void>(); // Événement pour basculer la liste
 
+  onButtonClick() {
+    this.toggleDropdown.emit(); // Émet l'événement quand le bouton est cliqué
+  
+}
 }
