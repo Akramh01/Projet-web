@@ -1,6 +1,8 @@
 <div class="mission-card">
     <div class = "mission-edit">
-        <button (click)="edit()"><img src="../../../assets/pencil.svg"></button>
+        @if(mission.statut != "terminée" && mission.statut != "en cours") {
+            <button (click)="edit()"><img src="../../../assets/pencil.svg"></button>
+        }
         <h4>{{ mission.titre }}</h4>
     </div>
     <div class = "mission-info">

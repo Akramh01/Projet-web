@@ -1,9 +1,9 @@
 
 header{
     display: flex;
-    padding: 10px 30px;
+    padding: 15px 30px;
     margin-bottom: 20px;
-    background-color: #41315F;
+    background-color: #81689D;
     color: #ffffff;
     #links{
         flex-grow: 1;
@@ -23,16 +23,6 @@ header{
         }
     }
 
-    .logo {
-        position: fixed; /* Fixe le logo à l'écran même en scrollant */
-        top: 20px; /* Distance du haut de l'écran */
-        left: 20px; /* Distance de la gauche de l'écran */
-        width: 100px; /* Ajuste la taille du logo */
-        height: auto; /* Garde les proportions */
-        z-index: 1000; /* S'assure qu'il est au-dessus des autres éléments */
-    }
-    
-
     #notification {
         margin-left: auto;
         display: flex;
@@ -41,6 +31,7 @@ header{
         img {
             width: 24px;  
             height: 24px;
+            height: auto;
             cursor: pointer;
             transition: transform 0.2s ease-in-out;
 
@@ -55,3 +46,36 @@ header{
     color: #ffffff;
     text-decoration: underline;
   }
+
+
+#logo-container {
+    position: absolute;
+    top: -10px; 
+    left: 20px; 
+    width: 100px; 
+    height: 100px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#logo-background,
+#logo {
+    position: absolute;
+    width: 80px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#logo-background img {
+    z-index: 1; 
+    width: 80px; 
+}
+
+#logo img {
+    z-index: 2;
+    width: 80px; 
+}
+
