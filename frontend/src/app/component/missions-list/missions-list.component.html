@@ -1,10 +1,11 @@
 <div class="missions-container">
-    <div *ngFor="let status of ['En préparation', 'Planifiée', 'En cours', 'Terminée']" class="missions-column">
+    <div *ngFor="let status of ['Préparation', 'Plannifiée', 'En cours', 'Terminée']" class="missions-column">
         <div class="missions-column-header" [ngClass]="getStatusClass(status)">
             <h3 class="column-title">{{ status }}</h3>
-            <div class="missions-list">
-                <app-missions-card *ngFor="let mission of filteredMissions[status]" [mission]="mission"></app-missions-card> 
-            </div>
         </div>
+        <div class="missions-list">
+            <app-missions-card *ngFor="let mission of filteredMissions[status]" [mission]="mission"></app-missions-card> 
+        </div>
+       
     </div>
 </div>

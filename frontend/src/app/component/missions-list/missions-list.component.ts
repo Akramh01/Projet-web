@@ -20,14 +20,14 @@ export class MissionsListComponent implements OnInit {
     this.missionsService.getMissions().subscribe((data) => {
       this.missions = data;
       this.filterMissions();
-      console.log("Missions chargées :", this.missions); 
-      console.log("📌 Liste des statuts reçus :", this.missions.map(m => m.statut)); 
+      console.log("Missions chargées :", this.missions);
+      console.log("📌 Liste des statuts reçus :", this.missions.map(m => m.statut));
     });
   }
 
   filterMissions() {
     console.log("🚀 Execution de filterMissions()");
-    const statuses = ['En préparation', 'Planifiée', 'En cours', 'Terminée'];
+    const statuses = ['Préparation', 'Plannifiée', 'En cours', 'Terminée'];
     this.filteredMissions = {};
   
     statuses.forEach(status => {
@@ -35,7 +35,7 @@ export class MissionsListComponent implements OnInit {
         console.log(`🔎 Mission "${m.titre}" - statut: "${m.statut}"`);
         return m.statut && m.statut.toLowerCase() === status.toLowerCase();
       });
-      console.log(`📌 Missions filtrées pour ${status} :`, this.filteredMissions[status]); 
+      console.log(`📌 Missions filtrées pour ${status} :`, this.filteredMissions[status]);
     });
   
     console.log("✅ Résumé des missions filtrées :", this.filteredMissions);
@@ -44,10 +44,10 @@ export class MissionsListComponent implements OnInit {
 
   getStatusClass(status: string): string {
     switch (status) {
-      case 'En préparation':
+      case 'Préparation':
         return 'status-preparation';
-      case 'Planifiée':
-        return 'status-planifiee';
+      case 'Plannifiée':
+        return 'status-plannifiee';
       case 'En cours':
         return 'status-en-cours';
       case 'Terminée':
