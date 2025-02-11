@@ -92,7 +92,7 @@ export const deleteEmploye = async (req: Request, res: Response) => {
             throw error;
         }
         // Supprime l'employé
-        await Employes.destroy();
+        await employe.destroy();
         res.status(200).json({ message: `Employé avec l'ID ${req.params.idE} supprimé avec succès.` });
     } catch (error) {
         console.error('Erreur lors de la suppression de l\'employé:', error);
@@ -100,4 +100,4 @@ export const deleteEmploye = async (req: Request, res: Response) => {
     }
 };
 
-
+ 

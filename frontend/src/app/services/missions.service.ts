@@ -8,7 +8,7 @@ export interface Mission {
   date_debut: Date;
   date_fin: Date;
   priorite: string;
-  statut: 'en préparation' | 'planifiée' | 'en cours' | 'terminée';
+  statut: 'préparation' | 'plannifiée' | 'en cours' | 'terminée';
   anomalies: string;
 }
 
