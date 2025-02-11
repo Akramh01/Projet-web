@@ -1,0 +1,91 @@
+.collaborateurs,
+.collaborateurs * {
+  box-sizing: border-box;
+}
+.collaborateurs-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    font-family: Arial, sans-serif;
+    gap: 30px;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.collaborateurs {
+    color: #41315f;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 23px;
+  line-height: var(--label-large-line-height, 20px);
+  letter-spacing: var(--label-large-tracking, 0.1px);
+  font-weight: bold;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  
+}
+
+
+
+  .search-add-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f5eefc; 
+    border-radius: 20px;
+    padding: 0px 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-bar input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 5px;
+    font-size: 1rem;
+    color: #666;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .search-bar input::placeholder {
+    color: #aaa; 
+  }
+  
+  .search-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.search-button img {
+  width: 40px;
+  height: 40px;
+}
+  
+  .add-person-button {
+    background-color: #3e2463;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .add-person-button:hover {
+    background-color: #2c1947; 
+  }

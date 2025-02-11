@@ -1,0 +1,59 @@
+
+
+.missions-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+    justify-content: center;
+    padding: 20px;
+    align-items: flex-start; 
+    height: 100%; /* 🔹 Force le conteneur à s'agrandir */
+    //flex-wrap: wrap;
+}
+  
+  .missions-column {
+    flex-grow: 0;
+    width: 275px;
+    background: #f4f4f4;
+    padding: 15px;
+    border-radius: 16px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    position: relative;
+}
+  
+  .missions-column-header {
+    width: 70%;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 10px;
+    height: 25px;
+    display: flex;
+    padding: 5px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 2px 50px 50px 2px;
+    white-space: nowrap;
+  }
+
+
+.status-preparation {
+    background-color: #371B58;
+}
+  
+  .status-plannifiee {
+    background-color: #624F82;
+}
+  
+  .status-en-cours {
+    background-color: #A8A4CE;
+}
+  
+  .status-terminee {
+    background-color: #DCD6F7;
+}
+  
+  

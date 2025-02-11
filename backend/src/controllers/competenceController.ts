@@ -3,11 +3,11 @@ import { Competences } from '../models/competences';
 
 export const getCompetences = async (req: Request, res: Response) => {
     try {
-        const competences = await Competences.findAll();
-        res.status(200).json(competences);
+      const competences = await Competences.findAll();
+      res.status(200).json(competences);
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: 'Erreur lors de la récupération des compétences' });
+      console.log(error);
+      res.status(500).json({ error: 'Erreur lors de la récupération des compétences' });
     }
 };
 
@@ -18,9 +18,9 @@ export const getCompetenceWithId = async (req: Request, res: Response) => {
       // Récupérer la compétence par ID
       const competence = await Competences.findByPk(idC);
       if (!competence) {
-          const error = new Error('Compétence non trouvée.');
-          (error as any).status = 404;
-          throw error;
+        const error = new Error('Compétence non trouvée.');
+        (error as any).status = 404;
+        throw error;
       }
       res.status(200).json(competence);
   } catch (error) {

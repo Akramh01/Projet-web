@@ -1,0 +1,22 @@
+
+.button-container {
+    display: flex;
+    justify-content: flex-end; 
+    padding-right: 30px; 
+}
+
+.add-mission {
+    background-color: #3e2463;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Montserrat', sans-serif;
+}
+  
+  .add-mission:hover {
+    background-color: #2c1947; 
+  }

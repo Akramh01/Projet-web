@@ -1,0 +1,13 @@
+<div class="mission-card">
+    <div class = "mission-edit">
+        @if(mission.statut != "terminée" && mission.statut != "en cours") {
+            <button (click)="edit()"><img src="../../../assets/pencil.svg"></button>
+        }
+        <h4>{{ mission.titre }}</h4>
+    </div>
+    <div class = "mission-info">
+        <div class="mission-name">{{ mission.date_fin }}</div>
+        <div class="mission-date" [ngClass] = "getPrioriteClasse(mission.priorite)">{{ mission.priorite }}</div>
+    </div>
+</div>
+
