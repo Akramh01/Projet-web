@@ -13,6 +13,7 @@ export class MissionsListComponent implements OnInit {
 
   missions: Mission[] = [];
   filteredMissions: { [key: string]: Mission[] } = {};
+  searchTerm: string = '';
 
   constructor(private missionsService: MissionsService) {}
   
@@ -54,6 +55,22 @@ export class MissionsListComponent implements OnInit {
         return 'status-terminee';
       default:
         return '';
+    }
+  }
+
+  updateSearchTerm(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    this.searchTerm = inputElement.value;
+  }
+
+  onSearch(): void {
+    if(this.searchTerm) {
+      const titre = this.searchTerm;
+      this.missionsService.getMissionWithName(titre).subscribe((data) => {
+        this.missions = [data];
+      });
+    } else {
+      this.ngOnInit();
     }
   }
 }
