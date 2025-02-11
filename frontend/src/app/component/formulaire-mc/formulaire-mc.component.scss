@@ -1,0 +1,115 @@
+/* Style global de la pop-up */
+.popup {
+    background: #a192b0; /* Couleur de fond violette */
+    border-radius: 15px;
+    padding: 30px;
+    width: 450px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    color: #333;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+/* Bouton de fermeture */
+.avatar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.avatar img {
+    width: 20px;
+    height: 20px;
+}
+
+.modal-content {
+    text-align: center; 
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #2b1e32;
+}
+
+/* Style du formulaire */
+.form-container {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+/* Alignement des labels et inputs */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: bold;
+    color: #2b1e32;
+}
+
+/* Style des inputs */
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background: white;
+}
+
+/* Réduction de l'input "Date d'embauche" */
+input[type="date"] {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Conteneur pour "Compétences" et le bouton "+" */
+/* Conteneur du titre et du bouton */
+.competence-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Sépare les éléments */
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Style du titre */
+.competence-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2b1e32;
+}
+
+/* Bouton "+" aligné à droite */
+.right-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Bouton Modifier */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button-container button {
+    padding: 10px;
+    background-color: #6c567b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 80%;
+    font-size: 1rem;
+}
+
+.button-container button:hover {
+    background-color: #5a4566;
+}
