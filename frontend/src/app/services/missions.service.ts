@@ -20,7 +20,19 @@ export class MissionsService {
 
   constructor(private http: HttpClient) { }
 
-  getMissions(): Observable<Mission[]>{
-    return this.http.get<Mission[]>(this.apiUrl);
+  getMissions(): Observable<any>{
+    return this.http.get(this.apiUrl);
+  }
+
+  getMissionWithName(titre: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/name?nom_fr=${titre}`);
+  }
+
+  addMission(mission: Mission): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, mission);
+  }
+
+  deleteMission(idM: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${idM}`)
   }
 }

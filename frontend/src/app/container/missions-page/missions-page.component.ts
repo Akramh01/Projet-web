@@ -3,8 +3,6 @@ import { MissionsFiltersComponent } from "../../component/missions-filters/missi
 import { AddMissionButtonComponent } from "../../component/add-mission-button/add-mission-button.component";
 import { MissionsListComponent } from "../../component/missions-list/missions-list.component";
 import { Mission } from 'src/app/services/missions.service';
-import { AddMissionPopupComponent } from "../../component/add-mission-popup/add-mission-popup.component";
-import { EditMissionPopupComponent } from "../../component/edit-mission-popup/edit-mission-popup.component";
 
 @Component({
   selector: 'app-missions-page',
@@ -12,8 +10,6 @@ import { EditMissionPopupComponent } from "../../component/edit-mission-popup/ed
       MissionsFiltersComponent,
       AddMissionButtonComponent,
       MissionsListComponent,
-      // AddMissionPopupComponent,
-      // EditMissionPopupComponent
     ],
   templateUrl: './missions-page.component.html',
   styleUrl: './missions-page.component.scss'

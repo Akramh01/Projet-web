@@ -1,0 +1,19 @@
+<div class="overlay" (click)="onClose()"></div>
+
+<div class="detail-popup">
+  <div class="popup-header">
+    <button (click)="onClose()" class="close-button">
+      <img src="assets/close.svg" alt="Fermer">
+    </button>
+  </div>
+  <div class="popup-content">
+    <h4>Compétences de {{ collaborateur.nom }} {{ collaborateur.prenom }}</h4>
+    <div class="competence-list">
+      @for (competence of competences; track competence.idC) {
+        <div class="competence-item">
+          {{ competence.nom_fr }}
+        </div>
+      }
+    </div>
+  </div>
+</div>

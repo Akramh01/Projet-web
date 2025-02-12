@@ -8,6 +8,7 @@ export class Requerir extends Model {
   public idC!: string;
   public quantite!: number;
   public statut!: 'en attente' | 'partiellement satisfait' | 'satisfait';
+    Competences: any;
 }
 
 Requerir.init(

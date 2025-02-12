@@ -33,7 +33,7 @@
 .filter-button {
     padding: 8px 14px;
     border: none;
-    background: #636363;
+    background: #d1d1d1;
     color: rgb(0, 0, 0);
     font-size: 13px;
     border-radius: 6px;
@@ -44,14 +44,16 @@
 .filter-button:hover {
     background: #717171;
 }
+
 .search-bar {
     display: flex;
     align-items: center;
     background-color: #f5eefc; 
     border-radius: 20px;
-    padding: 6px 12px;
+    padding: 0px 6px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+    height: 38px;
+  }
 
 .search-bar input {
     border: none;

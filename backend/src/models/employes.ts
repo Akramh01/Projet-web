@@ -6,7 +6,6 @@ export class Employes extends Model {
   public prenom!: string;
   public nom!: string;
   public date_embauche!: Date;
-  public poste!: string;
   public statut!: string;
 }
 
@@ -27,10 +26,6 @@ export class Employes extends Model {
     },
       date_embauche: {
       type: DataTypes.DATE,
-      allowNull: false,
-    },
-    poste: {
-      type: DataTypes.STRING(50),
       allowNull: false,
     },
     statut: {
