@@ -6,8 +6,6 @@ import Competences from './competences';
 export class Requerir extends Model {
   public idM!: number;
   public idC!: string;
-  public quantite!: number;
-  public statut!: 'en attente' | 'partiellement satisfait' | 'satisfait';
     Competences: any;
 }
 
@@ -30,14 +28,6 @@ Requerir.init(
         key: 'idC',
       },
       onDelete: 'CASCADE',
-    },
-    quantite: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    statut: {
-      type: DataTypes.ENUM('en attente', 'partiellement satisfait', 'satisfait'),
-      defaultValue: 'en attente',
     },
   },
   {

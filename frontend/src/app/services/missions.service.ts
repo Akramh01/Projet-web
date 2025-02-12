@@ -17,6 +17,7 @@ export interface Mission {
 })
 export class MissionsService {
   private apiUrl = 'http://localhost:3000/missions';
+  private apiUrlRequerir = 'http://localhost:3000/requerir';
 
   constructor(private http: HttpClient) { }
 
@@ -24,12 +25,16 @@ export class MissionsService {
     return this.http.get(this.apiUrl);
   }
 
-  getMissionWithName(titre: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/name?nom_fr=${titre}`);
+  getMissionWithName(titre: string): Observable<Mission[]> {
+    return this.http.get<Mission[]>(`${this.apiUrl}/name?nom_fr=${titre}`);
   }
 
   addMission(mission: Mission): Observable<any> {
     return this.http.post(`${this.apiUrl}`, mission);
+  }
+
+  addCompetence(competence: any): Observable<any> {
+    return this.http.post(`${this.apiUrlRequerir}/link`, competence);
   }
 
   deleteMission(idM: number): Observable<any> {

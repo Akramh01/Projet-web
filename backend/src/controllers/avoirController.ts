@@ -3,7 +3,7 @@ import { Competences } from '../models/competences';
 import { Employes } from '../models/employes';
 import { Avoir } from '../models/avoir';
 
-export const getCompetencesWithNameEmployes = async (req: Request, res: Response) => {
+export const getCompetencesWithIdEmployes = async (req: Request, res: Response) => {
     try {
         const idE = req.query.idE;
 
@@ -33,7 +33,7 @@ export const getCompetencesWithNameEmployes = async (req: Request, res: Response
     }
 };
 
-export const getEmployesWithNameCompetences = async (req: Request, res: Response) => {
+export const getEmployesWithIdCompetences = async (req: Request, res: Response) => {
     try {
         //const nomCompetence = req.query.nomCompetence as string;
         const idC = req.query.idC as string;
@@ -67,10 +67,10 @@ export const getEmployesWithNameCompetences = async (req: Request, res: Response
 export const linkEmployeCompetences = async (req: Request, res: Response) => {
     try {
 
-        const { nom, prenom, nom_fr, niveau } = req.body;
+        const { idE, idC} = req.body;
 
         // Récupérer l'employé par nom et prénom
-        const employe = await Employes.findOne({ where: { nom, prenom } });
+        const employe = await Employes.findOne({ where: { idE } });
         if (!employe) {
             const error = new Error('Employé non trouvé.');
             (error as any).status = 404;
@@ -78,7 +78,7 @@ export const linkEmployeCompetences = async (req: Request, res: Response) => {
         }
 
         // Récupérer la compétence par nom
-        const competence = await Competences.findOne({ where: { nom_fr: nom_fr } });
+        const competence = await Competences.findOne({ where: { idC } });
         if (!competence) {
             const error = new Error('Compétence non trouvée.');
             (error as any).status = 404;
@@ -86,7 +86,7 @@ export const linkEmployeCompetences = async (req: Request, res: Response) => {
         }
 
         // Créer l'association entre l'employé et la compétence
-        const avoir = await Avoir.create({ idE: employe.idE, idC: competence.idC, niveau: req.body.niveau });
+        const avoir = await Avoir.create({ idE: employe.idE, idC: competence.idC});
 
         res.status(201).json(avoir);
     } catch (error) {

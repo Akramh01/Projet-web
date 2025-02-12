@@ -26,21 +26,21 @@
       <label>Priorité</label>
       <div class="radio-group">
         <label>
-          <input type="radio" formControlName="priority" value="basse" /> Basse
+          <input type="radio" formControlName="priorite" value="basse" /> Basse
         </label>
         <label>
-          <input type="radio" formControlName="priority" value="moyenne" /> Moyenne
+          <input type="radio" formControlName="priorite" value="moyenne" /> Moyenne
         </label>
         <label>
-          <input type="radio" formControlName="priority" value="haute" /> Haute
+          <input type="radio" formControlName="priorite" value="haute" /> Haute
         </label>
       </div>
     </div>
 
 
     <div class="form-group">
-      <label for="skills">Compétences</label>
-      <select id="skills" formControlName="skills" multiple>
+      <label for="competences">Compétences</label>
+      <select id="competences" formControlName="competences" multiple>
         <option *ngFor="let competence of competences" [value]="competence.id">
           {{ competence.nom_fr }} <!-- Afficher le nom de la compétence -->
         </option>

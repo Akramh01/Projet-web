@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MissionsFiltersComponent } from "../../component/missions-filters/missions-filters.component";
 import { AddMissionButtonComponent } from "../../component/add-mission-button/add-mission-button.component";
 import { MissionsListComponent } from "../../component/missions-list/missions-list.component";
@@ -20,6 +20,12 @@ export class MissionsPageComponent {
   showAddPopup = false;
   showEditPopup = false;
   selectedMission: Mission | null = null;
+  @ViewChild(MissionsListComponent) missionsList!: MissionsListComponent;
+  onSearch(searchQuery: string) {
+    if (this.missionsList) {
+      this.missionsList.filterMissions(searchQuery);
+    }
+  }
 
   openAddPopup() {
     this.showAddPopup = true;
@@ -38,4 +44,5 @@ export class MissionsPageComponent {
     this.showEditPopup = false;
     this.selectedMission = null;
   }
+
 }

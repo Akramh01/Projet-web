@@ -5,6 +5,7 @@ import {Requerir} from '../models/requerir';
 
 export const linkMissionCompetence = async (req: Request, res: Response) => {
   const { idC, idM } = req.body;
+  console.log('Données reçues :', req.body);
 
   try {
     const competence = await Competences.findByPk(idC);
