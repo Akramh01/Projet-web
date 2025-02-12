@@ -6,7 +6,7 @@ import { MissionsFiltersComponent } from "../missions-filters/missions-filters.c
 
 @Component({
   selector: 'app-missions-list',
-  imports: [CommonModule, MissionsCardComponent, MissionsFiltersComponent],
+  imports: [CommonModule, MissionsCardComponent, /*MissionsFiltersComponent*/],
   templateUrl: './missions-list.component.html',
   styleUrl: './missions-list.component.scss'
 })

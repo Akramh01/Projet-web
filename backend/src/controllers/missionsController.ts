@@ -230,34 +230,34 @@ export const updateMissionStatut = async (req: Request, res: Response) => {
 };
 */
 //modifier une mission 
-export const updateMission =  async (req: Request, res: Response) => {
-  try {
-      const idM = req.params.idM;
-      const { titre, description, date_debut, date_fin, priorite } = req.body;
+// export const updateMission =  async (req: Request, res: Response) => {
+//   try {
+//       const idM = req.params.idM;
+//       const { titre, description, date_debut, date_fin, priorite } = req.body;
 
-      // Trouver la mission par ID
-      const mission = await Missions.findByPk(idM);
-      if (!mission) {
-          res.status(404).json({ message: 'Mission non trouvée.' });
-          return;
-      }
+//       // Trouver la mission par ID
+//       const mission = await Missions.findByPk(idM);
+//       if (!mission) {
+//           res.status(404).json({ message: 'Mission non trouvée.' });
+//           return;
+//       }
 
-      // Vérifier le statut
-      if (mission.statut === 'en cours' || mission.statut === 'terminée') {
-          res.status(400).json({ message: 'La mission est en cours ou terminée et ne peut pas être modifiée.' });
-          return;
-      }
+//       // Vérifier le statut
+//       if (mission.statut === 'en cours' || mission.statut === 'terminée') {
+//           res.status(400).json({ message: 'La mission est en cours ou terminée et ne peut pas être modifiée.' });
+//           return;
+//       }
 
-      mission.statut = statut;
-      await mission.save();
+//       mission.statut = statut;
+//       await mission.save();
 
-      res.status(200).json(mission);
-  } catch (error) {
-      console.error('Erreur lors de la mise à jour de la mission:', error);
+//       res.status(200).json(mission);
+//   } catch (error) {
+//       console.error('Erreur lors de la mise à jour de la mission:', error);
      
-  }
-};
-*/
+//   }
+// };
+
 //modifier une mission 
 export const updateMission =  async (req: Request, res: Response) => {
   try {
@@ -327,3 +327,4 @@ export const deleteMission = async (req: Request, res: Response) => {
         throw error;
     }
 
+  };
