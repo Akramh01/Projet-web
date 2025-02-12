@@ -11,11 +11,14 @@
 
     <div class="competence-container">
         <h2 class="competence-title">Compétences</h2>
-        <app-add-comp-colla class="right-button"></app-add-comp-colla>
+        
     </div>
     <app-collaboateur-compe [collaborateurId]="collaborateurId"></app-collaboateur-compe>
-
-    <div class="button-container" (click)="onButtonClick()">
+    <div >
+        <h2 class="competence-title">Ajouter des compétences</h2>
+        <app-add-c (competencesSelected)="onCompetencesSelected($event)"></app-add-c>
+    </div>
+    <div class="button-container" >
         <button>Modifier</button>
     </div>
 </div>

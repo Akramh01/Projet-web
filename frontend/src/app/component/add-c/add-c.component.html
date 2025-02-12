@@ -1,33 +1,19 @@
-<div>
-  <h1>Choisissez des compétences :</h1>
+<div class="dropdown-checkboxes">
+  <button (click)="toggleDropdown()">Choisissez des compétences</button>
+  <div class="dropdown-content">
+    <label *ngFor="let competence of competences">
+      <input type="checkbox" [value]="competence.id" (change)="onCheckboxChange($event, competence)">
+      {{ competence.nom_fr }}
+    </label>
+  </div>
+</div>
 
-  <select class="custom-list" 
-          size="5" 
-          [multiple]="true" 
-          (change)="onSelectChange($event)">
-    @for (competence of competences; track competence.id) {
-      <option [value]="competence.id" 
-              [class.selected]="selectedCompetences.includes(competence.id)">
-        {{ competence.nom_fr }}
-      </option>
-    }
-    @empty {
-      <option disabled>Aucune compétence disponible</option>
-    }
-  </select>
-
-  @if (selectedCompetences.length > 0) {
-    <div class="selected-list">
-      <h3>Compétences sélectionnées :</h3>
-      <ul>
-        @for (id of selectedCompetences; track id) {
-          <li (click)="onSelectCompetence(id)" >
-       
-     
-            <span class="remove-btn">×</span>
-          </li>
-        }
-      </ul>
-    </div>
-  }
+<div class="selected-list">
+  <h3>Compétences sélectionnées :</h3>
+  <ul>
+    <li *ngFor="let competence of selectedCompetencesDetails">
+      {{ competence.nom_fr }}
+      <span class="remove-btn" (click)="onRemoveCompetence(competence.id)">×</span>
+    </li>
+  </ul>
 </div>
