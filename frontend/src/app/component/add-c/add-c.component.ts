@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-
 import { CompetenceService } from 'src/app/services/competences.service';
 import { Competence } from 'src/app/services/competences.service';
-
 @Component({
   selector: 'app-add-c',
   templateUrl: './add-c.component.html',
   styleUrls: ['./add-c.component.scss'],
   standalone: true,
-  imports: [] // Ajout crucial de CommonModule
+  imports: [] // Ajouter les modules nécessaires
 })
 export class AddCComponent implements OnInit {
+  
   competences: Competence[] = [];
   selectedCompetences: number[] = [];
+  
   errorMessage: string | null = null;
 
   constructor(private competenceService: CompetenceService) {}
@@ -35,19 +35,21 @@ export class AddCComponent implements OnInit {
     });
   }
 
+  
   onSelectChange(event: Event): void {
     const select = event.target as HTMLSelectElement;
-    const selectedOptions = Array.from(select.selectedOptions);
-    this.selectedCompetences = selectedOptions.map(option => parseInt(option.value));
-  }
-
-  getCompetenceName(id: number): string {
-    const competence = this.competences.find(c => c.id === id);
-    return competence ? competence.nom_fr : 'Compétence inconnue';
-  }
-
-  onSelectCompetence(id: number): void {
-    this.selectedCompetences = this.selectedCompetences.filter(cId => cId !== id);
+    const selectedId = parseInt(select.value);
+    
+    const index = this.selectedCompetences.indexOf(selectedId);
+    
+    if (index === -1) {
+      this.selectedCompetences.push(selectedId);
+    } else {
+      this.selectedCompetences.splice(index, 1);
+    }
+    
+    // Force la mise à jour de l'affichage
+    this.selectedCompetences = [...this.selectedCompetences];
   }
 
   submitSelectedCompetences(): void {
@@ -57,4 +59,12 @@ export class AddCComponent implements OnInit {
     }
     console.log("Compétences à envoyer :", this.selectedCompetences);
   }
+  onSelectCompetence(id: number): void {
+    const index = this.selectedCompetences.indexOf(id);
+    if (index > -1) {
+      this.selectedCompetences.splice(index, 1);
+      this.selectedCompetences = [...this.selectedCompetences];
+    }
+  }
+ 
 }

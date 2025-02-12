@@ -3,11 +3,11 @@
 
   <select class="custom-list" 
           size="5" 
-          multiple
+          [multiple]="true" 
           (change)="onSelectChange($event)">
     @for (competence of competences; track competence.id) {
       <option [value]="competence.id" 
-              [selected]="selectedCompetences.includes(competence.id)">
+              [class.selected]="selectedCompetences.includes(competence.id)">
         {{ competence.nom_fr }}
       </option>
     }
@@ -21,8 +21,9 @@
       <h3>Compétences sélectionnées :</h3>
       <ul>
         @for (id of selectedCompetences; track id) {
-          <li (click)="onSelectCompetence(id)">
-            {{ getCompetenceName(id) }}
+          <li (click)="onSelectCompetence(id)" >
+       
+     
             <span class="remove-btn">×</span>
           </li>
         }
