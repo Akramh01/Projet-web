@@ -114,7 +114,8 @@ import {
   ɵɵsanitizeUrlOrResourceUrl
 } from "./chunk-FEKN3U2S.js";
 
-// node_modules/@angular/router/fesm2022/router.mjs
+
+// ../../node_modules/@angular/router/fesm2022/router.mjs
 var PRIMARY_OUTLET = "primary";
 var RouteTitleKey = Symbol("RouteTitle");
 var ParamsAsMap = class {

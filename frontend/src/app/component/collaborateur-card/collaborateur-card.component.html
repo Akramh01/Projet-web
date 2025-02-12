@@ -14,10 +14,17 @@
   </div>
   <div class="skills-section">
     <div class="competence-container">
-      @for (competence of competences; track competence.idC) {
+      <!-- Afficher uniquement les 3 premières compétences -->
+      @for (competence of competences.slice(0, 3); track competence.idC) {
         <div class="competence-rectangle">
           {{ competence.nom_fr }}
         </div>
+      }
+      <!-- Bouton "Afficher plus" si plus de 3 compétences -->
+      @if (competences.length > 3) {
+        <button class="show-more-button" (click)="openDetailPopup()">
+          +{{ competences.length - 3 }}
+        </button>
       }
     </div>
   </div>
@@ -27,9 +34,25 @@
          [class.status-inactive]="collaborateur.statut === 'Inactif'">
       {{ collaborateur.statut }}
     </div>
-    <button class="delete" (click)="deleteEmploye()">
+    <button class="delete" (click)="openDeletePopup()">
       <img src="assets/trash.svg" alt="Supprimer">
     </button>
   </div>
-</div>
 
+  <!-- Pop-up de suppression -->
+  @if (showDeletePopup) {
+    <app-supprimer-collaborateur
+      [isVisible]="showDeletePopup"
+      (confirmDelete)="onConfirmDelete()"
+      (cancelDelete)="onCancelDelete()"
+    ></app-supprimer-collaborateur>
+  }
+
+  @if (showDetailPopup) {
+    <app-detail-collaborateur
+      [collaborateur]="collaborateur"
+      [competences]="competences"
+      (close)="closeDetailPopup()"
+    ></app-detail-collaborateur>
+  }
+</div>

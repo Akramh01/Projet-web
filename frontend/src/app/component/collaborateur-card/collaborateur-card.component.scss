@@ -81,7 +81,7 @@
   gap: 10px; 
 }
 
-.competence-rectangle {
+.competence-rectangle, .show-more-button {
   background-color: #393939; 
   border-radius: 8px; 
   padding: 8px 16px; 
@@ -91,12 +91,16 @@
   transition: background-color 0.3s ease; 
   font-family: 'Montserrat', sans-serif;
   white-space: nowrap; 
+  border: none;
+  overflow: hidden; /* Cache le texte qui dépasse */
+  text-overflow: ellipsis; /* Ajoute des points de suspension */
+  max-width: 360px; /* Limite la largeur du rectangle */
   
-  &:hover {
-    background-color: #929292; 
-  }
 }
 
+.show-more-button:hover {
+    background-color: #929292; 
+  }
 .actions-section {
   display: flex;
   align-items: center;

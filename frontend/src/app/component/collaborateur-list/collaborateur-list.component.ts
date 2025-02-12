@@ -18,9 +18,6 @@ export class CollaborateurListComponent implements OnInit {
   constructor(private collaborateurService: CollaborateurService) {}
 
   ngOnInit(): void {
-    this.collaborateurService.getEmployes().subscribe(data => {
-      this.collaborateurs = data;
-    });
     this.loadCollaborateurs();
   }
 

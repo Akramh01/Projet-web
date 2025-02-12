@@ -1,0 +1,17 @@
+<div class="overlay" [class.hidden]="!isVisible" (click)="onCancelDelete()"></div>
+
+<div class="popup" [class.hidden]="!isVisible">
+  <div class="popup-header">
+    <button (click)="onCancelDelete()" class="close-button">
+      <img src="assets/close.svg" alt="Fermer">
+    </button>
+  </div>
+  <div class="popup-content">
+    <h4> Supprimer cet élément ?</h4>
+    <p>Cette action est irréversible.</p>
+  </div>
+  <div class="popup-footer">
+    <button class="btn delete-button" (click)="onConfirmDelete()">Supprimer</button>
+    <button class="btn annuler-button" (click)="onCancelDelete()">Annuler</button>
+  </div>
+</div>

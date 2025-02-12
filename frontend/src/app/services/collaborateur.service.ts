@@ -1,4 +1,3 @@
-// employe.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -28,8 +27,17 @@ export class CollaborateurService {
   }
 
   // Ajouter un nouvel employé
+
+
   addEmployes(employe: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/`, employe);
+    // Assurez-vous que les données sont envoyées au bon format
+    const employeData = {
+      nom: employe.nom,
+      prenom: employe.prenom,
+      dateEmbauche: employe.dateEmbauche
+    };
+    
+    return this.http.post(`${this.apiUrl}/`, employeData);
   }
 
   // Supprimer un employé par ID

@@ -187,6 +187,14 @@ export const updateMissionStatut = async (req: Request, res: Response) => {
       const idM = req.params.idM;
       const { statut } = req.body;
 
+      if (!statut) {
+          const error = new Error("Le statut n'est pas fourni.");
+          (error as any).status = 400;
+          throw error;
+      }
+
+      const mission = await Missions.findByPk(idM);
+
 
       if (!statut) {
           const error = new Error("Le statut n'est pas fourni.");
@@ -195,8 +203,17 @@ export const updateMissionStatut = async (req: Request, res: Response) => {
       }
 
 
+      if (!mission) {
+          const error = new Error('Mission non trouvée.');
+          (error as any).status = 404;
+          throw error;
+      }
+
       const mission = await Missions.findByPk(idM);
 
+
+      mission.statut = statut;
+      await mission.save();
 
       if (!mission) {
           const error = new Error('Mission non trouvée.');
@@ -205,9 +222,34 @@ export const updateMissionStatut = async (req: Request, res: Response) => {
       }
 
 
+      res.status(200).json(mission);
+  } catch (error) {
+      console.error('Erreur lors de la mise à jour de la mission:', error);
+     
+  }
+};
+*/
+//modifier une mission 
+export const updateMission =  async (req: Request, res: Response) => {
+  try {
+      const idM = req.params.idM;
+      const { titre, description, date_debut, date_fin, priorite } = req.body;
+
+      // Trouver la mission par ID
+      const mission = await Missions.findByPk(idM);
+      if (!mission) {
+          res.status(404).json({ message: 'Mission non trouvée.' });
+          return;
+      }
+
+      // Vérifier le statut
+      if (mission.statut === 'en cours' || mission.statut === 'terminée') {
+          res.status(400).json({ message: 'La mission est en cours ou terminée et ne peut pas être modifiée.' });
+          return;
+      }
+
       mission.statut = statut;
       await mission.save();
-
 
       res.status(200).json(mission);
   } catch (error) {
@@ -253,6 +295,7 @@ export const updateMission =  async (req: Request, res: Response) => {
   }
 };
 
+
   
 //supprimer une missions 
 
@@ -283,4 +326,4 @@ export const deleteMission = async (req: Request, res: Response) => {
         // L'erreur est transmise au middleware global (si configuré)
         throw error;
     }
-};
+
