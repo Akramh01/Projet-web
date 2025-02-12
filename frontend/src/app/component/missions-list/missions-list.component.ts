@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MissionsService, Mission } from '../../services/missions.service';
 import { CommonModule } from '@angular/common';
 import { MissionsCardComponent } from "../missions-card/missions-card.component";
+import { MissionsFiltersComponent } from "../missions-filters/missions-filters.component";
 
 @Component({
   selector: 'app-missions-list',
-  imports: [CommonModule, MissionsCardComponent,],
+  imports: [CommonModule, MissionsCardComponent, MissionsFiltersComponent],
   templateUrl: './missions-list.component.html',
   styleUrl: './missions-list.component.scss'
 })
@@ -13,6 +14,7 @@ export class MissionsListComponent implements OnInit {
 
   missions: Mission[] = [];
   filteredMissions: { [key: string]: Mission[] } = {};
+  searchQuery: string = '';
 
   constructor(private missionsService: MissionsService) {}
   
@@ -20,27 +22,34 @@ export class MissionsListComponent implements OnInit {
     this.missionsService.getMissions().subscribe((data) => {
       this.missions = data;
       this.filterMissions();
-      console.log("Missions chargées :", this.missions);
-      console.log("📌 Liste des statuts reçus :", this.missions.map(m => m.statut));
     });
   }
+  
+  filterMissions(searchQuery: string = '') {
 
-  filterMissions() {
-    console.log("🚀 Execution de filterMissions()");
+    if (!this.missions || this.missions.length === 0) {
+      return;
+    }
+
     const statuses = ['Préparation', 'Plannifiée', 'En cours', 'Terminée'];
     this.filteredMissions = {};
-  
+
     statuses.forEach(status => {
-      this.filteredMissions[status] = this.missions.filter(m => {
-        console.log(`🔎 Mission "${m.titre}" - statut: "${m.statut}"`);
-        return m.statut && m.statut.toLowerCase() === status.toLowerCase();
+      this.filteredMissions[status] = this.missions.filter(mission => {
+
+        if (!mission || !mission.statut || !mission.titre) {
+          return false;
+        }
+        const missionName = mission.titre.toLowerCase();
+        const missionStatus = mission.statut.toLowerCase();
+
+        const matchStatus = missionStatus === status.toLowerCase();
+        const matchSearch = searchQuery === '' || missionName.includes(searchQuery.toLowerCase());
+
+        return matchStatus && matchSearch;
       });
-      console.log(`📌 Missions filtrées pour ${status} :`, this.filteredMissions[status]);
     });
-  
-    console.log("✅ Résumé des missions filtrées :", this.filteredMissions);
   }
-  
 
   getStatusClass(status: string): string {
     switch (status) {
@@ -55,5 +64,13 @@ export class MissionsListComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  trackByStatus(index: number, status: string): string {
+    return status;
+  }
+
+  trackByMission(index: number, mission: any): string {
+    return mission.id;
   }
 }
