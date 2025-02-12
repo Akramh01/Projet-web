@@ -33,26 +33,21 @@ export class FormulaireAddComponent {
   }
 
   submitEmploye(): void {
-    if (this.employeForm.invalid) {
-      alert('Veuillez remplir tous les champs obligatoires');
-      return;
+    if (this.employeForm.valid) {
+      const employeData = this.employeForm.value;
+      console.log('Données du formulaire:', employeData);
+  
+      this.collaborateurService.addEmployes(employeData).subscribe({
+        next: (response) => {
+          console.log('Succès:', response);
+          // ... reste du code
+        },
+        error: (error) => {
+          console.error('Erreur détaillée:', error);
+          // Afficher plus de détails sur l'erreur
+          alert(`Erreur lors de l'ajout: ${error.message}`);
+        }
+      });
     }
-  
-    const employeData = {
-      ...this.employeForm.value,
-     
-    };
-  
-    this.collaborateurService.addEmployes(employeData).subscribe({
-      next: () => {
-        alert('Employé ajouté avec succès !');
-        this.employeForm.reset();
-        this.selectedCompetences = [];
-      },
-      error: (error) => {
-        console.error('Erreur lors de l\'ajout:', error);
-        alert('Erreur lors de l\'ajout de l\'employé');
-      }
-    });
   }
 }

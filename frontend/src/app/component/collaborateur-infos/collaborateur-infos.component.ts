@@ -10,6 +10,7 @@ import { CollaborateurService } from 'src/app/services/collaborateur.service';
 export class CollaborateurInfosComponent {
   @Input() idE!: 1; // ID de l'employé passé en entrée
   collaborateur: any; // Les données de l'employé récupérées
+  
   constructor(private collaborateurService: CollaborateurService) {}
   ngOnInit(): void {
     if (this.idE) {
@@ -25,4 +26,12 @@ export class CollaborateurInfosComponent {
       console.error('Aucun ID employé fourni');
     }
   }
+  getNom(): string {
+    return this.collaborateur ? this.collaborateur.nom : '';
+  }
+
+  getPrenom(): string {
+    return this.collaborateur ? this.collaborateur.prenom : '';
+  }
+  
 }

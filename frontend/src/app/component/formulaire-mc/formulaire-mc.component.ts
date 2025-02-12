@@ -1,5 +1,6 @@
 import { Component,EventEmitter,Output } from '@angular/core';
 import { CollaboateurCompeComponent } from '../collaboateur-compe/collaboateur-compe.component';
+
 import { AvoirService } from 'src/app/services/avoir.service';
 import { CollaborateurInfosComponent } from '../collaborateur-infos/collaborateur-infos.component';
 import { AddCComponent } from '../add-c/add-c.component';
@@ -22,9 +23,9 @@ export class FormulaireMCComponent {
   constructor(private avoirService: AvoirService) {}
 
   
-  linkCompetencesToEmploye(nom: string, prenom: string, nom_fr: string, niveau: string): void {
+  linkCompetencesToEmploye(nom: string, prenom: string, nom_fr: string): void {
     this.selectedCompetences.forEach(competenceId => {
-      this.avoirService.linkEmployeCompetences(nom, prenom, nom_fr, niveau).subscribe({
+      this.avoirService.linkEmployeCompetences(nom, prenom, nom_fr).subscribe({
         next: () => {
           alert('Compétence liée à l\'employé avec succès !');
         },
