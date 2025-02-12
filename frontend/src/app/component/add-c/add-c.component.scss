@@ -1,1 +1,29 @@
-
+.selected-list {
+    margin-top: 20px;
+  }
+  
+  .selected-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .selected-list li {
+    padding: 8px;
+    margin: 5px 0;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .selected-list li:hover {
+    background-color: #ffe0e0;
+  }
+  
+  .remove-btn {
+    color: #ff4444;
+    font-weight: bold;
+    margin-left: 10px;
+  }

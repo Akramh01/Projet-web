@@ -7,24 +7,8 @@
     <div class="modal-content">
         <h2>Nom Collaborateur</h2>
         </div>
-    <div class="form-container">
-        <form>
-            <div>
-                <label for="prenom">Prénom :</label>
-                <input id="prenom" formControlName="prenom" placeholder=" prénom">
-            </div>
-            <div>
-                <label for="nom">Nom :</label>
-                <input id="nom" formControlName="nom" placeholder="votre nom">
-            </div>
-           
-            <div>
-                <label for="dateEmbauche ">date d'embauche :</label>
-                <input type="date" id="dateEmbauche " formControlName="dateEmbauche ">
-            </div>
-            
-        </form>
-    </div>
+        <app-collaborateur-infos [idE]="1"></app-collaborateur-infos>
+
     <div class="competence-container">
         <h2 class="competence-title">Compétences</h2>
         <app-add-comp-colla class="right-button"></app-add-comp-colla>
