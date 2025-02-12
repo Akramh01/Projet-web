@@ -8,30 +8,27 @@ import { CollaborateurService } from 'src/app/services/collaborateur.service';
   standalone: true
 })
 export class CollaborateurInfosComponent {
-  @Input() idE!: 1; // ID de l'employé passé en entrée
-  collaborateur: any; // Les données de l'employé récupérées
-  
+  collaborateurs: any[] = [];
+  selectedCollaborateurId?: number;
+
   constructor(private collaborateurService: CollaborateurService) {}
-  ngOnInit(): void {
-    if (this.idE) {
-      this.collaborateurService.getEmployeWithId(this.idE).subscribe(
-        (data) => {
-          this.collaborateur = data; // Assignez les données récupérées
-        },
-        (error) => {
-          console.error('Erreur lors de la récupération des données', error);
-        }
-      );
-    } else {
-      console.error('Aucun ID employé fourni');
-    }
-  }
-  getNom(): string {
-    return this.collaborateur ? this.collaborateur.nom : '';
+
+  ngOnInit() {
+    this.loadCollaborateurs();
   }
 
-  getPrenom(): string {
-    return this.collaborateur ? this.collaborateur.prenom : '';
+  loadCollaborateurs() {
+    this.collaborateurService.getEmployes().subscribe({
+      next: (data) => this.collaborateurs = data,
+      error: (err) => console.error('Erreur de chargement', err)
+    });
   }
-  
+
+  selectCollaborateur(idE: number) {
+    this.selectedCollaborateurId = idE;
+  }
+  onUpdate() {
+    this.loadCollaborateurs(); // Rafraîchir la liste après mise à jour
+    
+}
 }

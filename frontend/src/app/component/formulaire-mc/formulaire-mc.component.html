@@ -7,18 +7,19 @@
     <div class="modal-content">
         <h2>Nom Collaborateur</h2>
         </div>
-        <app-collaborateur-infos [idE]="1"></app-collaborateur-infos>
+        <app-collaborateur-infos [idE]="idE"></app-collaborateur-infos>
 
-    <div class="competence-container">
-        <h2 class="competence-title">Compétences</h2>
-        
-    </div>
-    <app-collaboateur-compe [collaborateurId]="collaborateurId"></app-collaboateur-compe>
-    <div >
-        <h2 class="competence-title">Ajouter des compétences</h2>
-        <app-add-c (competencesSelected)="onCompetencesSelected($event)"></app-add-c>
-    </div>
-    <div class="button-container" >
-        <button>Modifier</button>
-    </div>
-</div>
+        <div class="competence-container">
+          <h2 class="competence-title">Compétences actuelles</h2>
+          <app-collaboateur-compe [collaborateurId]="idE"></app-collaboateur-compe>
+        </div>
+      
+        <div>
+          <h2 class="competence-title">Ajouter des compétences</h2>
+          <app-add-c (competencesSelected)="onCompetencesSelected($event)"></app-add-c>
+        </div>
+      
+        <div class="button-container">
+        <button (click)="lierCompetences()">Mettre à jour les compétences</button>
+        </div>
+      </div>

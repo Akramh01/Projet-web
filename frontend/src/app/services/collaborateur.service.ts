@@ -1,7 +1,9 @@
 // employe.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,18 +31,17 @@ export class CollaborateurService {
 
   // Ajouter un nouvel employé
 
-
   addEmployes(employe: any): Observable<any> {
-    // Assurez-vous que les données sont envoyées au bon format
-    const employeData = {
-      nom: employe.nom,
+    // Formatage spécifique pour Sequelize
+    const payload = {
       prenom: employe.prenom,
-      dateEmbauche: employe.dateEmbauche
+      nom: employe.nom,
+      date_embauche: new Date(employe.dateEmbauche), // Conversion explicite
+      statut: 'actif' // Valeur par défaut obligatoire
     };
-    
-    return this.http.post(this.apiUrl, employeData);
+  
+    return this.http.post(`${this.apiUrl}/`, payload);
   }
-
   // Supprimer un employé par ID
   deleteEmploye(idE: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${idE}`);

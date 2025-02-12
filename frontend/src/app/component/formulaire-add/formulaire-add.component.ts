@@ -3,6 +3,8 @@ import { AddCComponent } from '../add-c/add-c.component';
 import { CollaborateurService } from 'src/app/services/collaborateur.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AvoirService } from 'src/app/services/avoir.service';
 @Component({
   selector: 'app-formulaire-add',
   imports: [AddCComponent,ReactiveFormsModule],
@@ -12,13 +14,13 @@ import { Router } from '@angular/router';
 })
 export class FormulaireAddComponent {
   
-  
   employeForm: FormGroup;
   selectedCompetences: number[] = [];
 
   constructor(
     private fb: FormBuilder,
     private collaborateurService: CollaborateurService,
+    private avoirService: AvoirService,
     public router: Router
   ) {
     this.employeForm = this.fb.group({
@@ -28,25 +30,45 @@ export class FormulaireAddComponent {
     });
   }
 
+
+
   onCompetencesSelected(competences: number[]) {
     this.selectedCompetences = competences;
+    console.log("Compétences sélectionnées :", this.selectedCompetences);
+  }
+
+  lierCompetences(idE: number) {
+    if (this.selectedCompetences.length === 0) {
+      alert("Aucune compétence sélectionnée !");
+      return;
+    }
+
+    this.selectedCompetences.forEach(idC => {
+      this.avoirService.linkEmployeCompetences(idE, idC).subscribe({
+        next: () => console.log(`Compétence ${idC} liée à l'employé ${idE}`),
+        error: err => console.error("Erreur de liaison", err)
+      });
+    });
   }
 
   submitEmploye(): void {
     if (this.employeForm.valid) {
-      const employeData = this.employeForm.value;
-      console.log('Données du formulaire:', employeData);
+      const formData = this.employeForm.value;
+      
+      // Validation de la date
+      if (isNaN(new Date(formData.dateEmbauche).getTime())) {
+        alert('Date invalide');
+        return;
+      }
+  
+      const employeData = {
+        ...formData,
+        competences: this.selectedCompetences
+      };
   
       this.collaborateurService.addEmployes(employeData).subscribe({
-        next: (response) => {
-          console.log('Succès:', response);
-          // ... reste du code
-        },
-        error: (error) => {
-          console.error('Erreur détaillée:', error);
-          // Afficher plus de détails sur l'erreur
-          alert(`Erreur lors de l'ajout: ${error.message}`);
-        }
+        next: () => this.router.navigate(['/']),
+        error: (error) => console.error('Erreur complète:', error)
       });
     }
   }
