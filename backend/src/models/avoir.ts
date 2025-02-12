@@ -34,7 +34,7 @@ Avoir.init(
         },
         niveau: {
             type: DataTypes.ENUM('débutant', 'intermédiaire', 'expert'),
-            allowNull: false,
+           
         }
     },
     {

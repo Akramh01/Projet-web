@@ -24,9 +24,12 @@ export class Employes extends Model {
       type: DataTypes.STRING,
       allowNull: false,
     },
-      date_embauche: {
-      type: DataTypes.DATE,
+    date_embauche: {
+      type: DataTypes.DATEONLY, // Préférer DATEONLY pour les dates sans heure
       allowNull: false,
+      /*get() {
+        return this.getDataValue('date_embauche').toISOString().split('T')[0];
+      }*/
     },
     statut: {
       type: DataTypes.STRING(20),
