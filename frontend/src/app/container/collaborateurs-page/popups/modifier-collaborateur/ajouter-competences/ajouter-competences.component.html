@@ -1,0 +1,19 @@
+<div class="dropdown-checkboxes">
+    <button (click)="toggleDropdown()">Choisissez des compétences</button>
+    <div class="dropdown-content">
+      <label *ngFor="let competence of competences">
+        <input type="checkbox" [value]="competence.id" (change)="onCheckboxChange($event, competence)">
+        {{ competence.nom_fr }}
+      </label>
+    </div>
+  </div>
+  
+  <div class="selected-list">
+    <h3>Compétences sélectionnées :</h3>
+    <ul>
+      <li *ngFor="let competence of selectedCompetencesDetails">
+        {{ competence.nom_fr }}
+        <span class="remove-btn" (click)="onRemoveCompetence(competence.id)">×</span>
+      </li>
+    </ul>
+  </div>

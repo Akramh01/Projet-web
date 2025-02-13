@@ -2,13 +2,14 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SupprimerCollaborateurComponent } from 'src/app/container/collaborateurs-page/popups/supprimer-collaborateur/supprimer-collaborateur.component';
 import { DetailCollaborateurComponent } from 'src/app/container/collaborateurs-page/popups/detail-collaborateur/detail-collaborateur.component';
 import { CollaborateurService } from 'src/app/services/collaborateur.service';
+import { ModifierCollaborateurComponent } from 'src/app/container/collaborateurs-page/popups/modifier-collaborateur/modifier-collaborateur.component';
 
 @Component({
   selector: 'app-collaborateur-card',
   templateUrl: './collaborateur-card.component.html',
   styleUrls: ['./collaborateur-card.component.scss'],
   standalone: true,
-  imports: [SupprimerCollaborateurComponent, DetailCollaborateurComponent] // Ajouter DetailCollaborateurComponent
+  imports: [SupprimerCollaborateurComponent, DetailCollaborateurComponent, ModifierCollaborateurComponent] 
 })
 export class CollaborateurCardComponent {
   @Input() collaborateur: any;
@@ -16,6 +17,7 @@ export class CollaborateurCardComponent {
   @Output() delete = new EventEmitter<void>();
   showDeletePopup: boolean = false;
   showDetailPopup: boolean = false; // Contrôle la visibilité du pop-up de détail
+  showModifierPopup: boolean = false;
 
   constructor(private collaborateurService: CollaborateurService) {}
 
@@ -39,6 +41,16 @@ export class CollaborateurCardComponent {
   // Méthode pour afficher le pop-up de suppression
   openDeletePopup(): void {
     this.showDeletePopup = true;
+  }
+
+  // Ajoutez cette méthode pour ouvrir le pop-up de modification
+  openModifierPopup(): void {
+    this.showModifierPopup = true;
+  }
+
+  // Ajoutez cette méthode pour fermer le pop-up de modification
+  closeModifierPopup(): void {
+    this.showModifierPopup = false;
   }
 
   // Méthode pour afficher le pop-up de détail

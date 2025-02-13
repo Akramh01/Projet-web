@@ -1,1 +1,27 @@
-<p>modifier-collaborateur works!</p>
+<div class="overlay" (click)="closeModal()">
+  <div class="popup" (click)="$event.stopPropagation()">
+    <div class="popup-header">
+      <button (click)="closeModal()" class="close-button">
+        <img src="assets/close.svg" alt="Fermer">
+      </button>
+    </div>
+    <div class="modal-content">
+      <h2>Modifier les compétences</h2>
+    </div>
+    <app-infos-collaborateur [idE]="idE"></app-infos-collaborateur>
+
+    <div class="competence-container">
+      <h2 class="competence-title">Compétences actuelles</h2>
+      <app-competence-collaborateur [collaborateurId]="idE"></app-competence-collaborateur>
+    </div>
+
+    <div class="competence-container">
+      <h2 class="competence-title">Ajouter des compétences</h2>
+      <app-ajouter-competences (competencesSelected)="onCompetencesSelected($event)"></app-ajouter-competences>
+    </div>
+
+    <div class="button-container">
+      <button (click)="lierCompetences()">Mettre à jour les compétences</button>
+    </div>
+  </div>
+</div>

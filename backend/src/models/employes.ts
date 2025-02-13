@@ -25,7 +25,7 @@ export class Employes extends Model {
       allowNull: false,
     },
       date_embauche: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     statut: {
