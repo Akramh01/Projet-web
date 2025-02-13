@@ -117,6 +117,43 @@ select[multiple]:focus {
   outline: none;
 }
 
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Espace entre les tags */
+  margin-top: 10px;
+}
+
+.tag {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 20px; /* Bordures arrondies */
+  background-color: #1E1E1E; /* Couleur de fond par défaut */
+  color: white; /* Couleur du texte */
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Animation au survol */
+}
+
+.tag:hover {
+  background-color: #67696b; /* Changement de couleur au survol */
+  transform: scale(1.05); /* Légère mise à l'échelle au survol */
+}
+
+.remove-tag {
+  margin-left: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease; /* Animation au survol */
+}
+
+.remove-tag:hover {
+  color: #ff4444; /* Changement de couleur au survol */
+}
+
 
   
   

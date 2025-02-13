@@ -39,13 +39,21 @@
 
     <div class="form-group">
       <label for="competences">Compétences</label>
-      <select id="competences" multiple (change)="onCompetenceChange($event)">
+      <select id="competences" (change)="onCompetenceChange($event)">
+        <option value="">Sélectionnez une compétence</option>
         <option *ngFor="let competence of competences" [value]="competence.id">
           {{ competence.nom_fr }} <!-- Afficher le nom de la compétence -->
         </option>
       </select>
     </div>
 
+    <!-- Zone d'affichage des tags -->
+    <div class="tags-container">
+      <div *ngFor="let competence of selectedCompetences" class="tag" [style.backgroundColor]="competence.color">
+        {{ competence.nom_fr }}
+        <span class="remove-tag" (click)="removeCompetence(competence)">×</span>
+      </div>
+    </div>
 
     <button type="submit" [disabled]="missionForm.invalid">Confirmer</button>
     <button type="button" (click)="closeForm()">Fermer</button>

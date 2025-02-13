@@ -18,15 +18,19 @@ export class MissionFormComponent implements OnInit { // Implémentez OnInit
   @Output() formSubmit = new EventEmitter<any>();
   isOpen = false;
   competences: any[] = []; // Stocker les compétences récupérées
+  // isEditMode = false;
+  // missionToEdit: any; // Déclarez la propriété missionToEdit
 
   missionForm: FormGroup;
+  
+  selectedCompetences: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private missionFormService: MissionFormService,
     private missionsService: MissionsService,
     private requerirService: RequerirService,
-    private competencesService: CompetenceService // Injectez le service
+    private competencesService: CompetenceService, // Injectez le service
   ) {
     this.missionForm = this.fb.group({
       titre: ['', Validators.required],
@@ -35,7 +39,7 @@ export class MissionFormComponent implements OnInit { // Implémentez OnInit
       date_fin: ['', Validators.required],
       priorite: ['basse', Validators.required],
       competences: this.fb.array([]),
-      collaborators: ['']
+      collaborateurs: []
     });
 
     // Abonnement à l'état du formulaire (ouvert/fermé)
@@ -47,7 +51,32 @@ export class MissionFormComponent implements OnInit { // Implémentez OnInit
   ngOnInit() {
     // Charger les compétences disponibles
     this.loadCompetences();
+
+    // Si une mission à éditer est passée, préremplir le formulaire
+    // if (this.missionToEdit) {
+    //   this.isEditMode = true;
+    //   this.prefillForm(this.missionToEdit);
+    // }
   }
+
+  // Méthode pour préremplir le formulaire avec les données de la mission
+  // prefillForm(mission: any) {
+  //   this.missionForm.patchValue({
+  //     titre: mission.titre,
+  //     description: mission.description,
+  //     date_debut: mission.date_debut,
+  //     date_fin: mission.date_fin,
+  //     priorite: mission.priorite,
+  //     competences: mission.competences, // Assurez-vous que c'est un tableau d'IDs
+  //   });
+
+  //   // Préremplir les compétences sélectionnées
+  //   if (mission.competences) {
+  //     this.selectedCompetences = this.competences.filter((c) =>
+  //       mission.competences.includes(c.id)
+  //     );
+  //   }
+  // }
 
   // Méthode pour charger les compétences depuis le backend
   loadCompetences() {
@@ -65,6 +94,12 @@ export class MissionFormComponent implements OnInit { // Implémentez OnInit
     this.missionFormService.closeForm(); // Ajoutez les parenthèses
   }
 
+  // Méthode pour supprimer une compétence sélectionnée
+  removeCompetence(competence: any) {
+    this.selectedCompetences = this.selectedCompetences.filter((c) => c.id !== competence.id); // Supprimer de la liste
+  
+  }
+
   onCompetenceChange(event: Event) {
     // recuperer l'element selectionné
     const selectElement = event.target as HTMLSelectElement;
@@ -73,7 +108,12 @@ export class MissionFormComponent implements OnInit { // Implémentez OnInit
     const compName = selectedOption.text;
     const competence = this.competences.find((c) => c.nom_fr === compName);
     const compId = competence.idC;
-    console.log('IdC :', compId);
+    // Ajouter la compétence à la liste des compétences
+    (this.missionForm.get('competences') as FormArray).push(this.fb.group({ idC: compId }));
+
+    if (competence && !this.selectedCompetences.includes(competence)) {
+      this.selectedCompetences.push(competence); // Ajouter à la liste des compétences sélectionnées
+    }
   }
 
   onSubmit() {
