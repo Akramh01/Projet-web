@@ -36,12 +36,22 @@ import {
   withI18nSupport,
   withIncrementalHydration,
   withNoHttpTransferCache
+<<<<<<< HEAD:frontend/.angular/cache/19.0.7/first-app/vite/deps/@angular_platform-browser.js
 } from "./chunk-XMEZA4LR.js";
 import "./chunk-POHUAKX2.js";
 import {
   getDOM
 } from "./chunk-4BENXGPW.js";
 import "./chunk-GIYDUOAQ.js";
+=======
+} from "./chunk-X5PQU444.js";
+import "./chunk-2IAKBV5C.js";
+import {
+  getDOM
+} from "./chunk-KOO6HHSS.js";
+import "./chunk-VU6X2Q5G.js";
+import "./chunk-5TID76VL.js";
+>>>>>>> 83be2b89be2915f0690e425038791395468733a4:frontend/.angular/cache/19.1.6/first-app/vite/deps/@angular_platform-browser.js
 export {
   BrowserModule,
   By,
@@ -82,4 +92,3 @@ export {
   getDOM as ɵgetDOM,
   initDomAdapter as ɵinitDomAdapter
 };
-//# sourceMappingURL=@angular_platform-browser.js.map
