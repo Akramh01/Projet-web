@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core'; // Ajoutez OnInit
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MissionFormService } from 'src/app/services/mission-form.service';
@@ -20,14 +20,13 @@ export class MissionFormComponent implements OnInit { // Implémentez OnInit
   competences: any[] = []; // Stocker les compétences récupérées
 
   missionForm: FormGroup;
-  // missionsService: any;
 
   constructor(
     private fb: FormBuilder,
     private missionFormService: MissionFormService,
     private competenceFormNewMissionService: CompetenceFormNewMissionService,
     private missionsService: MissionsService,
-    private requerirService: RequerirService
+    private requerirService: RequerirService,
   ) {
     this.missionForm = this.fb.group({
       titre: ['', Validators.required],
@@ -35,7 +34,7 @@ export class MissionFormComponent implements OnInit { // Implémentez OnInit
       date_debut: ['', Validators.required],
       date_fin: ['', Validators.required],
       priorite: ['basse', Validators.required],
-      competences: [[]],
+      competences: this.fb.array([]),
       collaborators: ['']
     });
 
@@ -46,6 +45,7 @@ export class MissionFormComponent implements OnInit { // Implémentez OnInit
   }
 
   ngOnInit() {
+    // Charger les compétences disponibles
     this.loadCompetences();
   }
 
@@ -59,58 +59,69 @@ export class MissionFormComponent implements OnInit { // Implémentez OnInit
         console.error('Erreur lors du chargement des compétences :', error);
       }
     );
-
   }
-
-
 
   closeForm() {
     this.missionFormService.closeForm(); // Ajoutez les parenthèses
   }
 
+  onCompetenceChange(event: Event) {
+    // recuperer l'element selectionné
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    // recuperer le texte de l'element selectionné
+    const compName = selectedOption.text;
+    const competence = this.competences.find((c) => c.nom_fr === compName);
+    const compId = competence.idC;
+    console.log('IdC :', compId);
+  }
 
+  onSubmit() {
+    if (this.missionForm.valid) {
+      const newMission = this.missionForm.value; // Récupérer les données du formulaire
+      console.log('Données du formulaire :', newMission);
 
-        onSubmit() {
-          console.log(this.competences);
-      if (this.missionForm.valid) {
-        const newMission = this.missionForm.value; // Récupérer les données du formulaire
-        console.log('Données du formulaire :', newMission);
-    
-        // Envoyer les données au backend via le service
-        this.missionsService.addMission(newMission).subscribe(
-          (response: any) => {
-            console.log('Mission créée avec succès :', response);
-            this.formSubmit.emit(response); // Émettre l'événement avec la réponse
-            this.missionFormService.closeForm(); // Fermer le formulaire
-    
-            // Assurez-vous que newMission contient les valeurs idM et idC
+      // Envoyer les données au backend via le service
+      this.missionsService.addMission(newMission).subscribe(
+        (response: any) => {
+          console.log('Mission créée avec succès :', response);
+          this.formSubmit.emit(response); // Émettre l'événement avec la réponse
+          this.missionFormService.closeForm(); // Fermer le formulaire
+
+          // Assurez-vous que newMission contient les valeurs idM et idC
+          const missionId = response.idM; // Utilisez l'ID de la mission créée
+          const competences = newMission.competences; // Liste des compétences
+
+          console.log('Liste des compétences :', competences); // Ajoutez ce log pour vérifier les compétences
+
+          competences.forEach((competence: any) => {
+            if (!competence.idC) {
+              console.error('Compétence sans idC :', competence); // Ajoutez ce log pour vérifier les compétences sans idC
+              return;
+            }
+
             const missionData = {
-              idM: response.idM, // Utilisez l'ID de la mission créée
-              idC: newMission.idC, // Assurez-vous que cette valeur est correcte
+              idM: missionId,
+              idC: competence.idC
             };
-    
+
             console.log('Données à envoyer à linkMissionCompetence :', missionData); // Ajoutez ce log pour vérifier les données
-    
+
             this.requerirService.linkMissionCompetence(missionData).subscribe(
               (response: any) => {
                 console.log('Données envoyées :', missionData);
                 console.log('Compétence liée avec succès :', response);
-                this.formSubmit.emit(response); // Émettre l'événement avec la réponse
-                this.missionFormService.closeForm(); // Fermer le formulaire
               },
               (error: any) => {
                 console.error('Erreur lors de la liaison de la compétence :', error);
               }
             );
-          },
-          (error: any) => {
-            console.error('Erreur lors de la création de la mission :', error);
-          }
-        );
-      }
+          });
+        },
+        (error: any) => {
+          console.error('Erreur lors de la création de la mission :', error);
+        }
+      );
     }
-
-
+  }
 }
-
-
