@@ -37,9 +37,16 @@ import {
   withNoXsrfProtection,
   withRequestsMadeViaParent,
   withXsrfConfiguration
+<<<<<<< HEAD:frontend/.angular/cache/19.0.7/first-app/vite/deps/@angular_common_http.js
 } from "./chunk-POHUAKX2.js";
 import "./chunk-4BENXGPW.js";
 import "./chunk-GIYDUOAQ.js";
+=======
+} from "./chunk-2IAKBV5C.js";
+import "./chunk-KOO6HHSS.js";
+import "./chunk-VU6X2Q5G.js";
+import "./chunk-5TID76VL.js";
+>>>>>>> 83be2b89be2915f0690e425038791395468733a4:frontend/.angular/cache/19.1.6/first-app/vite/deps/@angular_common_http.js
 export {
   FetchBackend,
   HTTP_INTERCEPTORS,
@@ -81,4 +88,3 @@ export {
   REQUESTS_CONTRIBUTE_TO_STABILITY as ɵREQUESTS_CONTRIBUTE_TO_STABILITY,
   withHttpTransferCache as ɵwithHttpTransferCache
 };
-//# sourceMappingURL=@angular_common_http.js.map

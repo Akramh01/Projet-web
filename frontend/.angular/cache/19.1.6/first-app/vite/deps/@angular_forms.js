@@ -1,6 +1,10 @@
 import {
   getDOM
+<<<<<<< HEAD:frontend/.angular/cache/19.0.7/first-app/vite/deps/@angular_forms.js
 } from "./chunk-4BENXGPW.js";
+=======
+} from "./chunk-KOO6HHSS.js";
+>>>>>>> 83be2b89be2915f0690e425038791395468733a4:frontend/.angular/cache/19.1.6/first-app/vite/deps/@angular_forms.js
 import {
   ChangeDetectorRef,
   Directive,
@@ -19,19 +23,13 @@ import {
   RuntimeError,
   Self,
   SkipSelf,
-  Subject,
   Version,
-  __spreadProps,
-  __spreadValues,
   booleanAttribute,
   computed,
-  forkJoin,
   forwardRef,
-  from,
   inject,
   isPromise,
   isSubscribable,
-  map,
   setClassMetadata,
   signal,
   untracked,
@@ -47,7 +45,19 @@ import {
   ɵɵdirectiveInject,
   ɵɵgetInheritedFactory,
   ɵɵlistener
+<<<<<<< HEAD:frontend/.angular/cache/19.0.7/first-app/vite/deps/@angular_forms.js
 } from "./chunk-GIYDUOAQ.js";
+=======
+} from "./chunk-VU6X2Q5G.js";
+import {
+  Subject,
+  __spreadProps,
+  __spreadValues,
+  forkJoin,
+  from,
+  map
+} from "./chunk-5TID76VL.js";
+>>>>>>> 83be2b89be2915f0690e425038791395468733a4:frontend/.angular/cache/19.1.6/first-app/vite/deps/@angular_forms.js
 
 // ../../node_modules/@angular/forms/fesm2022/forms.mjs
 var BaseControlValueAccessor = class _BaseControlValueAccessor {
@@ -965,7 +975,7 @@ var AbstractControlDirective = class {
    * @usageNotes
    * For example, for the following `FormGroup`:
    *
-   * ```
+   * ```ts
    * form = new FormGroup({
    *   address: new FormGroup({ street: new FormControl() })
    * });
@@ -998,7 +1008,7 @@ var AbstractControlDirective = class {
    * @usageNotes
    * For example, for the following `FormGroup`:
    *
-   * ```
+   * ```ts
    * form = new FormGroup({
    *   address: new FormGroup({ street: new FormControl() })
    * });
@@ -2165,7 +2175,7 @@ var AbstractControl = class {
    * @usageNotes
    * For example, for the following `FormGroup`:
    *
-   * ```
+   * ```ts
    * form = new FormGroup({
    *   address: new FormGroup({ street: new FormControl() })
    * });
@@ -2196,7 +2206,7 @@ var AbstractControl = class {
    * @usageNotes
    * For example, for the following `FormGroup`:
    *
-   * ```
+   * ```ts
    * form = new FormGroup({
    *   address: new FormGroup({ street: new FormControl() })
    * });
@@ -2415,7 +2425,7 @@ var FormGroup = class extends AbstractControl {
    * @usageNotes
    * ### Set the complete value for the form group
    *
-   * ```
+   * ```ts
    * const form = new FormGroup({
    *   first: new FormControl(),
    *   last: new FormControl()
@@ -2464,7 +2474,7 @@ var FormGroup = class extends AbstractControl {
    * @usageNotes
    * ### Patch the value for a form group
    *
-   * ```
+   * ```ts
    * const form = new FormGroup({
    *    first: new FormControl(),
    *    last: new FormControl()
@@ -2544,7 +2554,7 @@ var FormGroup = class extends AbstractControl {
    *
    * ### Reset the form group values and disabled status
    *
-   * ```
+   * ```ts
    * const form = new FormGroup({
    *   first: new FormControl('first name'),
    *   last: new FormControl('last name')
@@ -2661,7 +2671,7 @@ var isFormGroup = (control) => control instanceof FormGroup;
 var FormRecord = class extends FormGroup {
 };
 var isFormRecord = (control) => control instanceof FormRecord;
-var CALL_SET_DISABLED_STATE = new InjectionToken("CallSetDisabledState", {
+var CALL_SET_DISABLED_STATE = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "CallSetDisabledState" : "", {
   providedIn: "root",
   factory: () => setDisabledStateDefault
 });
@@ -3624,7 +3634,7 @@ var NgModel = class _NgModel extends NgControl {
     });
   }
   _checkForErrors() {
-    if (!this._isStandalone()) {
+    if ((typeof ngDevMode === "undefined" || ngDevMode) && !this._isStandalone()) {
       this._checkParentType();
     }
     this._checkName();
@@ -4818,7 +4828,9 @@ var FormArrayName = class _FormArrayName extends ControlContainer {
    * @nodoc
    */
   ngOnInit() {
-    this._checkParentType();
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      this._checkParentType();
+    }
     this.formDirective.addFormArray(this);
   }
   /**
@@ -5035,7 +5047,9 @@ var FormControlName = class _FormControlName extends NgControl {
     }
   }
   _setUpControl() {
-    this._checkParentType();
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      this._checkParentType();
+    }
     this.control = this.formDirective.addControl(this);
     this._added = true;
   }
@@ -6234,7 +6248,7 @@ var FormArray = class extends AbstractControl {
    * @usageNotes
    * ### Set the values for the controls in the form array
    *
-   * ```
+   * ```ts
    * const arr = new FormArray([
    *   new FormControl(),
    *   new FormControl()
@@ -6279,7 +6293,7 @@ var FormArray = class extends AbstractControl {
    * @usageNotes
    * ### Patch the values for controls in a form array
    *
-   * ```
+   * ```ts
    * const arr = new FormArray([
    *    new FormControl(),
    *    new FormControl()
@@ -6336,7 +6350,7 @@ var FormArray = class extends AbstractControl {
    *
    * ### Reset the values in a form array and the disabled status for the first control
    *
-   * ```
+   * ```ts
    * arr.reset([
    *   {value: 'name', disabled: true},
    *   'last'
@@ -6712,7 +6726,7 @@ var UntypedFormBuilder = class _UntypedFormBuilder extends FormBuilder {
     }]
   }], null, null);
 })();
-var VERSION = new Version("19.0.6");
+var VERSION = new Version("19.1.5");
 var FormsModule = class _FormsModule {
   /**
    * @description
@@ -6865,7 +6879,7 @@ export {
 
 @angular/forms/fesm2022/forms.mjs:
   (**
-   * @license Angular v19.0.6
+   * @license Angular v19.1.5
    * (c) 2010-2024 Google LLC. https://angular.io/
    * License: MIT
    *)

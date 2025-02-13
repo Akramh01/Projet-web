@@ -94,10 +94,18 @@ import {
   provideNetlifyLoader,
   registerLocaleData,
   setRootDomAdapter
+<<<<<<< HEAD:frontend/.angular/cache/19.0.7/first-app/vite/deps/@angular_common.js
 } from "./chunk-4BENXGPW.js";
 import {
   IMAGE_CONFIG
 } from "./chunk-GIYDUOAQ.js";
+=======
+} from "./chunk-KOO6HHSS.js";
+import {
+  IMAGE_CONFIG
+} from "./chunk-VU6X2Q5G.js";
+import "./chunk-5TID76VL.js";
+>>>>>>> 83be2b89be2915f0690e425038791395468733a4:frontend/.angular/cache/19.1.6/first-app/vite/deps/@angular_common.js
 export {
   APP_BASE_HREF,
   AsyncPipe,
@@ -197,4 +205,3 @@ export {
   parseCookieValue as ɵparseCookieValue,
   setRootDomAdapter as ɵsetRootDomAdapter
 };
-//# sourceMappingURL=@angular_common.js.map

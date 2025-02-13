@@ -73,7 +73,6 @@ import {
   KeyValueDiffers,
   LContext,
   LOCALE_ID,
-  LifecycleHooksFeature,
   LocaleDataIndex,
   MicrotaskEffectScheduler,
   MissingTranslationStrategy,
@@ -203,7 +202,7 @@ import {
   getAsyncClassMetadataFn,
   getClosestComponentName,
   getDebugNode,
-  getDeferBlocks,
+  getDeferBlocks$1,
   getDirectives,
   getHostElement,
   getInjectableDef,
@@ -303,6 +302,7 @@ import {
   ɵɵNgOnChangesFeature,
   ɵɵProvidersFeature,
   ɵɵadvance,
+  ɵɵattachSourceLocations,
   ɵɵattribute,
   ɵɵattributeInterpolate1,
   ɵɵattributeInterpolate2,
@@ -493,7 +493,12 @@ import {
   ɵɵvalidateIframeAttribute,
   ɵɵviewQuery,
   ɵɵviewQuerySignal
+<<<<<<< HEAD:frontend/.angular/cache/19.0.7/first-app/vite/deps/@angular_core.js
 } from "./chunk-GIYDUOAQ.js";
+=======
+} from "./chunk-VU6X2Q5G.js";
+import "./chunk-5TID76VL.js";
+>>>>>>> 83be2b89be2915f0690e425038791395468733a4:frontend/.angular/cache/19.1.6/first-app/vite/deps/@angular_core.js
 export {
   ANIMATION_MODULE_TYPE,
   APP_BOOTSTRAP_LISTENER,
@@ -668,7 +673,6 @@ export {
   IS_INCREMENTAL_HYDRATION_ENABLED as ɵIS_INCREMENTAL_HYDRATION_ENABLED,
   JSACTION_EVENT_CONTRACT as ɵJSACTION_EVENT_CONTRACT,
   LContext as ɵLContext,
-  LifecycleHooksFeature as ɵLifecycleHooksFeature,
   LocaleDataIndex as ɵLocaleDataIndex,
   MicrotaskEffectScheduler as ɵMicrotaskEffectScheduler,
   NG_COMP_DEF as ɵNG_COMP_DEF,
@@ -732,7 +736,7 @@ export {
   getAsyncClassMetadataFn as ɵgetAsyncClassMetadataFn,
   getClosestComponentName as ɵgetClosestComponentName,
   getDebugNode as ɵgetDebugNode,
-  getDeferBlocks as ɵgetDeferBlocks,
+  getDeferBlocks$1 as ɵgetDeferBlocks,
   getDirectives as ɵgetDirectives,
   getHostElement as ɵgetHostElement,
   getInjectableDef as ɵgetInjectableDef,
@@ -800,6 +804,7 @@ export {
   ɵɵNgOnChangesFeature,
   ɵɵProvidersFeature,
   ɵɵadvance,
+  ɵɵattachSourceLocations,
   ɵɵattribute,
   ɵɵattributeInterpolate1,
   ɵɵattributeInterpolate2,
@@ -992,4 +997,3 @@ export {
   ɵɵviewQuery,
   ɵɵviewQuerySignal
 };
-//# sourceMappingURL=@angular_core.js.map

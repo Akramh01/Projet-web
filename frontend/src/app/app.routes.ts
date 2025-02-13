@@ -4,8 +4,6 @@ import { MissionsPageComponent } from './container/missions-page/missions-page.c
 import { AjouterCollaborateurComponent } from './container/collaborateurs-page/popups/ajouter-collaborateur/ajouter-collaborateur.component';
 // import { DashboardComponent } from './container/dashboard-page/dashboard-page.component';
 
-
-
 export const routes: Routes = [
   // { path: '', component: DashboardComponent },
   { path: 'collaborateurs-page', component: CollaborateursComponent },

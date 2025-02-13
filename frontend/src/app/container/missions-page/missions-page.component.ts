@@ -3,6 +3,7 @@ import { MissionsFiltersComponent } from "../../component/missions-filters/missi
 import { AddMissionButtonComponent } from "../../component/add-mission-button/add-mission-button.component";
 import { MissionsListComponent } from "../../component/missions-list/missions-list.component";
 import { Mission } from 'src/app/services/missions.service';
+import {MissionFormComponent} from 'src/app/component/mission-form/mission-form.component';
 
 @Component({
   selector: 'app-missions-page',
@@ -10,6 +11,7 @@ import { Mission } from 'src/app/services/missions.service';
       MissionsFiltersComponent,
       AddMissionButtonComponent,
       MissionsListComponent,
+      MissionFormComponent,
     ],
   templateUrl: './missions-page.component.html',
   styleUrl: './missions-page.component.scss'
