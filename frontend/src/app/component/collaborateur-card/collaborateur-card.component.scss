@@ -71,7 +71,7 @@
   display: flex;
   gap: 10px;
   flex-grow: 1;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .competence-container {
@@ -79,6 +79,7 @@
   flex-wrap: nowrap;
   overflow: hidden;
   gap: 10px; 
+  justify-content: flex-start;
 }
 
 .competence-rectangle, .show-more-button {

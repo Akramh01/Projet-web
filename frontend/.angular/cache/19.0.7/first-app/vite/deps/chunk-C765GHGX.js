@@ -3,7 +3,7 @@ import {
   XhrFactory,
   isPlatformServer,
   parseCookieValue
-} from "./chunk-4BENXGPW.js";
+} from "./chunk-X5G5XMEP.js";
 import {
   APP_BOOTSTRAP_LISTENER,
   ApplicationRef,
@@ -14,37 +14,39 @@ import {
   InjectionToken,
   NgModule,
   NgZone,
-  Observable,
   PLATFORM_ID,
   PendingTasksInternal,
   RuntimeError,
   TransferState,
+  formatRuntimeError,
+  inject,
+  makeEnvironmentProviders,
+  makeStateKey,
+  performanceMarkFeature,
+  runInInjectionContext,
+  setClassMetadata,
+  truncateMiddle,
+  ɵɵdefineInjectable,
+  ɵɵdefineInjector,
+  ɵɵdefineNgModule,
+  ɵɵinject
+} from "./chunk-IUL4KHBD.js";
+import {
+  Observable,
   __async,
   __objRest,
   __spreadValues,
   concatMap,
   filter,
   finalize,
-  formatRuntimeError,
   from,
-  inject,
-  makeEnvironmentProviders,
-  makeStateKey,
   map,
   of,
-  performanceMarkFeature,
-  runInInjectionContext,
-  setClassMetadata,
   switchMap,
-  tap,
-  truncateMiddle,
-  ɵɵdefineInjectable,
-  ɵɵdefineInjector,
-  ɵɵdefineNgModule,
-  ɵɵinject
-} from "./chunk-GIYDUOAQ.js";
+  tap
+} from "./chunk-A4MJKIFP.js";
 
-// ../../node_modules/@angular/common/fesm2022/http.mjs
+// ../node_modules/@angular/common/fesm2022/http.mjs
 var HttpHandler = class {
 };
 var HttpBackend = class {
@@ -2451,4 +2453,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-POHUAKX2.js.map
+//# sourceMappingURL=chunk-C765GHGX.js.map

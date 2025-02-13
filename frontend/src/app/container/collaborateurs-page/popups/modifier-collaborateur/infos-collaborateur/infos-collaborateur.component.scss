@@ -1,0 +1,35 @@
+.profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  margin-right: 15px;
+}
+
+.avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.profile-info h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #2d2d2d;
+}
+
+.details {
+  margin-top: 10px;
+}
+
+.details p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: #4c3b6e;
+}
+
+.details strong {
+  color: #2d2d2d;
+}

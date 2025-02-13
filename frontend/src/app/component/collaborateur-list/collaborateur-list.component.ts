@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CollaborateurService } from '../../services/collaborateur.service';
 import { CollaborateurCardComponent } from '../collaborateur-card/collaborateur-card.component'; 
+import { AjouterCollaborateurComponent } from 'src/app/container/collaborateurs-page/popups/ajouter-collaborateur/ajouter-collaborateur.component';
 
 
 @Component({
@@ -8,12 +9,13 @@ import { CollaborateurCardComponent } from '../collaborateur-card/collaborateur-
   templateUrl: './collaborateur-list.component.html',
   styleUrls: ['./collaborateur-list.component.scss'],
   standalone: true,
-  imports: [CollaborateurCardComponent]
+  imports: [CollaborateurCardComponent, AjouterCollaborateurComponent]
 })
 
 export class CollaborateurListComponent implements OnInit {
   collaborateurs: any[] = [];
   searchTerm: string = '';
+  showAddPopup: boolean = false;
 
   constructor(private collaborateurService: CollaborateurService) {}
 
@@ -53,4 +55,14 @@ export class CollaborateurListComponent implements OnInit {
       this.loadCollaborateurs();
     }
   }
+
+  openAddPopup(): void {
+    this.showAddPopup = true;
+  }
+
+  // Méthode pour fermer le pop-up de détail
+  closeAddPopup(): void {
+    this.showAddPopup = false;
+  }
+
 }

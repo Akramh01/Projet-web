@@ -8,7 +8,7 @@
         {{ collaborateur.nom }} {{ collaborateur.prenom }}
       </div>
     </div>
-    <button class="edit-icon">
+    <button class="edit-icon" (click)="openModifierPopup()">
       <img src="assets/pencil.svg" alt="Modifier">
     </button>
   </div>
@@ -54,5 +54,12 @@
       [competences]="competences"
       (close)="closeDetailPopup()"
     ></app-detail-collaborateur>
+  }
+
+  @if (showModifierPopup) {
+    <app-modifier-collaborateur
+      [idE]="collaborateur.idE"
+      (close)="closeModifierPopup()"
+    ></app-modifier-collaborateur>
   }
 </div>

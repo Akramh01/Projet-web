@@ -4,15 +4,14 @@ import { Competence } from 'src/app/services/competences.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-ajouter-formulaire',
-  imports: [CommonModule],
-  templateUrl: './ajouter-formulaire.component.html',
-  styleUrl: './ajouter-formulaire.component.scss'
+  selector: 'app-ajouter-competences',
+  imports: [ CommonModule ],
+  templateUrl: './ajouter-competences.component.html',
+  styleUrl: './ajouter-competences.component.scss'
 })
+export class AjouterCompetencesComponent implements OnInit {
 
-export class AjouterFormulaireComponent implements OnInit{
-
- @Output() competencesSelected: EventEmitter<number[]> = new EventEmitter<number[]>();
+  @Output() competencesSelected: EventEmitter<number[]> = new EventEmitter<number[]>();
   competences: Competence[] = [];
   selectedCompetences: number[] = [];
   selectedCompetencesDetails: Competence[] = [];

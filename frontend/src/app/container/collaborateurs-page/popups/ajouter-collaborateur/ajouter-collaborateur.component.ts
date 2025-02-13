@@ -1,25 +1,27 @@
-import { Component } from '@angular/core';
-import { AjouterFormulaireComponent } from './ajouter-formulaire/ajouter-formulaire.component';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CollaborateurService } from 'src/app/services/collaborateur.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AvoirService } from 'src/app/services/avoir.service';
 
 @Component({
   selector: 'app-ajouter-collaborateur',
   standalone: true,
-  imports: [AjouterFormulaireComponent, ReactiveFormsModule],
+  imports: [ ReactiveFormsModule],
   templateUrl: './ajouter-collaborateur.component.html',
-  styleUrl: './ajouter-collaborateur.component.scss',
+  styleUrl: './ajouter-collaborateur.component.scss'
 })
 
 export class AjouterCollaborateurComponent {
 
+  @Output() close = new EventEmitter<void>(); // Événement pour fermer le popup
   employeForm: FormGroup;
   selectedCompetences: number[] = [];
 
   constructor(
     private fb: FormBuilder,
     private collaborateurService: CollaborateurService,
+    private avoirService: AvoirService,
     public router: Router
   ) {
     this.employeForm = this.fb.group({
@@ -29,29 +31,53 @@ export class AjouterCollaborateurComponent {
     });
   }
 
+
+
   onCompetencesSelected(competences: number[]) {
     this.selectedCompetences = competences;
+    console.log("Compétences sélectionnées :", this.selectedCompetences);
+  }
+
+  lierCompetences(idE: number) {
+    if (this.selectedCompetences.length === 0) {
+      alert("Aucune compétence sélectionnée !");
+      return;
+    }
+
+    this.selectedCompetences.forEach(idC => {
+      this.avoirService.linkEmployeCompetences(idE, idC).subscribe({
+        next: () => console.log(`Compétence ${idC} liée à l'employé ${idE}`),
+        error: err => console.error("Erreur de liaison", err)
+      });
+    });
   }
 
   submitEmploye(): void {
     if (this.employeForm.valid) {
-      const employeData = this.employeForm.value;
-      console.log('Données du formulaire:', employeData);
+      const formData = this.employeForm.value;
+      
+      // Validation de la date
+      if (isNaN(new Date(formData.dateEmbauche).getTime())) {
+        alert('Date invalide');
+        return;
+      }
+  
+      const employeData = {
+        ...formData,
+        competences: this.selectedCompetences
+      };
   
       this.collaborateurService.addEmployes(employeData).subscribe({
-        next: (response) => {
-          console.log('Succès:', response);
-          // ... reste du code
+        next: () => {
+          this.close.emit();
+          alert('Employé ajouté avec succès !');
         },
-        error: (error) => {
-          console.error('Erreur détaillée:', error);
-          // Afficher plus de détails sur l'erreur
-          alert(`Erreur lors de l'ajout: ${error.message}`);
-        }
+        error: (error) => console.error('Erreur complète:', error)
       });
     }
   }
-
+  
+  closeModal(): void {
+    this.close.emit(); // Fermer le popup
+  }
 }
-
-

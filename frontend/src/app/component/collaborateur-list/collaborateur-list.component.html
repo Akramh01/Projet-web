@@ -13,7 +13,7 @@
           <img src="assets/loupe.svg" alt="Loupe">
         </button>
       </div>
-      <button class="add-person-button">Ajouter un collaborateur</button>
+      <button class="add-person-button" (click)="openAddPopup()">Ajouter un collaborateur</button>
     </div>
 </div>
   
@@ -24,6 +24,12 @@
   }
 </div>
 
+<!-- Pop-up de suppression -->
+@if (showAddPopup) {
+  <app-ajouter-collaborateur
+    (close)="closeAddPopup()"
+  ></app-ajouter-collaborateur>
+}
 
 
 

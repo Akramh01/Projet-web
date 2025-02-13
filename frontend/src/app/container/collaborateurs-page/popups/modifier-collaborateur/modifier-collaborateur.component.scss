@@ -1,0 +1,100 @@
+/* Overlay pour assombrir l'arrière-plan */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Conteneur principal du pop-up */
+  .popup {
+    background-color: #f4f0fa;
+    padding: 25px;
+    width: 500px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    animation: fadeIn 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Animation d'apparition */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  /* Bouton de fermeture */
+  .popup-header {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+  
+  .close-button img {
+    width: 18px;
+  }
+  
+  .close-button:hover img {
+    opacity: 0.7;
+  }
+  
+  /* Titre du formulaire */
+  .modal-content h2 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #2d2d2d;
+  }
+  
+  /* Styles pour les compétences */
+  .competence-container {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .competence-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2d2d2d;
+    margin-bottom: 10px;
+  }
+  
+  .button-container {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .button-container button {
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #4c3b6e;
+    color: white;
+    width: 100%;
+  }
+  
+  .button-container button:hover {
+    background-color: #5a4566;
+  }
