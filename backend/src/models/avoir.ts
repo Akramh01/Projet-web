@@ -7,7 +7,6 @@ import { Competences } from './competences';
 export class Avoir extends Model {
     public idE!: number;
     public idC!: string;
-    public niveau !: 'débutant' | 'intermédiaire' | 'expert' 
     Competence: any;
     Employe: any;
 }
@@ -32,10 +31,7 @@ Avoir.init(
             },
             onDelete: 'CASCADE',
         },
-        niveau: {
-            type: DataTypes.ENUM('débutant', 'intermédiaire', 'expert'),
-           
-        }
+       
     },
     {
         sequelize,

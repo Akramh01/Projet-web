@@ -12,7 +12,8 @@
   <h3>Compétences sélectionnées :</h3>
   <ul>
     <li *ngFor="let competence of selectedCompetencesDetails">
-      {{ competence.nom_fr }}
+      
+      {{ competence.nom_fr }} 
       <span class="remove-btn" (click)="onRemoveCompetence(competence.id)">×</span>
     </li>
   </ul>

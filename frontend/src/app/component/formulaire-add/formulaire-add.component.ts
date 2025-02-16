@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { AddCComponent } from '../add-c/add-c.component';
 import { CollaborateurService } from 'src/app/services/collaborateur.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { AvoirService } from 'src/app/services/avoir.service';
 @Component({
   selector: 'app-formulaire-add',
-  imports: [AddCComponent,ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './formulaire-add.component.html',
   styleUrl: './formulaire-add.component.scss',
   standalone: true
@@ -32,10 +30,7 @@ export class FormulaireAddComponent {
 
 
 
-  onCompetencesSelected(competences: number[]) {
-    this.selectedCompetences = competences;
-    console.log("Compétences sélectionnées :", this.selectedCompetences);
-  }
+  
 
   lierCompetences(idE: number) {
     if (this.selectedCompetences.length === 0) {

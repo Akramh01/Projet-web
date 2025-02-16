@@ -66,6 +66,5 @@ export class AddCComponent implements OnInit {
     this.selectedCompetencesDetails = this.selectedCompetencesDetails.filter(c => c.id !== competenceId);
     this.emitSelectedCompetences();  // Emit the selected competences after removal
   }
-
   
 }

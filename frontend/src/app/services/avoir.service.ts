@@ -14,9 +14,11 @@ export class AvoirService {
   
 // Modifier la méthode pour envoyer idE et idC au backend
 linkEmployeCompetences(idE: number, idC: number): Observable<any> {
-  return this.http.post(`${this.apiUrl}`, { idE, idC });
+    return this.http.post(`${this.apiUrl}`, { 
+    idE: idE,
+    idC: idC 
+  });
 }
-
   // Rechercher des employés par compétence
   searchEmployesByCompetence(nom_fr: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/employes?idC=${nom_fr}`);

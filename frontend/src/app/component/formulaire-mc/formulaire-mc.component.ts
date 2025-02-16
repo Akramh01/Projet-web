@@ -11,39 +11,51 @@ import { AddCComponent } from '../add-c/add-c.component';
   styleUrl: './formulaire-mc.component.scss'
 })
 export class FormulaireMCComponent {
-  @Input() idE!: number;
- selectedCollaborateur = {}; 
- @Output() toggleDropdown = new EventEmitter<void>(); // Événement pour basculer la liste
- selectedCompetences: number[] = [];
+  @Input() idE!: number; // À recevoir du composant parent
+  selectedCompetences: number[] = [];
   
-    onCompetencesSelected(competences: number[]) {
-      this.selectedCompetences = competences;
-    }
-
-  constructor(private avoirService: AvoirService) {}
   @Output() updateDone = new EventEmitter<void>();
+  
+  constructor(private avoirService: AvoirService) {}
 
-  // Corriger la méthode
+  onCompetencesSelected(competences: number[]) {
+    this.selectedCompetences = competences;
+  }
   lierCompetences() {
-    if (!this.idE || this.selectedCompetences.length === 0) {
-      alert("Veuillez sélectionner un collaborateur et au moins une compétence");
+    console.log('Validation - ID Employé:', this.idE);
+    console.log('Validation - Compétences:', this.selectedCompetences);
+    
+    const idCollaborateur = 1;
+    if (!idCollaborateur || isNaN(idCollaborateur)) {
+     alert("ID collaborateur invalide !");
+     return;
+    }
+    
+    if (!this.selectedCompetences || this.selectedCompetences.length === 0) {
+      alert("Veuillez sélectionner au moins une compétence");
       return;
     }
-
-    const requests = this.selectedCompetences.map(idC => 
-      this.avoirService.linkEmployeCompetences(this.idE, idC)
-    );
-
-    forkJoin(requests).subscribe({
-      next: () => {
-        alert('Compétences liées avec succès !');
-        this.updateDone.emit();
-      },
-      error: (err: any) => { // Ajouter le type explicite
-        console.error('Erreur lors des liaisons:', err);
-        alert('Erreur lors de la liaison des compétences');
-      }
+   
+    console.log("Avant d'envoyer à l'API:", this.selectedCompetences);
+    this.selectedCompetences.forEach((idC, index) => {
+      this.avoirService.linkEmployeCompetences(this.idE, idC).subscribe({
+        next: () => {
+          // Succès pour cette compétence
+          console.log(`Compétence ${idC} liée avec succès`);
+        },
+        error: (err) => {
+          // Échec pour cette compétence
+          console.error(`Échec pour idC=${idC}`, err);
+          
+          // Retirer la compétence invalide de la liste
+          this.selectedCompetences = this.selectedCompetences.filter(c => c !== idC);
+          
+          // Avertir l'utilisateur
+          alert(`La compétence ${idC} n'a pas pu être liée (erreur: ${err.message})`);
+        }
+      });
     });
-  }
+    
 }
   
+}

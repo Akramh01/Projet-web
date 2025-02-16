@@ -10,25 +10,21 @@ import { CollaborateurService } from 'src/app/services/collaborateur.service';
 export class CollaborateurInfosComponent {
   collaborateurs: any[] = [];
   selectedCollaborateurId?: number;
-
+  @Input() idE!: number;  // Récupère l'ID de l'employé depuis le parent
+  collaborateur: any;
   constructor(private collaborateurService: CollaborateurService) {}
 
   ngOnInit() {
-    this.loadCollaborateurs();
-  }
-
-  loadCollaborateurs() {
-    this.collaborateurService.getEmployes().subscribe({
-      next: (data) => this.collaborateurs = data,
-      error: (err) => console.error('Erreur de chargement', err)
-    });
+    if (this.idE) {
+      this.collaborateurService.getEmployeWithId(this.idE).subscribe({
+        next: (data) => this.collaborateur = data,
+        error: (err) => console.error('Erreur lors de la récupération du collaborateur', err)
+      });
+    }
   }
 
   selectCollaborateur(idE: number) {
     this.selectedCollaborateurId = idE;
   }
-  onUpdate() {
-    this.loadCollaborateurs(); // Rafraîchir la liste après mise à jour
-    
-}
+ 
 }
