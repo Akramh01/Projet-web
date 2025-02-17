@@ -30,6 +30,7 @@
 @if (showAddPopup) {
   <app-ajouter-collaborateur
     (close)="closeAddPopup()"
+    (collaborateurAdded)="onCollaborateurAdded()"
   ></app-ajouter-collaborateur>
 }
 
