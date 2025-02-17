@@ -39,10 +39,11 @@
     </button>
   </div>
 
-  <!-- Pop-up de suppression -->
+
   @if (showDeletePopup) {
     <app-supprimer-collaborateur
       [isVisible]="showDeletePopup"
+      [collaborateur]="collaborateur"
       (confirmDelete)="onConfirmDelete()"
       (cancelDelete)="onCancelDelete()"
     ></app-supprimer-collaborateur>

@@ -37,7 +37,8 @@ export class SupprimerCollaborateurComponent {
       this.collaborateurService.deleteEmploye(this.collaborateur.idE).subscribe(
         () => {
           alert('Employé supprimé avec succès !');
-          this.closePopup(); // Fermer le pop-up après la suppression
+          this.closePopup(); 
+          this.confirmDelete.emit(); 
         },
         (error) => {
           console.error('Erreur lors de la suppression de l\'employé :', error);
