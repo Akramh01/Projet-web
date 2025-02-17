@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
-dotenv.config({ path: './backend/.env' });
+dotenv.config();
 
 
 
@@ -16,9 +16,7 @@ const sequelize = new Sequelize(
     logging: false, // Désactiver les logs de requêtes SQL
   }
 );
-if (!process.env.DB_USER || !process.env.DB_PASSWORD) {
-  throw new Error('Les variables d\'environnement DB_USER et DB_PASSWORD doivent être définies.');
-}
+
 
 // Tester la connexion
 sequelize.authenticate()
