@@ -25,7 +25,8 @@ export class MissionsListComponent implements OnInit {
   }
 
 
-  filterMissions(searchQuery: string = '') {
+  filterMissions(searchQuery: string = ''
+  ) {
     if(!searchQuery || searchQuery === '') {
       this.filteredMissions = this.allMissions;
       return;
