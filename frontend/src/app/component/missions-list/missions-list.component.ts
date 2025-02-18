@@ -12,43 +12,28 @@ import { MissionsFiltersComponent } from "../missions-filters/missions-filters.c
 })
 export class MissionsListComponent implements OnInit {
 
-  missions: Mission[] = [];
-  filteredMissions: { [key: string]: Mission[] } = {};
-  searchQuery: string = '';
+  allMissions: Mission[] = [];
+  filteredMissions: Mission[] = [];
 
   constructor(private missionsService: MissionsService) {}
   
   ngOnInit(): void {
     this.missionsService.getMissions().subscribe((data) => {
-      this.missions = data;
+      this.allMissions = data;
       this.filterMissions();
     });
   }
-  
+
+
   filterMissions(searchQuery: string = '') {
-
-    if (!this.missions || this.missions.length === 0) {
+    if(!searchQuery || searchQuery === '') {
+      this.filteredMissions = this.allMissions;
       return;
-    }
-
-    const statuses = ['Préparation', 'Plannifiée', 'En cours', 'Terminée'];
-    this.filteredMissions = {};
-
-    statuses.forEach(status => {
-      this.filteredMissions[status] = this.missions.filter(mission => {
-
-        if (!mission || !mission.statut || !mission.titre) {
-          return false;
-        }
-        const missionName = mission.titre.toLowerCase();
-        const missionStatus = mission.statut.toLowerCase();
-
-        const matchStatus = missionStatus === status.toLowerCase();
-        const matchSearch = searchQuery === '' || missionName.includes(searchQuery.toLowerCase());
-
-        return matchStatus && matchSearch;
+    }else{
+      this.filteredMissions = this.allMissions.filter(mission => {
+        return mission.titre.toLowerCase().includes(searchQuery.toLowerCase());
       });
-    });
+    }
   }
 
   getStatusClass(status: string): string {
@@ -66,11 +51,7 @@ export class MissionsListComponent implements OnInit {
     }
   }
 
-  trackByStatus(index: number, status: string): string {
-    return status;
-  }
-
-  trackByMission(index: number, mission: any): string {
-    return mission.id;
+  getFilteredMissions(statut: any): Mission[] {
+    return this.filteredMissions.filter(mission => mission.statut.toLowerCase() === statut.toLowerCase());
   }
 }
