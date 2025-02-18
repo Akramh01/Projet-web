@@ -1,10 +1,10 @@
-import express, { Request, Response, NextFunction } from 'express';
-import employesRoutes from './routes/employesRoutes';
-import competenceRoutes from './routes/competenceRoutes';
-import affecterRoutes from './routes/affecterRoutes';
-import missionsRoutes from './routes/missionsRoutes';
+import express from 'express';
 import { errorHandler } from './middlewares/errorHandler';
+import affecterRoutes from './routes/affecterRoutes';
 import avoirRoutes from './routes/avoirRoutes';
+import competenceRoutes from './routes/competenceRoutes';
+import employesRoutes from './routes/employesRoutes';
+import missionsRoutes from './routes/missionsRoutes';
 import requerirRoutes from './routes/requerirRoutes';
 const cors = require('cors');
 
