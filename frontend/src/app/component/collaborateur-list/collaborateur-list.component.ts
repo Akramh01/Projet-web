@@ -29,6 +29,16 @@ export class CollaborateurListComponent implements OnInit {
     });
   }
 
+  // Méthode pour recharger la liste après suppression
+  onDeleteCollaborateur(): void {
+    this.loadCollaborateurs();
+  }
+
+  // Méthode pour recharger la liste après ajout
+  onCollaborateurAdded(): void {
+    this.loadCollaborateurs(); // Recharge la liste des collaborateurs
+  }
+
   // Méthode pour mettre à jour le terme de recherche
   updateSearchTerm(event: Event): void {
     const inputElement = event.target as HTMLInputElement;

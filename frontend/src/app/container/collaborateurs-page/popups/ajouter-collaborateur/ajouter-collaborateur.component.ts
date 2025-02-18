@@ -15,6 +15,7 @@ import { AvoirService } from 'src/app/services/avoir.service';
 export class AjouterCollaborateurComponent {
 
   @Output() close = new EventEmitter<void>(); // Événement pour fermer le popup
+  @Output() collaborateurAdded = new EventEmitter<void>();
   employeForm: FormGroup;
   selectedCompetences: number[] = [];
 
@@ -70,6 +71,7 @@ export class AjouterCollaborateurComponent {
       this.collaborateurService.addEmployes(employeData).subscribe({
         next: () => {
           this.close.emit();
+          this.collaborateurAdded.emit();
           alert('Employé ajouté avec succès !');
         },
         error: (error) => console.error('Erreur complète:', error)
