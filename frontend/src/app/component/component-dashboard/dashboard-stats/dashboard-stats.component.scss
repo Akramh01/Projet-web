@@ -1,0 +1,18 @@
+
+
+.stats-container {
+    display: flex;
+    justify-content: space-between; /* Répartit l'espace entre les boîtes */
+    align-items: stretch; /* Assure que toutes les boîtes ont la même hauteur */
+    max-width: 60%; /* Limite la largeur à 60% de l'écran */
+    margin-left: auto; /* Centre le conteneur */
+    margin-right: auto; /* Centre le conteneur */
+    gap: 20px; /* Ajoute un espace entre les boîtes */
+  }
+
+  @media (max-width: 768px) {
+    .stats-container {
+      flex-direction: column; /* Empile les boîtes verticalement */
+      max-width: 90%; /* Augmente la largeur pour les petits écrans */
+    }
+  }

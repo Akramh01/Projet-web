@@ -1,0 +1,23 @@
+.title {
+    color: #41315F;
+    font-weight: bold;
+    font-size: 22px;
+    padding-left: 130px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.dashboard-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; 
+    padding: 20px; 
+  }
+  
+  .stats-section {
+    flex: 2;
+  }
+  
+  .notifications-section {
+    flex: 1;
+  }
