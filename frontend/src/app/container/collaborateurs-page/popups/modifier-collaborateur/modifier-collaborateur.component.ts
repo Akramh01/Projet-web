@@ -52,9 +52,11 @@ export class ModifierCollaborateurComponent {
     forkJoin(requests).subscribe({
       next: () => {
         alert('Compétences liées avec succès !');
+        
+        this.collaborateurAddeC.emit();
         this.updateDone.emit();
         this.close.emit();
-        this.collaborateurAddeC.emit();
+        
         
       },
       error: (err: any) => {
