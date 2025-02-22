@@ -6,9 +6,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./detail-collaborateur.component.scss']
 })
 export class DetailCollaborateurComponent {
-  @Input() collaborateur: any; // Reçoit les données du collaborateur
-  @Input() competences: any[] = []; // Reçoit la liste des compétences
-  @Output() close = new EventEmitter<void>(); // Émet un événement pour fermer le pop-up
+  @Input() collaborateur: any; // Recevoir les données du collaborateur
+  @Input() competences: any[] = []; // Recevoir la liste des compétences
+  @Output() close = new EventEmitter<void>(); // Émettre un événement pour fermer le pop-up
 
   constructor() {}
 

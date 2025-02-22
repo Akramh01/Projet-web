@@ -62,7 +62,10 @@ export class CollaborateurCardComponent {
   closeDetailPopup(): void {
     this.showDetailPopup = false;
   }
-
+//Méthode pour  recharger la liste aprés ajouter des competences a un employe 
+onCollaborateurAddeC(): void {
+  this. loadCompetences(); // Recharge la liste des collaborateurs
+}
   // Méthode pour confirmer la suppression
   onConfirmDelete(): void {
     this.collaborateurService.deleteEmploye(this.collaborateur.idE).subscribe(
