@@ -21,9 +21,7 @@ export class CompetenceCollaborateurComponent {
     }
   }
 
-  /**
-   * Récupère les compétences du collaborateur à partir de son ID.
-   */
+  
   loadCompetences(): void {
     this.collaborateurService.getCompetencesByEmployeId(this.collaborateurId).subscribe(
       (response) => {

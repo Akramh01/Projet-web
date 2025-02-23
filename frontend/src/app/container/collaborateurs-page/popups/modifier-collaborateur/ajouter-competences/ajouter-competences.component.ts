@@ -1,19 +1,19 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter , signal} from '@angular/core';
 import { CompetenceService } from 'src/app/services/competences.service';
 import { Competence } from 'src/app/services/competences.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-ajouter-competences',
-  imports: [ CommonModule ],
+  imports: [],
   templateUrl: './ajouter-competences.component.html',
-  styleUrl: './ajouter-competences.component.scss'
+  styleUrl: './ajouter-competences.component.scss',
+  standalone: true
 })
 export class AjouterCompetencesComponent implements OnInit {
 
-  @Output() competencesSelected: EventEmitter<number[]> = new EventEmitter<number[]>();
+  @Output() competencesSelected: EventEmitter<string[]> = new EventEmitter<string[]>();
   competences: Competence[] = [];
-  selectedCompetences: number[] = [];
+  selectedCompetences:string[] = [];
   selectedCompetencesDetails: Competence[] = [];
   isDropdownVisible = false;
   errorMessage: string | null = null;
@@ -44,17 +44,22 @@ export class AjouterCompetencesComponent implements OnInit {
   }
 
   onCheckboxChange(event: any, competence: Competence): void {
+    if (!competence || typeof competence.idC === 'undefined') {
+      console.error('Compétence invalide:', competence);
+      return;
+    }
+  
     if (event.target.checked) {
-      this.selectedCompetences.push(competence.id);
+      this.selectedCompetences.push(competence.idC);
       this.selectedCompetencesDetails.push(competence);
     } else {
-      const index = this.selectedCompetences.indexOf(competence.id);
+      const index = this.selectedCompetences.indexOf(competence.idC);
       if (index !== -1) {
         this.selectedCompetences.splice(index, 1);
-        this.selectedCompetencesDetails = this.selectedCompetencesDetails.filter(c => c.id !== competence.id);
+        this.selectedCompetencesDetails = this.selectedCompetencesDetails.filter(c => c.idC !== competence.idC);
       }
     }
-    this.emitSelectedCompetences();  // Émettre les compétences sélectionnées vers le parent
+    this.emitSelectedCompetences();
   }
   
   private emitSelectedCompetences(): void {
@@ -62,10 +67,13 @@ export class AjouterCompetencesComponent implements OnInit {
   }
   
 
-  onRemoveCompetence(competenceId: number): void {
-    this.selectedCompetences = this.selectedCompetences.filter(id => id !== competenceId);
-    this.selectedCompetencesDetails = this.selectedCompetencesDetails.filter(c => c.id !== competenceId);
+  onRemoveCompetence(competenceIdC: string): void {
+    this.selectedCompetences = this.selectedCompetences.filter(id => id!== competenceIdC);
+    this.selectedCompetencesDetails = this.selectedCompetencesDetails.filter(c => c.idC !== competenceIdC);
     this.emitSelectedCompetences();  // Emit the selected competences after removal
   }
-
+  trackByCompetenceId(index: number, competence: Competence): string {
+    return competence.idC;  // Retourner l'ID pour suivre les éléments de manière unique
+  }
+  
 }

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Competence {
-  id: number;
+  idC: string;
   nom_fr: string;
   nom_en: string;
 }
@@ -21,8 +21,8 @@ export class CompetenceService {
         return this.http.get<Competence[]>(`${this.apiUrl}/`);
     }
  
-    getCompetenceById(id: number): Observable<Competence> {
-        return this.http.get<Competence>(`${this.apiUrl}/id?idC=${id}`);
+    getCompetenceById(idC:string): Observable<Competence> {
+        return this.http.get<Competence>(`${this.apiUrl}/id?idC=${idC}`);
     }
 
     getCompetenceWithNameFr(nom_fr: string): Observable<Competence> {

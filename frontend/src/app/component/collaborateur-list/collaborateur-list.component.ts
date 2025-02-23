@@ -3,7 +3,6 @@ import { CollaborateurService } from '../../services/collaborateur.service';
 import { CollaborateurCardComponent } from '../collaborateur-card/collaborateur-card.component'; 
 import { AjouterCollaborateurComponent } from 'src/app/container/collaborateurs-page/popups/ajouter-collaborateur/ajouter-collaborateur.component';
 
-
 @Component({
   selector: 'app-collaborateur-list',
   templateUrl: './collaborateur-list.component.html',
@@ -16,6 +15,7 @@ export class CollaborateurListComponent implements OnInit {
   collaborateurs: any[] = [];
   searchTerm: string = '';
   showAddPopup: boolean = false;
+  showEditPopup:boolean =false;
 
   constructor(private collaborateurService: CollaborateurService) {}
 
@@ -38,7 +38,7 @@ export class CollaborateurListComponent implements OnInit {
   onCollaborateurAdded(): void {
     this.loadCollaborateurs(); // Recharge la liste des collaborateurs
   }
-
+  
   // Méthode pour mettre à jour le terme de recherche
   updateSearchTerm(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
@@ -74,5 +74,5 @@ export class CollaborateurListComponent implements OnInit {
   closeAddPopup(): void {
     this.showAddPopup = false;
   }
-
+ 
 }

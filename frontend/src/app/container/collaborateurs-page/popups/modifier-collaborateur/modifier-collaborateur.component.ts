@@ -13,42 +13,59 @@ import { CompetenceCollaborateurComponent } from './competence-collaborateur/com
   styleUrl: './modifier-collaborateur.component.scss'
 })
 export class ModifierCollaborateurComponent {
-  @Input() idE!: number;
+ 
   @Output() close = new EventEmitter<void>();
   selectedCollaborateur = {}; 
   @Output() toggleDropdown = new EventEmitter<void>(); // Événement pour basculer la liste
-  selectedCompetences: number[] = [];
+  selectedCompetences: string[] = [];
    
-     onCompetencesSelected(competences: number[]) {
+     onCompetencesSelected(competences: any[]) {
        this.selectedCompetences = competences;
      }
  
    constructor(private avoirService: AvoirService) {}
    @Output() updateDone = new EventEmitter<void>();
- 
-   // Corriger la méthode
-   lierCompetences() {
-     if (!this.idE || this.selectedCompetences.length === 0) {
-       alert("Veuillez sélectionner un collaborateur et au moins une compétence");
-       return;
-     }
- 
-     const requests = this.selectedCompetences.map(idC => 
-       this.avoirService.linkEmployeCompetences(this.idE, idC)
-     );
- 
-     forkJoin(requests).subscribe({
-       next: () => {
-         alert('Compétences liées avec succès !');
-         this.updateDone.emit();
-         this.close.emit();
-       },
-       error: (err: any) => { // Ajouter le type explicite
-         console.error('Erreur lors des liaisons:', err);
-         alert('Erreur lors de la liaison des compétences');
-       }
-     });
-   }
+   @Output() collaborateurAddeC = new EventEmitter<void>();
+   @Input() idE!: number;
+  
+
+  lierCompetences() {
+    console.log('Compétences sélectionnées:', this.selectedCompetences);
+    if (!this.idE || this.selectedCompetences.length === 0) {
+      alert("Veuillez sélectionner un collaborateur et au moins une compétence.");
+      return;
+    }
+
+    const requests = this.selectedCompetences.map((idC) => {
+      if (!idC) {
+        console.error('ID de compétence invalide:', idC);
+        return null;
+      }
+      return this.avoirService.linkEmployeCompetences(this.idE, idC);
+    }).filter(req => req !== null);
+
+    if (requests.length === 0) {
+      alert('Aucune compétence valide sélectionnée.');
+      return;
+    }
+
+    forkJoin(requests).subscribe({
+      next: () => {
+        alert('Compétences liées avec succès !');
+        
+        this.collaborateurAddeC.emit();
+        this.updateDone.emit();
+        this.close.emit();
+        
+        
+      },
+      error: (err: any) => {
+        console.error('Erreur lors des liaisons:', err);
+        alert('Erreur lors de la liaison des compétences.');
+      }
+    });
+  }
+
    closeModal() {
     this.close.emit(); // Fermer le popup
 }}

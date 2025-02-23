@@ -39,19 +39,7 @@ export class AjouterCollaborateurComponent {
     console.log("Compétences sélectionnées :", this.selectedCompetences);
   }
 
-  lierCompetences(idE: number) {
-    if (this.selectedCompetences.length === 0) {
-      alert("Aucune compétence sélectionnée !");
-      return;
-    }
-
-    this.selectedCompetences.forEach(idC => {
-      this.avoirService.linkEmployeCompetences(idE, idC).subscribe({
-        next: () => console.log(`Compétence ${idC} liée à l'employé ${idE}`),
-        error: err => console.error("Erreur de liaison", err)
-      });
-    });
-  }
+  
 
   submitEmploye(): void {
     if (this.employeForm.valid) {
