@@ -1,1 +1,5 @@
-<p>dashboard-stats works!</p>
+<div class="stats-container">
+  <app-stat-box [value]="tauxMissionsTerminees" title="des missions sont terminées" icon="assets/terminee.svg"></app-stat-box>
+  <app-stat-box [value]="collaborateursDisponibles" title="collaborateurs disponibles" icon="assets/collabs.svg"></app-stat-box>
+  <app-stat-box [value]="tauxMissionsEnPreparation" title="des missions sont en préparation" icon="assets/tauxOcc.svg"></app-stat-box>
+</div>
