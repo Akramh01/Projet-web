@@ -19,7 +19,7 @@ export class MissionsPageComponent {
   @ViewChild(MissionsListComponent) missionsList!: MissionsListComponent;
 
   searchQuery: string = '';
-  selectedDate: Date | null = null;
+  selectedDate: string = '';
   selectedPriority: string = '';
     /* @Input() selectedSkill: string = '';
      @Input() selectedCollaborator: string = '';*/
@@ -29,7 +29,7 @@ export class MissionsPageComponent {
     this.searchQuery = searchQuery;
   }
 
-  onSelectedDateEvent(selectedDate: Date) {
+  onSelectedDateEvent(selectedDate: string) {
     this.selectedDate = selectedDate;
   }
 

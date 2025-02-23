@@ -3,7 +3,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { Mission, MissionsService } from '../../services/missions.service';
 import { MissionsCardComponent } from "../missions-card/missions-card.component";
 import { MissionsFiltersComponent } from "../missions-filters/missions-filters.component";
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import utc from 'dayjs/plugin/utc';
 
@@ -14,7 +14,7 @@ dayjs.extend(utc);
   selector: 'app-missions-list',
   imports: [CommonModule, MissionsCardComponent, MissionsFiltersComponent],
   templateUrl: './missions-list.component.html',
-  styleUrl: './missions-list.component.scss'
+  styleUrls: ['./missions-list.component.scss'] // Correction ici
 })
 export class MissionsListComponent implements OnInit, OnChanges  {
 
@@ -23,7 +23,7 @@ export class MissionsListComponent implements OnInit, OnChanges  {
 
   // Propriétés pour les critères de filtrage
   @Input() searchQuery: string = '';
-  @Input() selectedDate: Date | null = null;
+  @Input() selectedDate: string = '';
   @Input() selectedPriority: string = '';
   @Input() selectedSkill: string = '';
   @Input() selectedCollaborator: string = '';
@@ -48,13 +48,10 @@ export class MissionsListComponent implements OnInit, OnChanges  {
       const matchesTitle = mission.titre.toLowerCase().includes(this.searchQuery.toLowerCase());
 
       // Filtre par date
-      const matchesDate = !this.selectedDate ||
-          (new Date(mission.date_debut) <= this.selectedDate && new Date(mission.date_fin) >= this.selectedDate);
+      const matchesDate = !this.selectedDate || this.dateMatch(mission.date_debut);
 
       // Filtre par priorité
-      console.log(`voici la priorité ${this.selectedPriority}`);
       const matchesPriority = !this.selectedPriority.toLowerCase() || mission.priorite === this.selectedPriority.toLowerCase();
-      console.log(`voici la priorité ${this.selectedPriority}`);
 
       // Filtre par compétence
       //const matchesSkill = !this.selectedSkill || mission.competences.includes(this.selectedSkill);
@@ -63,15 +60,9 @@ export class MissionsListComponent implements OnInit, OnChanges  {
       //const matchesCollaborator = !this.selectedCollaborator || mission.collaborateurs.includes(this.selectedCollaborator);
 
       // Combiner tous les filtres
-      return matchesTitle && matchesPriority /*&& matchesDate && matchesSkill && matchesCollaborator*/;
+      return matchesTitle && matchesPriority && matchesDate /*&& matchesSkill && matchesCollaborator*/;
     });
   }
-
-  /*dateMatch(date: Date): boolean {
-    switch (this.selectedDate) {
-      case this.selectedDate === "lastWeek":
-        retrun (new Date(date) >= )
-  }*/
 
   getStatusClass(status: string): string {
     switch (status) {
@@ -94,9 +85,37 @@ export class MissionsListComponent implements OnInit, OnChanges  {
     return dayjs(date).isBetween(dateDebutSemaine, dateFinSemaine, 'day', '[]');
   }
 
+  isLastMonth(date: Date): boolean {
+    let dateDebutMois = dayjs().startOf('month').subtract(1, 'month');
+    let dateFinMois = dayjs().startOf('month').subtract(1, 'day');
+    return dayjs(date).isBetween(dateDebutMois, dateFinMois, 'day', '[]');
+  }
+
+  isLastSixMonths(date: Date): boolean {
+    let dateDebutSemaine = dayjs().startOf('month').subtract(6, 'month');
+    let dateFinSemaine = dayjs().startOf('month').subtract(1, 'day');
+    return dayjs(date).isBetween(dateDebutSemaine, dateFinSemaine, 'day', '[]');
+  }
 
   getFilteredMissions(statut: any): Mission[] {
     return this.filteredMissions.filter(mission => mission.statut.toLowerCase() === statut.toLowerCase());
   }
-}
 
+    dateMatch(date: Date): boolean {
+    switch (this.selectedDate) {
+      case "lastWeek":
+        const isLastWeekResult = this.isLastWeek(date);
+        return isLastWeekResult;
+      case "lastMonth":
+        const isLastMonthResult = this.isLastMonth(date);
+        return isLastMonthResult;
+      case "lastSixMonths":
+        const isLastSixMonthsResult = this.isLastSixMonths(date);
+        return isLastSixMonthsResult;
+      default:
+        console.log('dateMatch - default case, returning true');
+        return true;
+    }
+  }
+
+}
