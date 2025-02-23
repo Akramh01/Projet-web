@@ -1,21 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { MissionsService, Mission } from '../../services/missions.service';
 import { CommonModule } from '@angular/common';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Mission, MissionsService } from '../../services/missions.service';
 import { MissionsCardComponent } from "../missions-card/missions-card.component";
 import { MissionsFiltersComponent } from "../missions-filters/missions-filters.component";
+import * as dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(isBetween);
+dayjs.extend(utc);
 
 @Component({
   selector: 'app-missions-list',
-  imports: [CommonModule, MissionsCardComponent, /*MissionsFiltersComponent*/],
+  imports: [CommonModule, MissionsCardComponent, MissionsFiltersComponent],
   templateUrl: './missions-list.component.html',
   styleUrl: './missions-list.component.scss'
 })
-export class MissionsListComponent implements OnInit {
+export class MissionsListComponent implements OnInit, OnChanges  {
 
   allMissions: Mission[] = [];
   filteredMissions: Mission[] = [];
 
+  // Propriétés pour les critères de filtrage
+  @Input() searchQuery: string = '';
+  @Input() selectedDate: Date | null = null;
+  @Input() selectedPriority: string = '';
+  @Input() selectedSkill: string = '';
+  @Input() selectedCollaborator: string = '';
+
   constructor(private missionsService: MissionsService) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['searchQuery'] || changes['selectedDate'] || changes['selectedPriority'] || changes['selectedSkill'] || changes['selectedCollaborator']) {
+      this.filterMissions();
+    }
+  }
   
   ngOnInit(): void {
     this.missionsService.getMissions().subscribe((data) => {
@@ -24,18 +42,36 @@ export class MissionsListComponent implements OnInit {
     });
   }
 
+  filterMissions(): void {
+    this.filteredMissions = this.allMissions.filter(mission => {
+      // Filtre par titre
+      const matchesTitle = mission.titre.toLowerCase().includes(this.searchQuery.toLowerCase());
 
-  filterMissions(searchQuery: string = ''
-  ) {
-    if(!searchQuery || searchQuery === '') {
-      this.filteredMissions = this.allMissions;
-      return;
-    }else{
-      this.filteredMissions = this.allMissions.filter(mission => {
-        return mission.titre.toLowerCase().includes(searchQuery.toLowerCase());
-      });
-    }
+      // Filtre par date
+      const matchesDate = !this.selectedDate ||
+          (new Date(mission.date_debut) <= this.selectedDate && new Date(mission.date_fin) >= this.selectedDate);
+
+      // Filtre par priorité
+      console.log(`voici la priorité ${this.selectedPriority}`);
+      const matchesPriority = !this.selectedPriority.toLowerCase() || mission.priorite === this.selectedPriority.toLowerCase();
+      console.log(`voici la priorité ${this.selectedPriority}`);
+
+      // Filtre par compétence
+      //const matchesSkill = !this.selectedSkill || mission.competences.includes(this.selectedSkill);
+
+      // Filtre par collaborateur
+      //const matchesCollaborator = !this.selectedCollaborator || mission.collaborateurs.includes(this.selectedCollaborator);
+
+      // Combiner tous les filtres
+      return matchesTitle && matchesPriority /*&& matchesDate && matchesSkill && matchesCollaborator*/;
+    });
   }
+
+  /*dateMatch(date: Date): boolean {
+    switch (this.selectedDate) {
+      case this.selectedDate === "lastWeek":
+        retrun (new Date(date) >= )
+  }*/
 
   getStatusClass(status: string): string {
     switch (status) {
@@ -52,7 +88,15 @@ export class MissionsListComponent implements OnInit {
     }
   }
 
+  isLastWeek(date: Date): boolean {
+    let dateDebutSemaine = dayjs().startOf('week').subtract(1, 'week');
+    let dateFinSemaine = dayjs().startOf('week').subtract(1, 'day');
+    return dayjs(date).isBetween(dateDebutSemaine, dateFinSemaine, 'day', '[]');
+  }
+
+
   getFilteredMissions(statut: any): Mission[] {
     return this.filteredMissions.filter(mission => mission.statut.toLowerCase() === statut.toLowerCase());
   }
 }
+

@@ -10,24 +10,12 @@ import { Competence, CompetenceService } from '../../services/competences.servic
   imports: [FormsModule]
 })
 export class MissionsFiltersComponent {
-  searchQuery: string = '';
-  selectedPriorite: string = '';
-  selectedDate: Date | null = null;
-  // selectedCollaborateyr: Collaborateur;
-  // selectedCompetences: Competence;
 
   // constructor( private competenceService : CompetenceService) {}
 
-  @Output() searchEvent = new EventEmitter<string>();
-  @Output() filterEvent = new EventEmitter<any>();
+  @Output() searchQueryEvent = new EventEmitter<string>();
+  @Output() selectedProrityEvent = new EventEmitter<any>();
+  @Output() selectedDateEvent = new EventEmitter<any>();
 
-  onSearch() {
-    this.searchEvent.emit(this.searchQuery);
-  }
-
-  applyFilter() {
-    this.filterEvent.emit(this.selectedPriorite);
-    this.filterEvent.emit(this.selectedDate);
-  }
 
 }

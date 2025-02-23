@@ -1,7 +1,10 @@
-<app-missions-filters (searchEvent)="onSearch($event)"></app-missions-filters>
+<app-missions-filters
+(searchQueryEvent)="onSearchQueryEvent($event)" (selectedDateEvent)="onSelectedDateEvent($event)"
+(selectedProrityEvent)="onSelectedPriorityEvent($event)">
+</app-missions-filters>
 <app-add-mission-button></app-add-mission-button>
-<app-missions-list #missionsList></app-missions-list>
-
-<!-- Popups (affichés uniquement si ouverts) -->
-<!-- <app-add-mission-popup *ngIf="showAddPopup" (close)="closeAddPopup()"></app-add-mission-popup>
-<app-edit-mission-popup *ngIf="showEditPopup" [mission]="selectedMission" (close)="closeEditPopup()"></app-edit-mission-popup> -->
+<app-missions-list #missionsList
+[searchQuery]="searchQuery"
+[selectedDate]="selectedDate"
+[selectedPriority]="selectedPriority"
+></app-missions-list>

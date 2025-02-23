@@ -15,32 +15,26 @@ import { Mission } from 'src/app/services/missions.service';
   styleUrl: './missions-page.component.scss'
 })
 export class MissionsPageComponent {
-  showAddPopup = false;
-  showEditPopup = false;
   selectedMission: Mission | null = null;
   @ViewChild(MissionsListComponent) missionsList!: MissionsListComponent;
-  onSearch(searchQuery: string) {
-    if (this.missionsList) {
-      this.missionsList.filterMissions(searchQuery);
-    }
+
+  searchQuery: string = '';
+  selectedDate: Date | null = null;
+  selectedPriority: string = '';
+    /* @Input() selectedSkill: string = '';
+     @Input() selectedCollaborator: string = '';*/
+
+
+    onSearchQueryEvent(searchQuery: string) {
+    this.searchQuery = searchQuery;
   }
 
-  openAddPopup() {
-    this.showAddPopup = true;
+  onSelectedDateEvent(selectedDate: Date) {
+    this.selectedDate = selectedDate;
   }
 
-  closeAddPopup() {
-    this.showAddPopup = false;
-  }
-
-  openEditPopup(mission: Mission) {
-    this.selectedMission = mission;
-    this.showEditPopup = true;
-  }
-
-  closeEditPopup() {
-    this.showEditPopup = false;
-    this.selectedMission = null;
+  onSelectedPriorityEvent(selectedPriority: string) {
+    this.selectedPriority = selectedPriority;
   }
 
 }
