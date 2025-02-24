@@ -1,21 +1,32 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-// import { CollaborateurService  } from '../../services/collaborateurs.service';
-import { Competence, CompetenceService } from '../../services/competences.service'
+import { Competence, CompetenceService } from '../../services/competences.service';
+import { CommonModule } from '@angular/common'; // Importez CommonModule
 
 @Component({
   selector: 'app-missions-filters',
   templateUrl: './missions-filters.component.html',
   styleUrls: ['./missions-filters.component.scss'],
-  imports: [FormsModule]
+  imports: [FormsModule,  CommonModule]
 })
-export class MissionsFiltersComponent {
-
-  // constructor( private competenceService : CompetenceService) {}
+export class MissionsFiltersComponent implements OnInit {
 
   @Output() searchQueryEvent = new EventEmitter<string>();
   @Output() selectedProrityEvent = new EventEmitter<any>();
   @Output() selectedDateEvent = new EventEmitter<any>();
+  @Output() selectedSkillEvent = new EventEmitter<any>();
+  allCompetences: Competence[] = [];
 
+  constructor(private competenceService: CompetenceService) {}
 
+  ngOnInit(): void {
+    this.getCompetencesList();
+  }
+
+  getCompetencesList(): void {
+    this.competenceService.getCompetences().subscribe((data) => {
+      this.allCompetences = data;
+      console.log(this.allCompetences);
+    });
+  }
 }

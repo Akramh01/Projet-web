@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Mission, MissionsService } from '../../services/missions.service';
 import { MissionsCardComponent } from "../missions-card/missions-card.component";
-import { MissionsFiltersComponent } from "../missions-filters/missions-filters.component";
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import utc from 'dayjs/plugin/utc';
@@ -12,7 +11,7 @@ dayjs.extend(utc);
 
 @Component({
   selector: 'app-missions-list',
-  imports: [CommonModule, MissionsCardComponent, MissionsFiltersComponent],
+  imports: [CommonModule, MissionsCardComponent],
   templateUrl: './missions-list.component.html',
   styleUrls: ['./missions-list.component.scss'] // Correction ici
 })
@@ -40,6 +39,10 @@ export class MissionsListComponent implements OnInit, OnChanges  {
       this.allMissions = data;
       this.filterMissions();
     });
+    /*this.requerirService.getCompetences().subscribe((data) => {
+      this.allCompetences = data;
+      console.log(this.allCompetences);
+    };*/
   }
 
   filterMissions(): void {

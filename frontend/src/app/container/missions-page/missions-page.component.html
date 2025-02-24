@@ -1,10 +1,11 @@
 <app-missions-filters
 (searchQueryEvent)="onSearchQueryEvent($event)" (selectedDateEvent)="onSelectedDateEvent($event)"
-(selectedProrityEvent)="onSelectedPriorityEvent($event)">
+(selectedProrityEvent)="onSelectedPriorityEvent($event)" (selectedSkillEvent)="onSelectedSkillEvent($event)">
 </app-missions-filters>
 <app-add-mission-button></app-add-mission-button>
 <app-missions-list #missionsList
 [searchQuery]="searchQuery"
 [selectedDate]="selectedDate"
 [selectedPriority]="selectedPriority"
+[selectedSkill]="selectedSkill"
 ></app-missions-list>

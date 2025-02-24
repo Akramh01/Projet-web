@@ -14,8 +14,9 @@
     <select class="filter-select">
         <option>Collaborateurs</option>
     </select>
-    <select class="filter-select">
+    <select #skillInput class="filter-select" (change)="this.selectedSkillEvent.emit(skillInput.value)">
         <option>Compétences</option>
+        <option *ngFor="let competence of allCompetences" [value]="competence.id">{{ competence.nom_fr }}</option>
     </select>
     <div class="search-bar">
         <input #searchInput type="text" placeholder="Mission" (keyup)="searchQueryEvent.emit(searchInput.value)"/>
