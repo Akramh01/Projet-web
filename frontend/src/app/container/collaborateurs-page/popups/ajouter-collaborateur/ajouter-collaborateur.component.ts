@@ -15,6 +15,7 @@ import { AvoirService } from 'src/app/services/avoir.service';
 export class AjouterCollaborateurComponent {
 
   @Output() close = new EventEmitter<void>(); // Événement pour fermer le popup
+  @Output() collaborateurAdded = new EventEmitter<void>();
   employeForm: FormGroup;
   selectedCompetences: number[] = [];
 
@@ -38,19 +39,7 @@ export class AjouterCollaborateurComponent {
     console.log("Compétences sélectionnées :", this.selectedCompetences);
   }
 
-  lierCompetences(idE: number) {
-    if (this.selectedCompetences.length === 0) {
-      alert("Aucune compétence sélectionnée !");
-      return;
-    }
-
-    this.selectedCompetences.forEach(idC => {
-      this.avoirService.linkEmployeCompetences(idE, idC).subscribe({
-        next: () => console.log(`Compétence ${idC} liée à l'employé ${idE}`),
-        error: err => console.error("Erreur de liaison", err)
-      });
-    });
-  }
+  
 
   submitEmploye(): void {
     if (this.employeForm.valid) {
@@ -70,6 +59,7 @@ export class AjouterCollaborateurComponent {
       this.collaborateurService.addEmployes(employeData).subscribe({
         next: () => {
           this.close.emit();
+          this.collaborateurAdded.emit();
           alert('Employé ajouté avec succès !');
         },
         error: (error) => console.error('Erreur complète:', error)

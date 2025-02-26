@@ -15,9 +15,10 @@ export class AvoirService {
 //     return this.http.post(`${this.apiUrl}`, { nom, prenom, nom_fr });
 //   }
 
-  linkEmployeCompetences(idE: number, idC: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, { idE, idC });
+  linkEmployeCompetences(idE: number, idC: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/link`, { idE, idC });
   }
+
 
   // Rechercher des employés par compétence
   searchEmployesByCompetence(nom_fr: string): Observable<any> {

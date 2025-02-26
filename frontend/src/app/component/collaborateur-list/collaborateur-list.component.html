@@ -20,16 +20,16 @@
 
 <div class="collaborateur-page">
   @for (collaborateur of collaborateurs; track collaborateur.idE) {
-    <app-collaborateur-card [collaborateur]="collaborateur"/>
+    <app-collaborateur-card 
+    [collaborateur]="collaborateur"
+    (delete)="onDeleteCollaborateur()"
+    />
   }
 </div>
 
-<!-- Pop-up de suppression -->
 @if (showAddPopup) {
   <app-ajouter-collaborateur
     (close)="closeAddPopup()"
+    (collaborateurAdded)="onCollaborateurAdded()"
   ></app-ajouter-collaborateur>
 }
-
-
-
