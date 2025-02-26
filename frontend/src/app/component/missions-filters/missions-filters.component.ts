@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Competence, CompetenceService } from '../../services/competences.service';
 import { CommonModule } from '@angular/common'; // Importez CommonModule
+import { CollaborateurService, Employe } from 'src/app/services/collaborateur.service';
 
 @Component({
   selector: 'app-missions-filters',
@@ -15,18 +16,26 @@ export class MissionsFiltersComponent implements OnInit {
   @Output() selectedProrityEvent = new EventEmitter<any>();
   @Output() selectedDateEvent = new EventEmitter<any>();
   @Output() selectedSkillEvent = new EventEmitter<any>();
+  @Output() selectedCollaboratorEvent = new EventEmitter<any>();
   allCompetences: Competence[] = [];
+  allCollaborateurs: Employe[] = [];
 
-  constructor(private competenceService: CompetenceService) {}
+  constructor(private competenceService: CompetenceService, private collaborateurService: CollaborateurService) {}
 
   ngOnInit(): void {
     this.getCompetencesList();
+    this.getCollaborateursList();
   }
 
   getCompetencesList(): void {
     this.competenceService.getCompetences().subscribe((data) => {
       this.allCompetences = data;
-      console.log(this.allCompetences);
+    });
+  }
+
+  getCollaborateursList(): void {
+    this.collaborateurService.getEmployes().subscribe((data) => {
+      this.allCollaborateurs = data;
     });
   }
 }
