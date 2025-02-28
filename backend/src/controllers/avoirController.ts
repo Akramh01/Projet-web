@@ -2,6 +2,80 @@ import { Request, Response } from 'express';
 import { Competences } from '../models/competences';
 import { Employes } from '../models/employes';
 import { Avoir } from '../models/avoir';
+import {Requerir} from '../models/requerir';
+
+
+export const getRecommendations = async (req: Request, res: Response) => {
+    try {
+        const idM = req.query.idM;
+
+        // Vérifier si l'ID de la mission est fourni
+        if (!idM) {
+            const error = new Error('L\'ID de la mission est requis.');
+            (error as any).status = 400;
+            throw error;
+        }
+
+        // Récupérer les compétences requises pour la mission
+        const competencesRequises = await Requerir.findAll({
+            where: { idM: idM },
+            attributes: ['idC'],
+        });
+
+        // Si aucune compétence n'est requise, retourner une liste vide
+        if (competencesRequises.length === 0) {
+            res.json({ message: 'Aucune compétence requise pour cette mission.', recommendations: [] });
+        }
+
+        // Récupérer les employés ayant ces compétences
+        const employesRecommandes = await Avoir.findAll({
+            where: {
+                idC: competencesRequises.map(c => c.idC),
+            },
+            include: [{
+                model: Employes,
+                as: 'Employe',
+            }],
+        });
+
+        // Grouper les employés par nombre de compétences correspondantes
+        const employesParCompetence: { [key: number]: { employe: any, competencesCorrespondantes: number } } = {};
+
+        employesRecommandes.forEach(avoir => {
+            const idE = avoir.idE;
+            if (!employesParCompetence[idE]) {
+                employesParCompetence[idE] = {
+                    employe: avoir.Employe,
+                    competencesCorrespondantes: 0,
+                };
+            }
+            employesParCompetence[idE].competencesCorrespondantes++;
+        });
+
+        // Trier les employés par nombre de compétences correspondantes
+        const employesTries = Object.values(employesParCompetence).sort((a, b) => 
+            b.competencesCorrespondantes - a.competencesCorrespondantes
+        );
+
+        // Structurer la réponse
+        const response = {
+            idM,
+            recommendations: employesTries.map(e => ({
+                employe: e.employe,
+                competencesCorrespondantes: e.competencesCorrespondantes,
+            })),
+        };
+
+        res.json(response);
+    } catch (error) {
+        console.error('Erreur dans getRecommendations :', error);
+        const typedError = error as any;
+        res.status(typedError.status || 500).json({ message: 'Erreur serveur', error: typedError.message });
+    }
+};
+
+
+
 
 export const getCompetencesWithIdEmployes = async (req: Request, res: Response) => {
     try {
@@ -63,6 +137,10 @@ export const getEmployesWithIdCompetences = async (req: Request, res: Response) 
         res.status(500).json({ message: 'Erreur serveur', error });
     }
 };
+
+
+
+
 
 export const linkEmployeCompetences = async (req: Request, res: Response) => {
     try {
