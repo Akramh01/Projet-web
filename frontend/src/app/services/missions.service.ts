@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface Mission {
   idM: number;
@@ -20,12 +21,25 @@ export class MissionsService {
 
   constructor(private http: HttpClient) { }
 
-  getMissions(): Observable<any>{
-    return this.http.get(this.apiUrl);
+  // Fonction pour convertir les chaînes de caractères en objets Date
+  private convertToDate(mission: any): Mission {
+    return {
+      ...mission,
+      date_debut: new Date(mission.date_debut),
+      date_fin: new Date(mission.date_fin)
+    };
+  }
+
+  getMissions(): Observable<Mission[]> {
+    return this.http.get<Mission[]>(this.apiUrl).pipe(
+      map(missions => missions.map(this.convertToDate))
+    );
   }
 
   getMissionWithName(titre: string): Observable<Mission[]> {
-    return this.http.get<Mission[]>(`${this.apiUrl}/name?nom_fr=${titre}`);
+    return this.http.get<Mission[]>(`${this.apiUrl}/name?nom_fr=${titre}`).pipe(
+      map(missions => missions.map(this.convertToDate))
+    );
   }
 
   addMission(mission: Mission): Observable<any> {
@@ -33,6 +47,6 @@ export class MissionsService {
   }
 
   deleteMission(idM: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${idM}`)
+    return this.http.delete(`${this.apiUrl}/${idM}`);
   }
 }

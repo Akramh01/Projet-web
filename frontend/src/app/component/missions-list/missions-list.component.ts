@@ -13,7 +13,7 @@ dayjs.extend(utc);
   selector: 'app-missions-list',
   imports: [CommonModule, MissionsCardComponent],
   templateUrl: './missions-list.component.html',
-  styleUrls: ['./missions-list.component.scss'] // Correction ici
+  styleUrls: ['./missions-list.component.scss']
 })
 export class MissionsListComponent implements OnInit, OnChanges  {
 
@@ -28,6 +28,7 @@ export class MissionsListComponent implements OnInit, OnChanges  {
   @Input() selectedCollaborator: string = '';
 
   constructor(private missionsService: MissionsService) {}
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['searchQuery'] || changes['selectedDate'] || changes['selectedPriority'] || changes['selectedSkill'] || changes['selectedCollaborator']) {
       this.filterMissions();
@@ -39,10 +40,6 @@ export class MissionsListComponent implements OnInit, OnChanges  {
       this.allMissions = data;
       this.filterMissions();
     });
-    /*this.requerirService.getCompetences().subscribe((data) => {
-      this.allCompetences = data;
-      console.log(this.allCompetences);
-    };*/
   }
 
   filterMissions(): void {
@@ -82,6 +79,7 @@ export class MissionsListComponent implements OnInit, OnChanges  {
     }
   }
 
+  //Fonction dédié à la gestion des dates
   isLastWeek(date: Date): boolean {
     let dateDebutSemaine = dayjs().startOf('week').subtract(1, 'week');
     let dateFinSemaine = dayjs().startOf('week').subtract(1, 'day');
@@ -104,7 +102,7 @@ export class MissionsListComponent implements OnInit, OnChanges  {
     return this.filteredMissions.filter(mission => mission.statut.toLowerCase() === statut.toLowerCase());
   }
 
-    dateMatch(date: Date): boolean {
+  dateMatch(date: Date): boolean {
     switch (this.selectedDate) {
       case "lastWeek":
         const isLastWeekResult = this.isLastWeek(date);
@@ -121,4 +119,11 @@ export class MissionsListComponent implements OnInit, OnChanges  {
     }
   }
 
+  // Fonction pour formater les dates au format YYYY-MM-DD
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
 }

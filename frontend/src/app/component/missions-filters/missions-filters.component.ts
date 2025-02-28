@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Competence, CompetenceService } from '../../services/competences.service';
-import { CommonModule } from '@angular/common'; // Importez CommonModule
+import { CommonModule } from '@angular/common'; // Importez CommonModule pour les *ngFor
 import { CollaborateurService, Employe } from 'src/app/services/collaborateur.service';
 
 @Component({

@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { Missions } from '../models/missions';
 import { Affecter} from '../models/affecter';
 import {Employes} from '../models/employes';
+import moment from 'moment';
+
 // Récupération de toutes les missions
 export const getMissions = async (req: Request, res: Response) => {
 	try {
@@ -15,35 +17,36 @@ export const getMissions = async (req: Request, res: Response) => {
 
 // Ajout d'une mission avec le statut par defaut  sera en preparation et aucune anomalie 
 export const addMission = async (req: Request, res: Response) => {
-    try {
-        const { titre, description, date_debut, date_fin, priorite} = req.body;
- 
- 
-        // Validation des champs requis
-        if (!titre || !description || !date_debut || !date_fin || !priorite) {
-            const error = new Error('Tous les champs requis (titre, description, date_debut, date_fin, priorite) doivent être fournis.');
-            (error as any).status = 400;
-            throw error;
-        }
- 
-        // Création de la nouvelle mission avec le statut par défaut et anomalies vides
-        const newMission = await Missions.create({
-            titre,
-            description,
-            date_debut,
-            date_fin,
-            statut:'préparation',
-            priorite,
-            anomalies: "",
-        });
- 
-        // Retourner la mission créée avec un statut 201 (Créé)
-        res.status(201).json(newMission);
-    } catch (error) {
-        console.error('Erreur lors de l’ajout de la mission:', error);
-        res.status(500).json({ error: 'Erreur lors de l’ajout de la mission.' });
-    }
- };
+  try {
+      const { titre, description, date_debut, date_fin, priorite} = req.body;
+
+
+      // Validation des champs requis
+      if (!titre || !description || !date_debut || !date_fin || !priorite) {
+          const error = new Error('Tous les champs requis (titre, description, date_debut, date_fin, priorite) doivent être fournis.');
+          (error as any).status = 400;
+          throw error;
+      }
+
+      // Création de la nouvelle mission avec le statut par défaut et anomalies vides
+      const newMission = await Missions.create({
+          titre,
+          description,
+          date_debut,
+          date_fin,
+          statut:'préparation',
+          priorite,
+          anomalies: "",
+      });
+
+      // Retourner la mission créée avec un statut 201 (Créé)
+      res.status(201).json(newMission);
+  } catch (error) {
+      console.error('Erreur lors de l’ajout de la mission:', error);
+      res.status(500).json({ error: 'Erreur lors de l’ajout de la mission.' });
+  }
+};
+
 
 // Récupération d'une mission par ID
 export const getMissionWithId = async (req: Request, res: Response) => {

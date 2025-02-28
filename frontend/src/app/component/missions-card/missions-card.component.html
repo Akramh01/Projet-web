@@ -6,7 +6,7 @@
         <h4>{{ mission.titre }}</h4>
     </div>
     <div class = "mission-info">
-        <div class="mission-name">{{ mission.date_fin }}</div>
+        <div class="mission-name">{{ formatDate(mission.date_fin) }}</div>
         <div class="mission-date" [ngClass] = "getPrioriteClasse(mission.priorite)">{{ mission.priorite }}</div>
     </div>
 </div>
