@@ -1,8 +1,9 @@
 <div class="overlay" *ngIf="isOpen" (click)="closeForm()"></div>
 <div class="popup-form" *ngIf="isOpen">
   <h2>Nouvelle mission</h2>
-  <form [formGroup]="missionForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="missionForm" (ngSubmit)="onSubmit()" >
     <div class="form-group">
+      <div>{{ mission }}</div>
       <label for="titre">Nom mission</label>
       <input id="titre" type="text" formControlName="titre" required />
     </div>

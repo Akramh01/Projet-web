@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 export interface Competence {
-  id: number;
+  idC: string;
   nom_fr: string;
   nom_en: string;
 }

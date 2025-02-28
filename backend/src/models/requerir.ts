@@ -6,7 +6,7 @@ import Competences from './competences';
 export class Requerir extends Model {
   public idM!: number;
   public idC!: string;
-    Competences: any;
+    Competence: any;
 }
 
 Requerir.init(
@@ -37,6 +37,7 @@ Requerir.init(
     timestamps: false,
   }
 );
+
 
 // Définir les associations
 Requerir.belongsTo(Missions, { foreignKey: 'idM' });

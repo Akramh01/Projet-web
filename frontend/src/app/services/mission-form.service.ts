@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class MissionFormService {
   private isFormOpen = new BehaviorSubject<boolean>(false);
+  private isEditFormOpen = new BehaviorSubject<boolean>(false);
 
   // Observable pour surveiller l'état du formulaire
   getFormStatus() {
@@ -17,9 +18,16 @@ export class MissionFormService {
     this.isFormOpen.next(true);
   }
 
+
   // Méthode pour fermer le formulaire
   closeForm() {
     this.isFormOpen.next(false);
+  }
+
+  //methode pour ouvrir le formulaire d'édition
+
+  openEditForm() {
+    this.isEditFormOpen.next(true);
   }
 
 }

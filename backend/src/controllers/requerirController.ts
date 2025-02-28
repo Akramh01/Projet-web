@@ -27,44 +27,6 @@ export const linkMissionCompetence = async (req: Request, res: Response) => {
   }
 };
 
-export const getCompetencesWithIdMission = async (req: Request, res: Response) => {
-    try {
-        const idM = req.query.idM;
-
-        // Vérifier si la mission existe
-        const mission = await Missions.findOne({where: { idM }});
-        if (!mission) {
-            const error = new Error('Mission non trouvée.');
-            (error as any).status = 404;
-            throw error;
-        }
-
-        // Récupérer les compétences affectés à cette mission
-        const requirements = await Requerir.findAll({
-            where: { idM },
-            include: [Competences]
-        });
-
-        // Structurer la réponse
-        const response = {
-            mission: {
-                idM: mission.idM,
-                titre: mission.titre,
-                description: mission.description,
-                competences: requirements.map(requirement => ({
-                    idC: requirement.Competences.idC,
-                    nom_fr: requirement.Competences.nom_fr,
-                    nom_en: requirement.Competences.nom_en
-                }))
-            }
-        };
-
-        res.status(200).json(response);
-    } catch (error) {
-        console.error('Erreur dans getCompetencesWithIdMission:', error);
-        res.status(500).json({ message: 'Erreur serveur', error });
-    }
-};
 
 export const deleteCompetence = async (req: Request, res: Response) => {
     try {
@@ -89,3 +51,58 @@ export const deleteCompetence = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Erreur serveur", error });
     }
 };
+
+export const updateMissionCompetences = async (req: Request, res: Response) => {
+    try {
+      // const idM = req.params.idM;
+      const { idM, competences } = req.body; // Liste des IDs des compétences
+  
+      // Vérifier si la mission existe
+      const mission = await Missions.findByPk(idM);
+      if (!mission) {
+        res.status(404).json({ message: 'Mission non trouvée.' });
+      }
+  
+      // Supprimer les anciennes liaisons pour cette mission
+      await Requerir.destroy({ where: { idM } });
+  
+      // Ajouter les nouvelles liaisons
+      const newAssociations = competences.map((idC: any) => ({ idM, idC }));
+      await Requerir.bulkCreate(newAssociations);
+  
+      res.status(200).json({ message: 'Liaisons mises à jour avec succès.' });
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour des liaisons :', error);
+      res.status(500).json({ message: 'Erreur interne du serveur.' });
+    }
+  };
+
+  export const getCompetencesWithIdMission = async (req: Request, res: Response) => {
+      try {
+          const idM = req.query.idM;
+  
+          // Récupérer l'employé par nom et prénom
+          const mission = await Missions.findOne({ where: { idM } });
+          if (!mission) {
+              const error = new Error('Mission non trouvé.');
+              (error as any).status = 404;
+              throw error;
+          }
+  
+          // Récupérer les compétences de l'employé
+          const requerirs = await Requerir.findAll({
+              where: { idM: mission.idM },
+              include: [Competences]
+          });
+  
+          // Structurer la réponse pour regrouper les compétences sous un même employé
+          const response = {
+              mission,
+              competences: requerirs.map(requerir => requerir.Competence)
+          };
+  
+          res.json(response);
+      } catch (error) {
+          res.status(500).json({ message: 'Erreur serveur', error });
+      }
+  };

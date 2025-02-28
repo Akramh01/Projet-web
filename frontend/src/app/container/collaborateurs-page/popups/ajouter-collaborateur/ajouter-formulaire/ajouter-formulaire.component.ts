@@ -10,9 +10,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './ajouter-formulaire.component.scss'
 })
 export class AjouterFormulaireComponent implements OnInit{
-  @Output() competencesSelected: EventEmitter<number[]> = new EventEmitter<number[]>();
+  @Output() competencesSelected: EventEmitter<string[]> = new EventEmitter<string[]>();
   competences: Competence[] = [];
-  selectedCompetences: number[] = [];
+  selectedCompetences: string[] = [];
   selectedCompetencesDetails: Competence[] = [];
   isDropdownVisible = false;
   errorMessage: string | null = null;
@@ -44,13 +44,13 @@ export class AjouterFormulaireComponent implements OnInit{
 
   onCheckboxChange(event: any, competence: Competence): void {
     if (event.target.checked) {
-      this.selectedCompetences.push(competence.id);
+      this.selectedCompetences.push(competence.idC);
       this.selectedCompetencesDetails.push(competence);
     } else {
-      const index = this.selectedCompetences.indexOf(competence.id);
+      const index = this.selectedCompetences.indexOf(competence.idC);
       if (index !== -1) {
         this.selectedCompetences.splice(index, 1);
-        this.selectedCompetencesDetails = this.selectedCompetencesDetails.filter(c => c.id !== competence.id);
+        this.selectedCompetencesDetails = this.selectedCompetencesDetails.filter(c => c.idC !== competence.idC);
       }
     }
     this.emitSelectedCompetences();  // Émettre les compétences sélectionnées vers le parent
@@ -61,9 +61,9 @@ export class AjouterFormulaireComponent implements OnInit{
   }
   
 
-  onRemoveCompetence(competenceId: number): void {
+  onRemoveCompetence(competenceId: string): void {
     this.selectedCompetences = this.selectedCompetences.filter(id => id !== competenceId);
-    this.selectedCompetencesDetails = this.selectedCompetencesDetails.filter(c => c.id !== competenceId);
+    this.selectedCompetencesDetails = this.selectedCompetencesDetails.filter(c => c.idC !== competenceId);
     this.emitSelectedCompetences();  // Emit the selected competences after removal
   }
 }

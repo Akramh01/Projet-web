@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class AjouterCollaborateurComponent {
 
   employeForm: FormGroup;
-  selectedCompetences: number[] = [];
+  selectedCompetences: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +29,7 @@ export class AjouterCollaborateurComponent {
     });
   }
 
-  onCompetencesSelected(competences: number[]) {
+  onCompetencesSelected(competences: string[]) {
     this.selectedCompetences = competences;
   }
 

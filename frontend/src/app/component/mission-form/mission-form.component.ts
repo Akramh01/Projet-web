@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input, SimpleChanges, OnChanges, Signal, effect, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -7,23 +7,47 @@ import { MissionsService, Mission } from '../../services/missions.service';
 import { RequerirService } from 'src/app/services/requerir.service';
 import { CompetenceService } from 'src/app/services/competences.service';
 
+export type Mode = 'CREATION' | 'MODIFICATION' | 'CONSULTATION';
+
+
 @Component({
   selector: 'app-mission-form',
   templateUrl: './mission-form.component.html',
   styleUrls: ['./mission-form.component.scss'],
   imports: [ReactiveFormsModule, CommonModule],
-  providers: [MissionsService],
+  providers: [MissionsService]
 })
+
 export class MissionFormComponent implements OnInit { // Implémentez OnInit
   @Output() formSubmit = new EventEmitter<any>();
+  // @Input() mode: Mode = 'CREATION';
+  //@Input() mission: any;
+  selectedMission = signal<Mission | null>(null); // Signal pour la mission sélectionnée
   isOpen = false;
   competences: any[] = []; // Stocker les compétences récupérées
-  // isEditMode = false;
-  // missionToEdit: any; // Déclarez la propriété missionToEdit
 
   missionForm: FormGroup;
   
   selectedCompetences: any[] = [];
+
+  private _mission = signal<any>(null);
+
+  // Exposez le Signal via une propriété getter
+  @Input() set mission(value: any) {
+    this._mission.set(value); // Mettez à jour le Signal lorsque la mission change
+  }
+  get mission(): any {
+    return this._mission(); // Obtenez la valeur actuelle du Signal
+  }
+
+  // Utilisez un Signal pour le mode (optionnel)
+  private _mode = signal<Mode>('CREATION');
+  @Input() set mode(value: Mode) {
+    this._mode.set(value); // Mettez à jour le Signal lorsque le mode change
+  }
+  get mode(): Mode {
+    return this._mode(); // Obtenez la valeur actuelle du Signal
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -46,37 +70,69 @@ export class MissionFormComponent implements OnInit { // Implémentez OnInit
     this.missionFormService.getFormStatus().subscribe((status) => {
       this.isOpen = status;
     });
+
+    effect(() => {
+      const mission = this.selectedMission();
+      const mode = this._mode();
+
+      if (mode === 'MODIFICATION' && mission) {
+        this.prefillForm(mission); // Préremplir le formulaire
+      } else if (mode === 'CREATION') {
+        this.missionForm.reset(); // Réinitialiser le formulaire
+        this.selectedCompetences = []; // Réinitialiser les compétences sélectionnées
+      }
+    });
+
+    // Réagir aux changements de mission ou de mode
+    // effect(() => {
+    //   const mission = this._mission();
+    //   const mode = this._mode();
+
+    //   if (mode === 'MODIFICATION' && mission) {
+    //     this.prefillForm(mission); // Préremplir le formulaire
+    //   } else if (mode === 'CREATION') {
+    //     this.missionForm.reset(); // Réinitialiser le formulaire
+    //     this.selectedCompetences = []; // Réinitialiser les compétences sélectionnées
+    //   }
+    // });
+  
   }
 
   ngOnInit() {
     // Charger les compétences disponibles
     this.loadCompetences();
 
-    // Si une mission à éditer est passée, préremplir le formulaire
-    // if (this.missionToEdit) {
-    //   this.isEditMode = true;
-    //   this.prefillForm(this.missionToEdit);
-    // }
+  
   }
+  // TODO : faire en sorte que ça prenne en compte le changement de mode
+//  ngOnChanges(changes: SimpleChanges) {
+//   console.log('Changements détectés :', changes);
+//   if (changes['mode'] && this.mode === 'CREATION' && this.mission) {
+//     console.log('Mode 2 détecté, préremplissage du formulaire');
+//     this.prefillForm(this.mission);
+//   }
+// }
 
   // Méthode pour préremplir le formulaire avec les données de la mission
-  // prefillForm(mission: any) {
-  //   this.missionForm.patchValue({
-  //     titre: mission.titre,
-  //     description: mission.description,
-  //     date_debut: mission.date_debut,
-  //     date_fin: mission.date_fin,
-  //     priorite: mission.priorite,
-  //     competences: mission.competences, // Assurez-vous que c'est un tableau d'IDs
-  //   });
+  prefillForm(mission: any) {
+    console.log(mission);
+    
+    this.missionForm.patchValue({
+      titre: mission.titre,
+      description: mission.description,
+      date_debut: mission.date_debut,
+      date_fin: mission.date_fin,
+      priorite: mission.priorite,
+      competences: mission.competences, // Assurez-vous que c'est un tableau d'IDs
+    });
 
-  //   // Préremplir les compétences sélectionnées
-  //   if (mission.competences) {
-  //     this.selectedCompetences = this.competences.filter((c) =>
-  //       mission.competences.includes(c.id)
-  //     );
-  //   }
-  // }
+    // Préremplir les compétences sélectionnées
+    if (mission.competences) {
+      this.selectedCompetences = this.competences.filter((c) =>
+        mission.competences.includes(c.id)
+      );
+    }
+  }
 
   // Méthode pour charger les compétences depuis le backend
   loadCompetences() {

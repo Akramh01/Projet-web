@@ -7,6 +7,7 @@ export interface Mission {
   titre: string;
   date_debut: Date;
   date_fin: Date;
+  description: string;
   priorite: string;
   statut: 'préparation' | 'plannifiée' | 'en cours' | 'terminée';
   anomalies: string;
@@ -40,4 +41,8 @@ export class MissionsService {
   deleteMission(idM: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${idM}`)
   }
+
+  updateMission(mission: Mission): Observable<any> {
+  return this.http.put(`http://localhost:3000/missions/updatem/${mission.idM}`, mission);
+}
 }

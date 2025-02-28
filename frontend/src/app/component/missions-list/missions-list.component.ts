@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MissionsService, Mission } from '../../services/missions.service';
 import { CommonModule } from '@angular/common';
 import { MissionsCardComponent } from "../missions-card/missions-card.component";
@@ -11,8 +11,13 @@ import { MissionsFiltersComponent } from "../missions-filters/missions-filters.c
   styleUrl: './missions-list.component.scss'
 })
 export class MissionsListComponent implements OnInit {
+  @Input() changeMode: any;
+  @Input() fillForm: any;
 
-  missions: Mission[] = [];
+  @Input() missions: Mission[] = []; // Liste des missions
+  @Output() editMission = new EventEmitter<Mission>(); // Événement pour éditer une mission
+
+  // missions: Mission[] = [];
   filteredMissions: { [key: string]: Mission[] } = {};
   searchQuery: string = '';
 
@@ -72,5 +77,10 @@ export class MissionsListComponent implements OnInit {
 
   trackByMission(index: number, mission: any): string {
     return mission.id;
+  }
+
+  // Méthode pour transmettre l'événement au parent
+  onEditMission(mission: Mission) {
+    this.editMission.emit(mission);
   }
 }

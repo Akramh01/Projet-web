@@ -1,0 +1,136 @@
+/* Style pour l'arrière-plan flou */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Arrière-plan semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Assure que le popup est au-dessus de tout */
+}
+
+/* Style pour la boîte de dialogue */
+.popup-content {
+  background: #a192b0;
+  padding: 24px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px; /* Largeur maximale */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Ombre douce */
+  animation: fadeIn 0.3s ease-in-out; /* Animation d'apparition */
+}
+
+/* Titre du popup */
+.popup-content h2 {
+  margin: 0 0 16px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+/* Champs de formulaire */
+.popup-content label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #555;
+}
+
+.popup-content input,
+.popup-content textarea,
+.popup-content select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.popup-content input:focus,
+.popup-content textarea:focus,
+.popup-content select:focus {
+  border-color: #007bff; /* Couleur de focus */
+  outline: none;
+}
+
+/* Boutons */
+.popup-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px; /* Espace entre les boutons */
+  margin-top: 16px;
+  margin-right: 10px;
+}
+
+.popup-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.popup-buttons button[type="submit"] {
+  background-color: #007bff; /* Bouton Enregistrer */
+  color: white;
+}
+
+.popup-buttons button[type="submit"]:hover {
+  background-color: #0056b3; /* Couleur au survol */
+}
+
+.popup-buttons button[type="button"] {
+  background-color: #f0f0f0; /* Bouton Fermer */
+  color: #333;
+}
+
+.popup-buttons button[type="button"]:hover {
+  background-color: #ddd; /* Couleur au survol */
+}
+
+.competences-container {
+  margin-bottom: 16px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.tag {
+  background-color: #007bff;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tag button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* Animation d'apparition */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,8 +1,20 @@
 <app-missions-filters (searchEvent)="onSearch($event)"></app-missions-filters>
 <app-add-mission-button></app-add-mission-button>
 
-<app-missions-list #missionsList></app-missions-list>
-<app-mission-form></app-mission-form>
+<!-- <app-missions-list #missionsList [changeMode]="changeMode" [fillForm]="fillForm"></app-missions-list> -->
+<app-missions-list
+[missions]="mission"
+(editMission)="openEditPopup($event)"
+></app-missions-list>
+<app-mission-form [mode]="mode" [mission]="mission" ></app-mission-form>
+
+<app-mission-edit-popup
+  *ngIf="showEditPopup && selectedMission"
+  [mission]="selectedMission"
+  (close)="closeEditPopup()"
+  (save)="saveMission($event)"
+></app-mission-edit-popup>
+
 
 
 <!-- Popups (affichés uniquement si ouverts) -->

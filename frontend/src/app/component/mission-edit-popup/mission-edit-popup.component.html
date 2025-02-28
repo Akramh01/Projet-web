@@ -1,0 +1,44 @@
+<div class="popup-overlay">
+    <div class="popup-content">
+      <h2>Modifier la mission</h2>
+      <div>
+        <label for="titre">Titre :</label>
+        <input id="titre" [(ngModel)]="mission.titre" />
+      </div>
+      <div>
+        <label for="description">Description :</label>
+        <textarea id="description" [(ngModel)]="mission.description"></textarea>
+      </div>
+      <div>
+        <label for="date_debut">Date de début :</label>
+        <input id="date_debut" type="date" [(ngModel)]="mission.date_debut" />
+      </div>
+      <div>
+        <label for="date_fin">Date de fin :</label>
+        <input id="date_fin" type="date" [(ngModel)]="mission.date_fin" />
+      </div>
+      <div>
+        <label for="priorite">Priorité :</label>
+        <select id="priorite" [(ngModel)]="mission.priorite">
+          <option value="basse">Basse</option>
+          <option value="moyenne">Moyenne</option>
+          <option value="haute">Haute</option>
+        </select>
+      </div>
+      <div class="competences-container">
+        <label>Compétences :</label>
+        <div class="tags">
+          <span *ngFor="let competence of competences" class="tag">
+            {{ competence.nom_fr }}
+            <button (click)="removeCompetence(competence.idC)">×</button>
+          </span>
+        </div>
+        <select [(ngModel)]="selectedCompetence">
+          <option *ngFor="let comp of allCompetences" [value]="comp.idC">{{ comp.nom_fr }}</option>
+        </select>
+        <button (click)="addCompetence()">Ajouter</button>
+      </div>
+      <button type="button" (click)="saveChanges()">Enregistrer</button>
+      <button type="button" (click)="closePopup()">Fermer</button>
+    </div>
+  </div>
