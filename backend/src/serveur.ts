@@ -6,6 +6,9 @@ import competenceRoutes from './routes/competenceRoutes';
 import employesRoutes from './routes/employesRoutes';
 import missionsRoutes from './routes/missionsRoutes';
 import requerirRoutes from './routes/requerirRoutes';
+import authRoutes from './routes/authRoutes';
+import { initUserModel } from './models/user';
+import sequelize from './config/bd';
 const cors = require('cors');
 
 const app = express();
@@ -25,6 +28,7 @@ app.use('/avoir', avoirRoutes);
 app.use('/affecter', affecterRoutes);
 app.use('/missions', missionsRoutes);
 app.use('/requerir', requerirRoutes);
+app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -42,5 +46,9 @@ app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
+});
+
+sequelize.authenticate().then(async () => {
+  await initUserModel();
 });
 
