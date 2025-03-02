@@ -15,32 +15,32 @@ import { Mission } from 'src/app/services/missions.service';
   styleUrl: './missions-page.component.scss'
 })
 export class MissionsPageComponent {
-  showAddPopup = false;
-  showEditPopup = false;
   selectedMission: Mission | null = null;
   @ViewChild(MissionsListComponent) missionsList!: MissionsListComponent;
-  onSearch(searchQuery: string) {
-    if (this.missionsList) {
-      this.missionsList.filterMissions(searchQuery);
-    }
+
+  searchQuery: string = '';
+  selectedDate: string = '';
+  selectedPriority: string = '';
+  selectedSkill: string = '';
+  selectedCollaborator: string = '';
+
+  onSearchQueryEvent(searchQuery: string) {
+    this.searchQuery = searchQuery;
   }
 
-  openAddPopup() {
-    this.showAddPopup = true;
+  onSelectedDateEvent(selectedDate: string) {
+    this.selectedDate = selectedDate;
   }
 
-  closeAddPopup() {
-    this.showAddPopup = false;
+  onSelectedPriorityEvent(selectedPriority: string) {
+    this.selectedPriority = selectedPriority;
   }
 
-  openEditPopup(mission: Mission) {
-    this.selectedMission = mission;
-    this.showEditPopup = true;
+  onSelectedSkillEvent(selectedSkill: string) {
+    this.selectedSkill = selectedSkill;
   }
 
-  closeEditPopup() {
-    this.showEditPopup = false;
-    this.selectedMission = null;
+  onSelectedCollaboratorEvent(selectedCollaborator: string) {
+    this.selectedCollaborator = selectedCollaborator;
   }
-
 }

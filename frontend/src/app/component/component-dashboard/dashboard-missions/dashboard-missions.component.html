@@ -1,1 +1,29 @@
-<p>dashboard-missions works!</p>
+<div class="missions-table-container">
+    @if (missions.length > 0) {
+      <table class="missions-table">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Statut</th>
+            <th>Priorité</th>
+            <th>Date début</th>
+            <th>Date fin</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(mission of missions; track mission.id) {
+            <tr>
+              <td>{{mission.titre}}</td>
+              <td>{{mission.statut}}</td>
+              <td>{{mission.priorite}}</td>
+              <td>{{mission.date_debut}}</td>
+              <td>{{mission. date_fin}}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    } @else {
+      <p>Aucune mission disponible</p>
+    }
+  </div>
+  

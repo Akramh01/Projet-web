@@ -1,26 +1,27 @@
 <div class="missions-filters">
-    <select class="filter-select">
-        <option>Date</option>
-        <option>Le mois dernier</option>
-        <option>La semaine dernière</option>
-        <option>6 mois derniers</option>
+    <select #dateInput class="filter-select" (change)="this.selectedDateEvent.emit(dateInput.value)">
+        <option value="">Date</option>
+        <option value="lastWeek">La semaine dernière</option>
+        <option value="lastMonth">Le mois dernier</option>
+        <option value="last6Months">6 mois derniers</option>
     </select>
-    <select class="filter-select">
-        <option>Priorité</option>
-        <option>Basse</option>
-        <option>Moyenne</option>
-        <option>Haute</option>
+    <select #priorityInput class="filter-select" (change)="this.selectedProrityEvent.emit(priorityInput.value)" >
+        <option value="">Priorité</option>
+        <option value="basse">Basse</option>
+        <option value="moyenne">Moyenne</option>
+        <option value="haute">Haute</option>
     </select>
-    <select class="filter-select">
+    <select #collaborateurInput class="filter-select" (change)="this.selectedCollaboratorEvent.emit(collaborateurInput.value)">
         <option>Collaborateurs</option>
+        <option *ngFor="let collaborateur of allCollaborateurs" [value]="collaborateur.idE">{{ collaborateur.nom }} {{ collaborateur.prenom }}</option>
     </select>
-    <select class="filter-select">
+    <select #skillInput class="filter-select" (change)="this.selectedSkillEvent.emit(skillInput.value)">
         <option>Compétences</option>
+        <option *ngFor="let competence of allCompetences" [value]="competence.idC">{{ competence.nom_fr }}</option>
     </select>
-    <button class="filter-button">Appliquer les filtres</button>
     <div class="search-bar">
-        <input type="text" placeholder="Mission" [(ngModel)]="searchQuery" (keyup.enter)="onSearch()"/>
-        <button class="search-button" (click)="onSearch()">
+        <input #searchInput type="text" placeholder="Mission" (keyup)="searchQueryEvent.emit(searchInput.value)"/>
+        <button class="search-button" >
             <img src="assets/loupe.svg" alt="Loupe">
         </button>
     </div>
