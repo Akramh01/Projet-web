@@ -15,6 +15,7 @@ dayjs.extend(utc);
   templateUrl: './missions-list.component.html',
   styleUrls: ['./missions-list.component.scss']
 })
+
 export class MissionsListComponent implements OnInit, OnChanges  {
 
   allMissions: Mission[] = [];
@@ -117,13 +118,5 @@ export class MissionsListComponent implements OnInit, OnChanges  {
         console.log('dateMatch - default case, returning true');
         return true;
     }
-  }
-
-  // Fonction pour formater les dates au format YYYY-MM-DD
-  formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
   }
 }
