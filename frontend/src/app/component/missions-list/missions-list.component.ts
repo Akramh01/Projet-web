@@ -24,7 +24,7 @@ export class MissionsListComponent implements OnInit, OnChanges  {
   allMissions: Mission[] = [];
   filteredMissions: Mission[] = [];
   allCompetences: Requerir[] = [];
-  allCollaborateurs: Employe[] = [];
+  allCollaborateurs: Affecter[] = [];
 
   allInfosMission: any[] = [];
 
@@ -54,19 +54,19 @@ export class MissionsListComponent implements OnInit, OnChanges  {
       this.allInfosMission[0] = this.allMissions;
       this.filterMissions();
 
-      // Récupérer les collaborateurs pour chaque mission
-      this;this.allMissions.forEach(mission => {
-        this.affecterService.getCollaborateurByMission(mission.idM).subscribe((data) => {
-          this.allCollaborateurs[mission.idM] = data;
-          this.allInfosMission[2] = this.allCollaborateurs;
-        });
-      });
-
       // Récupérer les compétences pour chaque mission
       this.allMissions.forEach(mission => {
         this.requerirService.getcompetencesByIdMission(mission.idM).subscribe((data) => {
           this.allCompetences[mission.idM] = data;
           this.allInfosMission[1] = this.allCompetences;
+        });
+      });
+
+      // Récupérer les collaborateurs pour chaque mission
+      this;this.allMissions.forEach(mission => {
+        this.affecterService.getCollaborateurByMission(mission.idM).subscribe((data) => {
+          this.allCollaborateurs[mission.idM] = data;
+          this.allInfosMission[2] = this.allCollaborateurs;
         });
       });
     });
