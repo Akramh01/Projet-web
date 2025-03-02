@@ -23,4 +23,8 @@ export class RequerirService {
     return this.http.get(`${this.apiUrl}/mission/competences?idM=${idM}`);
   }
 
+  getcompetencesByIdMission(idM: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/competences?idM=${idM}`);
+  }
+
 }

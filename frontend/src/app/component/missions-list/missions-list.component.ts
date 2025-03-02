@@ -5,6 +5,9 @@ import { MissionsCardComponent } from "../missions-card/missions-card.component"
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import utc from 'dayjs/plugin/utc';
+import { CollaborateurService, Employe } from 'src/app/services/collaborateur.service';
+import { RequerirService, Requerir}from 'src/app/services/requerir.service';
+import { AffecterService, Affecter } from 'src/app/services/affecter.service';
 
 dayjs.extend(isBetween);
 dayjs.extend(utc);
@@ -20,6 +23,10 @@ export class MissionsListComponent implements OnInit, OnChanges  {
 
   allMissions: Mission[] = [];
   filteredMissions: Mission[] = [];
+  allCompetences: Requerir[] = [];
+  allCollaborateurs: Employe[] = [];
+
+  allInfosMission: any[] = [];
 
   // Propriétés pour les critères de filtrage
   @Input() searchQuery: string = '';
@@ -28,7 +35,12 @@ export class MissionsListComponent implements OnInit, OnChanges  {
   @Input() selectedSkill: string = '';
   @Input() selectedCollaborator: string = '';
 
-  constructor(private missionsService: MissionsService) {}
+  constructor(private missionsService: MissionsService, private collaborateursService: CollaborateurService
+    , private requerirService: RequerirService, private affecterService: AffecterService) {
+    this.allInfosMission[0] = this.allMissions;
+    this.allInfosMission[1] = this.allCompetences;
+    this.allInfosMission[2] = this.allCollaborateurs;
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['searchQuery'] || changes['selectedDate'] || changes['selectedPriority'] || changes['selectedSkill'] || changes['selectedCollaborator']) {
@@ -39,12 +51,33 @@ export class MissionsListComponent implements OnInit, OnChanges  {
   ngOnInit(): void {
     this.missionsService.getMissions().subscribe((data) => {
       this.allMissions = data;
+      this.allInfosMission[0] = this.allMissions;
       this.filterMissions();
+
+      // Récupérer les collaborateurs pour chaque mission
+      this;this.allMissions.forEach(mission => {
+        this.affecterService.getCollaborateurByMission(mission.idM).subscribe((data) => {
+          this.allCollaborateurs[mission.idM] = data;
+          this.allInfosMission[2] = this.allCollaborateurs;
+        });
+      });
+
+      // Récupérer les compétences pour chaque mission
+      this.allMissions.forEach(mission => {
+        this.requerirService.getcompetencesByIdMission(mission.idM).subscribe((data) => {
+          this.allCompetences[mission.idM] = data;
+          this.allInfosMission[1] = this.allCompetences;
+        });
+      });
     });
+
+
+    console.log("Voici le résultat du tableau souhaité :")
+    console.log(this.allInfosMission);
   }
 
   filterMissions(): void {
-    this.filteredMissions = this.allMissions.filter(mission => {
+    this.filteredMissions = this.allInfosMission[0].filter((mission: Mission) => {
       // Filtre par titre
       const matchesTitle = mission.titre.toLowerCase().includes(this.searchQuery.toLowerCase());
 

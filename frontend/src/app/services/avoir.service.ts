@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface Avoir {
+  idE: number;
+  idC: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
