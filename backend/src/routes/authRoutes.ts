@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post('/register', register);
 router.post('/login', login);
+
 // Routes protégées
 router.get("/profile", authenticateUser, (req, res) => {
     res.json({ message: "Profil sécurisé", userId: req.body.userId });
