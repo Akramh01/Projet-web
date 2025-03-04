@@ -25,8 +25,13 @@ export class AvoirService {
     return this.http.get(`${this.apiUrl}/competences?idE=${idE}`);
   }
 
-  getRecommendations(competencesIds: string[]): Observable<any> {
-    const params = { competences: competencesIds.join(',') }; // Convertir en chaîne de caractères
-    return this.http.get(`${this.apiUrl}/recommendation`, { params });
+  // getRecommendations(competencesIds: any[]): Observable<any> {
+  //   const params = { competences: competencesIds.join(',') }; // Convertir en chaîne de caractères
+  //   return this.http.get(`${this.apiUrl}/recommendation`, { params });
+  // }
+  getRecommendations(idM: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/recommendation`, {
+      params: { idM: idM.toString() },
+    });
   }
 }

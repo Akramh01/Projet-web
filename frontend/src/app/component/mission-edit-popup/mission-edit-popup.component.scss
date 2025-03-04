@@ -1,26 +1,28 @@
-/* Style pour l'arrière-plan flou */
+/* Arrière-plan flou */
 .popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Arrière-plan semi-transparent */
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Assure que le popup est au-dessus de tout */
+  z-index: 1000;
 }
 
-/* Style pour la boîte de dialogue */
+/* Contenu du popup */
 .popup-content {
-  background: #a192b0;
+  background: #ffffff;
   padding: 24px;
   border-radius: 12px;
   width: 90%;
-  max-width: 500px; /* Largeur maximale */
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Ombre douce */
-  animation: fadeIn 0.3s ease-in-out; /* Animation d'apparition */
+  max-width: 600px;
+  max-height: 90vh; /* Limite la hauteur du popup */
+  overflow-y: auto; /* Ajoute un scroll vertical */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 /* Titre du popup */
@@ -31,69 +33,37 @@
   text-align: center;
 }
 
-/* Champs de formulaire */
-.popup-content label {
+/* Groupes de formulaire */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
   color: #555;
 }
 
-.popup-content input,
-.popup-content textarea,
-.popup-content select {
+.form-group input,
+.form-group textarea,
+.form-group select {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 16px;
+  padding: 8px;
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 14px;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s ease;
 }
 
-.popup-content input:focus,
-.popup-content textarea:focus,
-.popup-content select:focus {
-  border-color: #007bff; /* Couleur de focus */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #007bff;
   outline: none;
 }
 
-/* Boutons */
-.popup-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px; /* Espace entre les boutons */
-  margin-top: 16px;
-  margin-right: 10px;
-}
-
-.popup-buttons button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.popup-buttons button[type="submit"] {
-  background-color: #007bff; /* Bouton Enregistrer */
-  color: white;
-}
-
-.popup-buttons button[type="submit"]:hover {
-  background-color: #0056b3; /* Couleur au survol */
-}
-
-.popup-buttons button[type="button"] {
-  background-color: #f0f0f0; /* Bouton Fermer */
-  color: #333;
-}
-
-.popup-buttons button[type="button"]:hover {
-  background-color: #ddd; /* Couleur au survol */
-}
-
+/* Section des compétences */
 .competences-container {
   margin-bottom: 16px;
 }
@@ -123,6 +93,147 @@
   font-size: 12px;
 }
 
+/* Section des recommandations */
+.recommendations-container {
+  max-height: 300px; /* Limite la hauteur pour permettre le défilement */
+  overflow-y: auto; /* Ajoute un scroll si nécessaire */
+  margin-bottom: 16px;
+  padding-right: 8px; /* Espace pour éviter que le scroll ne chevauche le contenu */
+}
+
+/* Personnalisation de la barre de défilement */
+.recommendations-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.recommendations-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.recommendations-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.recommendations-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Carte de personnel */
+.personnel-card {
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.personnel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.personnel-card.selected {
+  border-color: #007bff;
+  background: #e3f2fd;
+}
+
+/* En-tête de la carte */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.card-header .badge {
+  background: rgba(0, 123, 255, 0.1);
+  color: #007bff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+/* Corps de la carte */
+.card-body {
+  margin-bottom: 12px;
+}
+
+.card-body p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.card-body i {
+  margin-right: 8px;
+  color: #007bff;
+}
+
+/* Pied de la carte */
+.card-footer {
+  text-align: center;
+}
+
+.card-footer .btn-view {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card-footer .btn-view:hover {
+  background: #0056b3;
+}
+
+/* Boutons d'action */
+.popup-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.popup-buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.popup-buttons .btn-save {
+  background: #007bff;
+  color: white;
+}
+
+.popup-buttons .btn-save:hover {
+  background: #0056b3;
+}
+
+.popup-buttons .btn-close {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.popup-buttons .btn-close:hover {
+  background: #ddd;
+}
+
 /* Animation d'apparition */
 @keyframes fadeIn {
   from {
@@ -133,4 +244,27 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Message de chargement */
+.loading-message {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+}
+
+.loading-message i {
+  margin-right: 8px;
+}
+
+/* Message si aucune recommandation */
+.no-recommendations {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+}
+
+.personnel-card.selected {
+  border-color: #007bff;
+  background: #e3f2fd;
 }
