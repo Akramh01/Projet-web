@@ -1,44 +1,45 @@
 <body>
-<div class="container" id="container" #container>
-
-    <div class="form-container register-container">
-            <form action="#">
-                <h1>S'inscrire ici.</h1>
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Mot de passe">
-                <button>S'inscrire</button>
-            </form>
-    </div>
-      
-    <div class="form-container login-container">
-            <form action="#">
-                <h1>Se connecter ici.</h1>
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Mot de passe">
-                <div class="content">
-                    <div class="checkbox">
-                        <input type="checkbox" name="checkbox" id="checkbox">
-                        <label for="checkbox">Se souvenir de moi</label>
-                    </div>
-                </div>
-                <button>Se connecter</button>   
-            </form>
-    </div>
-    
-    <div class="overlay-container">
+    <div class="container" id="container" #container>
+  
+      <div class="form-container register-container">
+        <form (submit)="register()">
+          <h1>S'inscrire ici.</h1>
+          <input type="email" placeholder="Email" [(ngModel)]="registerEmail" name="registerEmail" required />
+          <input type="password" placeholder="Mot de passe" [(ngModel)]="registerPassword" name="registerPassword" required />
+          <button type="submit">S'inscrire</button>
+        </form>
+      </div>
+  
+      <div class="form-container login-container">
+        <form (submit)="login()">
+          <h1>Se connecter ici.</h1>
+          <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required />
+          <input type="password" placeholder="Mot de passe" [(ngModel)]="password" name="password" required />
+          <div class="content">
+            <div class="checkbox">
+              <input type="checkbox" name="checkbox" id="checkbox" />
+              <label for="checkbox">Se souvenir de moi</label>
+            </div>
+          </div>
+          <button type="submit">Se connecter</button>
+        </form>
+      </div>
+  
+      <div class="overlay-container">
         <div class="overlay">
-            <div class="overlay-panel overlay-left">
-                <h1 class="title">Bonjour.</h1>
-                <p>Si vous avez un compte, connectez-vous ici</p>
-                <button class="ghost" (click)="onLoginClick()" id="login">Se connecter<i class="lni lni-arrow-left login"></i></button>
-            </div>
-            <div class="overlay-panel overlay-right">
-                <h1 class="title">Inscrivez vous <br> dès maintenant.</h1>
-                <p>Si vous n'avez pas de compte, inscrivez-vous ici</p>
-                <button class="ghost" (click)="onRegisterClick()" id="register">S'inscrire<i class="lni lni-arrow-right register"></i></button>
-                
-            </div>
+          <div class="overlay-panel overlay-left">
+            <h1 class="title">Bonjour.</h1>
+            <p>Si vous avez un compte, connectez-vous ici</p>
+            <button class="ghost" (click)="onLoginClick()" id="login">Se connecter<i class="lni lni-arrow-left login"></i></button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1 class="title">Inscrivez-vous dès maintenant.</h1>
+            <p>Si vous n'avez pas de compte, inscrivez-vous ici</p>
+            <button class="ghost" (click)="onRegisterClick()" id="register">S'inscrire<i class="lni lni-arrow-right register"></i></button>
+          </div>
         </div>
+      </div>
+  
     </div>
-</div>
-</body>
+  </body>
+  

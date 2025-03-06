@@ -17,7 +17,13 @@ const port = 3000;
 app.use(express.json());
 
 //enable all origins for cors 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:4200', 
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: 'Content-Type,Authorization',
+  credentials: true, // IMPORTANT : Permet l'envoi des cookies et des tokens
+}));
+
 
 
 
