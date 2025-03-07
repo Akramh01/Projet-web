@@ -12,6 +12,15 @@
         <div routerLink="collaborateurs-page" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Collaborateurs</div>
         <div routerLink="missions-page" routerLinkActive="active">Missions</div>
     </div>
+    <div id="login-logout">
+        @if (user) {
+            <button id="logout-button" (click)="logout()">Se déconnecter</button>
+        } @else {
+            <div routerLink="login-register" routerLinkActive="active">
+                <button id="login-button">Se connecter</button>
+            </div>
+        }
+    </div>
     <div id="notification">
         <img src="assets/notif.svg" alt="Notifications">
     </div>
