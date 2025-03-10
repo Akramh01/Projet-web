@@ -1,5 +1,5 @@
 .mission-card {
-    width: full;
+    width: 100%; /* Utilisez 100% au lieu de "full" */
     background: white;
     padding: 12px;
     border-radius: 8px;
@@ -8,13 +8,17 @@
     flex-direction: column;
     display: flex;
     position: relative;
-  }
+}
 
 .mission-card:hover {
     transform: scale(1.02);
 }
 
-.mission-edit button{
+.mission-button {
+    position: relative; /* Conteneur des boutons */
+}
+
+.mission-button button {
     border: none;
     cursor: pointer;
     font-size: 10px;
@@ -23,17 +27,33 @@
     border-radius: 12px;
     box-shadow: 2px 5px 10px 2px rgba(0, 0, 0, 0.1);
     background-color: #e8e0f6;
-    right: 8px;
-    position: absolute;
+    position: absolute; /* Position absolue pour les boutons */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px; /* Largeur fixe pour les boutons */
+    height: 30px; /* Hauteur fixe pour les boutons */
+    padding: 4px; /* Padding pour un meilleur rendu */
 }
 
-.mission-edit h4 {
+/* Positionnement du bouton "edit" */
+.mission-button .edit-button {
+    right: 48px; /* Décalé de 48px depuis la droite */
+}
+
+/* Positionnement du bouton "détail" */
+.mission-button .detail-button {
+    right: 8px; /* Décalé de 8px depuis la droite */
+}
+
+/* Ajustement pour le texte h4 */
+.mission-button h4 {
     font-size: 16px;
     font-weight: bold;
     color: black;
     margin-top: 0px;
     margin-bottom: 0px;
-    padding-right: 32px;
+    padding-right: 100px; /* Espacement pour éviter le chevauchement avec les boutons */
 }
 
 .mission-info {
@@ -50,7 +70,7 @@
     background-color: #d4edda;
     padding: 0px 5px;
     border-radius: 5px;
-    font-weight: bold
+    font-weight: bold;
 }
 
 .priorite-moyenne {
@@ -58,7 +78,7 @@
     background-color: #fce5c5;
     padding: 0px 5px;
     border-radius: 5px;
-    font-weight: bold
+    font-weight: bold;
 }
 
 .priorite-haute {
@@ -66,5 +86,5 @@
     background-color: #f8d7da;
     padding: 0px 5px;
     border-radius: 5px;
-    font-weight: bold
+    font-weight: bold;
 }

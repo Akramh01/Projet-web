@@ -59,7 +59,7 @@
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-  border-color: #007bff;
+  border-color: #81689D;
   outline: none;
 }
 
@@ -76,7 +76,7 @@
 }
 
 .tag {
-  background-color: #007bff;
+  background-color: #81689D;
   color: white;
   padding: 4px 8px;
   border-radius: 4px;
@@ -157,7 +157,7 @@
 
 .card-header .badge {
   background: rgba(0, 123, 255, 0.1);
-  color: #007bff;
+  color: #81689D;
   padding: 4px 8px;
   border-radius: 12px;
   font-size: 14px;
@@ -176,7 +176,7 @@
 
 .card-body i {
   margin-right: 8px;
-  color: #007bff;
+  color: #81689D;
 }
 
 /* Pied de la carte */
@@ -185,7 +185,7 @@
 }
 
 .card-footer .btn-view {
-  background: #007bff;
+  background: #81689D;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -196,7 +196,7 @@
 }
 
 .card-footer .btn-view:hover {
-  background: #0056b3;
+  background: #81689D;
 }
 
 /* Boutons d'action */
@@ -217,12 +217,12 @@
 }
 
 .popup-buttons .btn-save {
-  background: #007bff;
+  background: #81689D;
   color: white;
 }
 
 .popup-buttons .btn-save:hover {
-  background: #0056b3;
+  background: #81689D;
 }
 
 .popup-buttons .btn-close {
@@ -265,6 +265,6 @@
 }
 
 .personnel-card.selected {
-  border-color: #007bff;
+  border-color: #81689D;
   background: #e3f2fd;
 }

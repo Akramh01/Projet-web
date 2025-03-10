@@ -6,7 +6,12 @@
             </div>
             <div class="missions-list">
                 @for(mission of filteredMissions[status]; track mission.idM) {
-                    <app-missions-card [mission]="mission"[changeMode]="changeMode" [fillForm]="fillForm" (editMission)="onEditMission($event)"></app-missions-card>
+                    <app-missions-card 
+                    [mission]="mission" 
+                    [fillForm]="fillForm" 
+                    (editMission)="onEditMission($event)" 
+                    (detailMission)="onMissionClicked(mission)">
+                </app-missions-card>
                 }
             </div>
         </div>

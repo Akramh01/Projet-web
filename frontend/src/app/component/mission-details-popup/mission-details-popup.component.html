@@ -1,0 +1,58 @@
+<div class="popup-overlay" (click)="closePopup()">
+    <div class="popup-content" (click)="$event.stopPropagation()">
+      <h2>Fiche de renseignement : {{ mission.titre }}</h2>
+  
+      <!-- Informations de la mission -->
+      <div class="mission-details">
+        <div class="detail-item">
+          <label>Titre :</label>
+          <span>{{ mission.titre }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Description :</label>
+          <span>{{ mission.description }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Date de début :</label>
+          <span>{{ mission.date_debut }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Date de fin :</label>
+          <span>{{ mission.date_fin }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Statut :</label>
+          <span>{{ mission.statut }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Priorité :</label>
+          <span>{{ mission.priorite }}</span>
+        </div>
+      </div>
+  
+      <!-- Section des compétences -->
+      <!-- <div class="competences-section">
+        <h3>Compétences requises</h3>
+        <ul>
+          <li *ngFor="let competence of mission.competences">
+            {{ competence.nom_fr }}
+          </li>
+        </ul>
+      </div> -->
+  
+      <!-- Section des employés affectés -->
+      <!-- <div class="employes-section">
+        <h3>Employés affectés</h3>
+        <ul>
+          <li *ngFor="let employe of mission.employes">
+            {{ employe.prenom }} {{ employe.nom }} ({{ employe.statut }})
+          </li>
+        </ul>
+      </div> -->
+  
+      <!-- Bouton pour fermer le pop-up -->
+      <div class="popup-buttons">
+        <button type="button" class="btn-close" (click)="closePopup()">Fermer</button>
+      </div>
+    </div>
+  </div>

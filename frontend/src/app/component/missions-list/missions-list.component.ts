@@ -13,9 +13,9 @@ import { MissionsFiltersComponent } from "../missions-filters/missions-filters.c
 export class MissionsListComponent implements OnInit {
   @Input() changeMode: any;
   @Input() fillForm: any;
-
   @Input() missions: Mission[] = []; // Liste des missions
-  @Output() editMission = new EventEmitter<Mission>(); // Événement pour éditer une mission
+  @Output() editMission = new EventEmitter<Mission>(); 
+  @Output() detailMission = new EventEmitter<Mission>();
 
   // missions: Mission[] = [];
   filteredMissions: { [key: string]: Mission[] } = {};
@@ -29,6 +29,15 @@ export class MissionsListComponent implements OnInit {
       this.filterMissions();
     });
   }
+
+  onMissionClicked(mission: Mission){
+    this.detailMission.emit(mission);
+  }
+
+    // Méthode pour transmettre l'événement au parent
+  onEditMission(mission: Mission) {
+    this.editMission.emit(mission);
+    }
   
   filterMissions(searchQuery: string = '') {
 
@@ -79,8 +88,5 @@ export class MissionsListComponent implements OnInit {
     return mission.id;
   }
 
-  // Méthode pour transmettre l'événement au parent
-  onEditMission(mission: Mission) {
-    this.editMission.emit(mission);
-  }
+
 }

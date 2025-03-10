@@ -5,6 +5,7 @@ import { MissionsListComponent } from "../../component/missions-list/missions-li
 import { Mission, MissionsService } from 'src/app/services/missions.service';
 import {MissionFormComponent, Mode} from 'src/app/component/mission-form/mission-form.component';
 import { MissionEditPopupComponent } from 'src/app/component/mission-edit-popup/mission-edit-popup.component';
+import { MissionDetailsPopupComponent } from 'src/app/component/mission-details-popup/mission-details-popup.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -15,15 +16,16 @@ import { CommonModule } from '@angular/common';
       MissionsListComponent,
       MissionFormComponent,
       MissionEditPopupComponent,
+      MissionDetailsPopupComponent,
       CommonModule,
     ],
   templateUrl: './missions-page.component.html',
   styleUrl: './missions-page.component.scss'
 })
 export class MissionsPageComponent {
-  mode : Mode = 'CREATION';
   showAddPopup = false;
   showEditPopup = false;
+  showDetailsPopup = false;
   mission : any;
   selectedMission: Mission | null = null;
   @ViewChild(MissionsListComponent) missionsList!: MissionsListComponent;
@@ -35,16 +37,13 @@ export class MissionsPageComponent {
       this.missionsList.filterMissions(searchQuery);
     }
   }
-  changeMode(mode: Mode) {
-    this.mode = mode;
-  }
+
   fillForm(mission: Mission) {
     this.mission = mission;
     console.log(this.mission);
   }
 
   openAddPopup() {
-    this.mode = 'CREATION';
     this.showAddPopup = true;
   }
 
@@ -53,27 +52,15 @@ export class MissionsPageComponent {
   }
 
   openEditPopup(mission: Mission) {
-    this.selectedMission = { ...mission }; // Créer une copie de la mission
-    this.showEditPopup = true; // Ouvrir le popup
+    this.selectedMission = { ...mission }; 
+    this.showEditPopup = true; 
+    this.showDetailsPopup = false;
   }
   
-  // openEditPopup(mission: Mission) {
-  //   this.mode = 'MODIFICATION';
-  //   this.mission = mission; // Update the mission property
-  //   this.showEditPopup = true;
-  // }
-  
-
   closeEditPopup() {
     this.showEditPopup = false;
     this.selectedMission = null;
   }
-
-  // saveMission(updatedMission: Mission) {
-  //   console.log('Mission mise à jour :', updatedMission);
-  //   // Envoyer les modifications au backend
-  //   this.closeEditPopup(); // Fermer le popup
-  // }
   
   saveMission(updatedMission: Mission) {
     console.log('Mission mise à jour :', updatedMission);
@@ -103,6 +90,22 @@ export class MissionsPageComponent {
         console.error('Erreur lors du chargement des missions :', error);
       }
     );
+  }
+
+  openMissionDetails(mission: Mission): void {
+    this.selectedMission = mission;
+    this.showDetailsPopup = true;
+    this.showEditPopup = false; 
+    
+  }
+
+  onMissionSelected(mission: Mission): void {
+    this.selectedMission = mission;
+  }
+
+  closeMissionDetails(): void {
+    this.showDetailsPopup = false;
+    this.selectedMission = null;
   }
 
 }
