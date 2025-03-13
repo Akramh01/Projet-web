@@ -1,14 +1,19 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,OnChanges, SimpleChanges } from '@angular/core';
 import { MissionsService, Mission } from '../../services/missions.service';
 import { CommonModule } from '@angular/common';
 import { MissionsCardComponent } from "../missions-card/missions-card.component";
-import { MissionsFiltersComponent } from "../missions-filters/missions-filters.component";
+import dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(isBetween);
+dayjs.extend(utc);
 
 @Component({
   selector: 'app-missions-list',
-  imports: [CommonModule, MissionsCardComponent, /*MissionsFiltersComponent*/],
+  imports: [CommonModule, MissionsCardComponent],
   templateUrl: './missions-list.component.html',
-  styleUrl: './missions-list.component.scss'
+  styleUrls: ['./missions-list.component.scss'] // Correction ici
 })
 export class MissionsListComponent implements OnInit {
   @Input() changeMode: any;
@@ -18,14 +23,26 @@ export class MissionsListComponent implements OnInit {
   @Output() detailMission = new EventEmitter<Mission>();
 
   // missions: Mission[] = [];
-  filteredMissions: { [key: string]: Mission[] } = {};
-  searchQuery: string = '';
+  allMissions: Mission[] = [];
+  filteredMissions: Mission[] = [];
+
+  // Propriétés pour les critères de filtrage
+  @Input() searchQuery: string = '';
+  @Input() selectedDate: string = '';
+  @Input() selectedPriority: string = '';
+  @Input() selectedSkill: string = '';
+  @Input() selectedCollaborator: string = '';
 
   constructor(private missionsService: MissionsService) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['searchQuery'] || changes['selectedDate'] || changes['selectedPriority'] || changes['selectedSkill'] || changes['selectedCollaborator']) {
+      this.filterMissions();
+    }
+  }
   
   ngOnInit(): void {
     this.missionsService.getMissions().subscribe((data) => {
-      this.missions = data;
+      this.allMissions = data;
       this.filterMissions();
     });
   }
@@ -37,31 +54,29 @@ export class MissionsListComponent implements OnInit {
     // Méthode pour transmettre l'événement au parent
   onEditMission(mission: Mission) {
     this.editMission.emit(mission);
+    console.log("what");
     }
   
-  filterMissions(searchQuery: string = '') {
+  
+  filterMissions(): void {
+    this.filteredMissions = this.allMissions.filter(mission => {
+      // Filtre par titre
+      const matchesTitle = mission.titre.toLowerCase().includes(this.searchQuery.toLowerCase());
 
-    if (!this.missions || this.missions.length === 0) {
-      return;
-    }
+      // Filtre par date
+      const matchesDate = !this.selectedDate || this.dateMatch(mission.date_debut);
 
-    const statuses = ['Préparation', 'Plannifiée', 'En cours', 'Terminée'];
-    this.filteredMissions = {};
+      // Filtre par priorité
+      const matchesPriority = !this.selectedPriority.toLowerCase() || mission.priorite === this.selectedPriority.toLowerCase();
 
-    statuses.forEach(status => {
-      this.filteredMissions[status] = this.missions.filter(mission => {
+      // Filtre par compétence
+      //const matchesSkill = !this.selectedSkill || mission.competences.includes(this.selectedSkill);
 
-        if (!mission || !mission.statut || !mission.titre) {
-          return false;
-        }
-        const missionName = mission.titre.toLowerCase();
-        const missionStatus = mission.statut.toLowerCase();
+      // Filtre par collaborateur
+      //const matchesCollaborator = !this.selectedCollaborator || mission.collaborateurs.includes(this.selectedCollaborator);
 
-        const matchStatus = missionStatus === status.toLowerCase();
-        const matchSearch = searchQuery === '' || missionName.includes(searchQuery.toLowerCase());
-
-        return matchStatus && matchSearch;
-      });
+      // Combiner tous les filtres
+      return matchesTitle && matchesPriority && matchesDate /*&& matchesSkill && matchesCollaborator*/;
     });
   }
 
@@ -80,13 +95,47 @@ export class MissionsListComponent implements OnInit {
     }
   }
 
-  trackByStatus(index: number, status: string): string {
-    return status;
+  isLastWeek(date: Date): boolean {
+    let dateDebutSemaine = dayjs().startOf('week').subtract(1, 'week');
+    let dateFinSemaine = dayjs().startOf('week').subtract(1, 'day');
+    return dayjs(date).isBetween(dateDebutSemaine, dateFinSemaine, 'day', '[]');
+  }
+
+  isLastMonth(date: Date): boolean {
+    let dateDebutMois = dayjs().startOf('month').subtract(1, 'month');
+    let dateFinMois = dayjs().startOf('month').subtract(1, 'day');
+    return dayjs(date).isBetween(dateDebutMois, dateFinMois, 'day', '[]');
+  }
+
+  isLastSixMonths(date: Date): boolean {
+    let dateDebutSemaine = dayjs().startOf('month').subtract(6, 'month');
+    let dateFinSemaine = dayjs().startOf('month').subtract(1, 'day');
+    return dayjs(date).isBetween(dateDebutSemaine, dateFinSemaine, 'day', '[]');
   }
 
   trackByMission(index: number, mission: any): string {
     return mission.id;
   }
+  getFilteredMissions(statut: any): Mission[] {
+    return this.filteredMissions.filter(mission => mission.statut.toLowerCase() === statut.toLowerCase());
+  }
+  dateMatch(date: Date): boolean {
+    switch (this.selectedDate) {
+      case "lastWeek":
+        const isLastWeekResult = this.isLastWeek(date);
+        return isLastWeekResult;
+      case "lastMonth":
+        const isLastMonthResult = this.isLastMonth(date);
+        return isLastMonthResult;
+      case "lastSixMonths":
+        const isLastSixMonthsResult = this.isLastSixMonths(date);
+        return isLastSixMonthsResult;
+      default:
+        console.log('dateMatch - default case, returning true');
+        return true;
+    }
+  }
+
 
 
 }

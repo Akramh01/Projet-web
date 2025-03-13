@@ -28,6 +28,7 @@ export class MissionsCardComponent {
 
   edit() {
     this.editMission.emit(this.mission);
+    console.log("nice");
     this.missionFormService.openEditForm();
   }
 

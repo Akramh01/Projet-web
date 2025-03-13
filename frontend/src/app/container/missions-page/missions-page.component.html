@@ -1,10 +1,18 @@
-<app-missions-filters (searchEvent)="onSearch($event)"></app-missions-filters>
+<app-missions-filters
+(searchQueryEvent)="onSearchQueryEvent($event)" (selectedDateEvent)="onSelectedDateEvent($event)"
+(selectedProrityEvent)="onSelectedPriorityEvent($event)" (selectedSkillEvent)="onSelectedSkillEvent($event)"
+(selectedCollaboratorEvent)="onSelectedCollaboratorEvent($event)">
+</app-missions-filters>
 <app-add-mission-button></app-add-mission-button>
-
-<app-missions-list
+<app-missions-list #missionsList
 [missions]="mission"
 (editMission)="openEditPopup($event)"
 (detailMission)="openMissionDetails($event)"
+[searchQuery]="searchQuery"
+[selectedDate]="selectedDate"
+[selectedPriority]="selectedPriority"
+[selectedSkill]="selectedSkill"
+[selectedCollaborator]="selectedCollaborator"
 ></app-missions-list>
 <app-mission-form [mission]="mission" ></app-mission-form>
 

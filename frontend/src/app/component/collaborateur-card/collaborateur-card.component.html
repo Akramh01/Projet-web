@@ -8,7 +8,7 @@
         {{ collaborateur.nom }} {{ collaborateur.prenom }}
       </div>
     </div>
-    <button class="edit-icon">
+    <button class="edit-icon" (click)="openModifierPopup()">
       <img src="assets/pencil.svg" alt="Modifier">
     </button>
   </div>
@@ -39,10 +39,11 @@
     </button>
   </div>
 
-  <!-- Pop-up de suppression -->
+
   @if (showDeletePopup) {
     <app-supprimer-collaborateur
       [isVisible]="showDeletePopup"
+      [collaborateur]="collaborateur"
       (confirmDelete)="onConfirmDelete()"
       (cancelDelete)="onCancelDelete()"
     ></app-supprimer-collaborateur>
@@ -54,5 +55,13 @@
       [competences]="competences"
       (close)="closeDetailPopup()"
     ></app-detail-collaborateur>
+  }
+
+  @if (showModifierPopup) {
+    <app-modifier-collaborateur
+      [idE]="collaborateur.idE"
+      (close)="closeModifierPopup()"
+      (collaborateurAddeC)="onCollaborateurAddeC()"
+    ></app-modifier-collaborateur>
   }
 </div>

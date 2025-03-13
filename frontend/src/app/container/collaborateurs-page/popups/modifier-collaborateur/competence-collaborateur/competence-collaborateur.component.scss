@@ -1,0 +1,19 @@
+.competences {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.competence-item {
+  background-color: #4c3b6e;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.competence-item:hover {
+  background-color: #5a4566;
+}

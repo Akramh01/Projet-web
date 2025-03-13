@@ -159,4 +159,56 @@ export const deleteAffectation = async (req: Request, res: Response) => {
     }
 };
 
+export const replaceEmployeInMission = async (req: Request, res: Response) => {
+    const { idEActuel, idENouveau, idM } = req.body;
 
+    try {
+        // Vérifier si les employés et la mission existent
+        const employeActuel = await Employes.findByPk(idEActuel);
+        const employeNouveau = await Employes.findByPk(idENouveau);
+        const mission = await Missions.findByPk(idM);
+
+        if (!employeActuel || !employeNouveau || !mission) {
+            res.status(404).json({ message: 'Employé ou Mission non trouvé' });
+            return; 
+        }
+
+        // Vérifier si l'employé actuel est bien affecté à la mission
+        const affectationActuelle = await Affecter.findOne({
+            where: { idE: idEActuel, idM: idM }
+        });
+
+        if (!affectationActuelle) {
+            res.status(404).json({ message: 'L\'employé actuel n\'est pas affecté à cette mission' });
+            return;
+        }
+
+        // Désaffecter l'employé actuel de la mission
+        await affectationActuelle.destroy();
+
+        // Affecter le nouvel employé à la mission
+        const nouvelleAffectation = await Affecter.create({
+            idE: idENouveau,
+            idM: idM,
+            date_affectation: new Date() 
+        });
+
+        // Mettre à jour le statut de l'employé actuel si nécessaire
+        const affectationsRestantes = await Affecter.count({ where: { idE: idEActuel } });
+        if (affectationsRestantes === 0) {
+            employeActuel.statut = 'Inactif';
+            await employeActuel.save();
+        }
+
+        // Mettre à jour le statut du nouvel employé à "Actif" si ce n'est pas déjà le cas
+        if (employeNouveau.statut !== 'Actif') {
+            employeNouveau.statut = 'Actif';
+            await employeNouveau.save();
+        }
+
+        res.status(200).json({ message: 'Employé remplacé avec succès', nouvelleAffectation });
+    } catch (error) {
+        console.error('Erreur lors du remplacement de l\'employé :', error);
+        res.status(500).json({ message: 'Erreur serveur' });
+    }
+};

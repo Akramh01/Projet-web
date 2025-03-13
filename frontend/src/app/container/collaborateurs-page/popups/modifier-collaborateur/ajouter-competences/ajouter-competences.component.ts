@@ -1,18 +1,19 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter , signal} from '@angular/core';
 import { CompetenceService } from 'src/app/services/competences.service';
 import { Competence } from 'src/app/services/competences.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-ajouter-formulaire',
-  imports: [CommonModule],
-  templateUrl: './ajouter-formulaire.component.html',
-  styleUrl: './ajouter-formulaire.component.scss'
+  selector: 'app-ajouter-competences',
+  imports: [],
+  templateUrl: './ajouter-competences.component.html',
+  styleUrl: './ajouter-competences.component.scss',
+  standalone: true
 })
-export class AjouterFormulaireComponent implements OnInit{
+export class AjouterCompetencesComponent implements OnInit {
+
   @Output() competencesSelected: EventEmitter<string[]> = new EventEmitter<string[]>();
   competences: Competence[] = [];
-  selectedCompetences: string[] = [];
+  selectedCompetences:string[] = [];
   selectedCompetencesDetails: Competence[] = [];
   isDropdownVisible = false;
   errorMessage: string | null = null;
@@ -36,13 +37,18 @@ export class AjouterFormulaireComponent implements OnInit{
       }
     });
   }
-
+  
   
   toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
 
   onCheckboxChange(event: any, competence: Competence): void {
+    if (!competence || typeof competence.idC === 'undefined') {
+      console.error('Compétence invalide:', competence);
+      return;
+    }
+  
     if (event.target.checked) {
       this.selectedCompetences.push(competence.idC);
       this.selectedCompetencesDetails.push(competence);
@@ -53,7 +59,7 @@ export class AjouterFormulaireComponent implements OnInit{
         this.selectedCompetencesDetails = this.selectedCompetencesDetails.filter(c => c.idC !== competence.idC);
       }
     }
-    this.emitSelectedCompetences();  // Émettre les compétences sélectionnées vers le parent
+    this.emitSelectedCompetences();
   }
   
   private emitSelectedCompetences(): void {
@@ -61,9 +67,13 @@ export class AjouterFormulaireComponent implements OnInit{
   }
   
 
-  onRemoveCompetence(competenceId: string): void {
-    this.selectedCompetences = this.selectedCompetences.filter(id => id !== competenceId);
-    this.selectedCompetencesDetails = this.selectedCompetencesDetails.filter(c => c.idC !== competenceId);
+  onRemoveCompetence(competenceIdC: string): void {
+    this.selectedCompetences = this.selectedCompetences.filter(id => id!== competenceIdC);
+    this.selectedCompetencesDetails = this.selectedCompetencesDetails.filter(c => c.idC !== competenceIdC);
     this.emitSelectedCompetences();  // Emit the selected competences after removal
   }
+  trackByCompetenceId(index: number, competence: Competence): string {
+    return competence.idC;  // Retourner l'ID pour suivre les éléments de manière unique
+  }
+  
 }

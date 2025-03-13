@@ -11,9 +11,14 @@ export class AvoirService {
   constructor(private http: HttpClient) {}
 
   // Lier des compétences à un employé
-  linkEmployeCompetences(nom: string, prenom: string, nom_fr: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, { nom, prenom, nom_fr });
+//   linkEmployeCompetences(nom: string, prenom: string, nom_fr: string): Observable<any> {
+//     return this.http.post(`${this.apiUrl}`, { nom, prenom, nom_fr });
+//   }
+
+  linkEmployeCompetences(idE: number, idC: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/link`, { idE, idC });
   }
+
 
   // Rechercher des employés par compétence
   searchEmployesByCompetence(nom_fr: string): Observable<any> {

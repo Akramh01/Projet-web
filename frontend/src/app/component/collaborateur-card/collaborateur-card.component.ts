@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SupprimerCollaborateurComponent } from 'src/app/container/collaborateurs-page/popups/supprimer-collaborateur/supprimer-collaborateur.component';
 import { DetailCollaborateurComponent } from 'src/app/container/collaborateurs-page/popups/detail-collaborateur/detail-collaborateur.component';
 import { CollaborateurService } from 'src/app/services/collaborateur.service';
+import { ModifierCollaborateurComponent } from 'src/app/container/collaborateurs-page/popups/modifier-collaborateur/modifier-collaborateur.component';
 import { Mission } from 'src/app/services/missions.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { Mission } from 'src/app/services/missions.service';
   templateUrl: './collaborateur-card.component.html',
   styleUrls: ['./collaborateur-card.component.scss'],
   standalone: true,
-  imports: [SupprimerCollaborateurComponent, DetailCollaborateurComponent] // Ajouter DetailCollaborateurComponent
+  imports: [SupprimerCollaborateurComponent, DetailCollaborateurComponent, ModifierCollaborateurComponent] 
 })
 export class CollaborateurCardComponent {
   @Input() collaborateur: any;
@@ -18,6 +19,7 @@ export class CollaborateurCardComponent {
   showDeletePopup: boolean = false;
   showDetailPopup: boolean = false; 
   @Input() mission!: Mission; // Mission à afficher
+  showModifierPopup: boolean = false;
 
   constructor(private collaborateurService: CollaborateurService) {}
 
@@ -43,6 +45,16 @@ export class CollaborateurCardComponent {
     this.showDeletePopup = true;
   }
 
+  // Ajoutez cette méthode pour ouvrir le pop-up de modification
+  openModifierPopup(): void {
+    this.showModifierPopup = true;
+  }
+
+  // Ajoutez cette méthode pour fermer le pop-up de modification
+  closeModifierPopup(): void {
+    this.showModifierPopup = false;
+  }
+
   // Méthode pour afficher le pop-up de détail
   openDetailPopup(): void {
     this.showDetailPopup = true;
@@ -52,7 +64,10 @@ export class CollaborateurCardComponent {
   closeDetailPopup(): void {
     this.showDetailPopup = false;
   }
-
+//Méthode pour  recharger la liste aprés ajouter des competences a un employe 
+onCollaborateurAddeC(): void {
+  this. loadCompetences(); // Recharge la liste des collaborateurs
+}
   // Méthode pour confirmer la suppression
   onConfirmDelete(): void {
     this.collaborateurService.deleteEmploye(this.collaborateur.idE).subscribe(

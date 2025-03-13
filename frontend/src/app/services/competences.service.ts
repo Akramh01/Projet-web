@@ -20,6 +20,9 @@ export class CompetenceService {
     return this.http.get<Competence>(`${this.apiUrl}/by-name?nom_fr=${encodeURIComponent(nom_fr)}`);
   }
   
+  getCompetenceWithNameEn(nom_en: string): Observable<Competence> {
+    return this.http.get<Competence>(`${this.apiUrl}/nom-en?nom_en=${encodeURIComponent(nom_en)}`);
+  }
   getCompetences(): Observable<Competence[]> { // Ajout du type de retour
     return this.http.get<Competence[]>(`${this.apiUrl}/`);
   }

@@ -13,6 +13,7 @@
     border-radius: 12px;
     margin-bottom: 10px;
     flex-wrap: wrap;
+    // margin-left: 330px;
 }
 
 .filter-select {
@@ -23,26 +24,12 @@
     background: rgb(208, 208, 208);
     cursor: pointer;
     transition: all 0.3s ease;
+    width: 150px;
 }
 
 .filter-select:hover {
     border-color: #6a1b9a;
     background: #f5eefc;
-}
-
-.filter-button {
-    padding: 8px 14px;
-    border: none;
-    background: #d1d1d1;
-    color: rgb(0, 0, 0);
-    font-size: 13px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.filter-button:hover {
-    background: #717171;
 }
 
 .search-bar {

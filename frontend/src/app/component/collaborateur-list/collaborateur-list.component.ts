@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { CollaborateurService } from '../../services/collaborateur.service';
 import { CollaborateurCardComponent } from '../collaborateur-card/collaborateur-card.component'; 
-
+import { AjouterCollaborateurComponent } from 'src/app/container/collaborateurs-page/popups/ajouter-collaborateur/ajouter-collaborateur.component';
 
 @Component({
   selector: 'app-collaborateur-list',
   templateUrl: './collaborateur-list.component.html',
   styleUrls: ['./collaborateur-list.component.scss'],
   standalone: true,
-  imports: [CollaborateurCardComponent]
+  imports: [CollaborateurCardComponent, AjouterCollaborateurComponent]
 })
 
 export class CollaborateurListComponent implements OnInit {
   collaborateurs: any[] = [];
   searchTerm: string = '';
+  showAddPopup: boolean = false;
+  showEditPopup:boolean =false;
 
   constructor(private collaborateurService: CollaborateurService) {}
 
@@ -27,6 +29,16 @@ export class CollaborateurListComponent implements OnInit {
     });
   }
 
+  // Méthode pour recharger la liste après suppression
+  onDeleteCollaborateur(): void {
+    this.loadCollaborateurs();
+  }
+
+  // Méthode pour recharger la liste après ajout
+  onCollaborateurAdded(): void {
+    this.loadCollaborateurs(); // Recharge la liste des collaborateurs
+  }
+  
   // Méthode pour mettre à jour le terme de recherche
   updateSearchTerm(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
@@ -53,4 +65,14 @@ export class CollaborateurListComponent implements OnInit {
       this.loadCollaborateurs();
     }
   }
+
+  openAddPopup(): void {
+    this.showAddPopup = true;
+  }
+
+  // Méthode pour fermer le pop-up de détail
+  closeAddPopup(): void {
+    this.showAddPopup = false;
+  }
+ 
 }

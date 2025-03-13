@@ -18,9 +18,8 @@ export type Mode = 'CREATION' | 'MODIFICATION' | 'CONSULTATION';
   providers: [MissionsService]
 })
 
-export class MissionFormComponent implements OnInit { // Implémentez OnInit
+export class MissionFormComponent implements OnInit { 
   @Output() formSubmit = new EventEmitter<any>();
-  // @Input() mode: Mode = 'CREATION';
   //@Input() mission: any;
   selectedMission = signal<Mission | null>(null); // Signal pour la mission sélectionnée
   isOpen = false;
@@ -82,19 +81,7 @@ export class MissionFormComponent implements OnInit { // Implémentez OnInit
         this.selectedCompetences = []; // Réinitialiser les compétences sélectionnées
       }
     });
-
-    // Réagir aux changements de mission ou de mode
-    // effect(() => {
-    //   const mission = this._mission();
-    //   const mode = this._mode();
-
-    //   if (mode === 'MODIFICATION' && mission) {
-    //     this.prefillForm(mission); // Préremplir le formulaire
-    //   } else if (mode === 'CREATION') {
-    //     this.missionForm.reset(); // Réinitialiser le formulaire
-    //     this.selectedCompetences = []; // Réinitialiser les compétences sélectionnées
-    //   }
-    // });
+   
   
   }
 
@@ -104,14 +91,6 @@ export class MissionFormComponent implements OnInit { // Implémentez OnInit
 
   
   }
-  // TODO : faire en sorte que ça prenne en compte le changement de mode
-//  ngOnChanges(changes: SimpleChanges) {
-//   console.log('Changements détectés :', changes);
-//   if (changes['mode'] && this.mode === 'CREATION' && this.mission) {
-//     console.log('Mode 2 détecté, préremplissage du formulaire');
-//     this.prefillForm(this.mission);
-//   }
-// }
 
   // Méthode pour préremplir le formulaire avec les données de la mission
   prefillForm(mission: any) {

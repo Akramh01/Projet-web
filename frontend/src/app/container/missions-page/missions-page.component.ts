@@ -30,19 +30,22 @@ export class MissionsPageComponent {
   selectedMission: Mission | null = null;
   @ViewChild(MissionsListComponent) missionsList!: MissionsListComponent;
 
+  searchQuery: string = '';
+  selectedDate: string = '';
+  selectedPriority: string = '';
+  selectedSkill: string = '';
+  selectedCollaborator: string = '';
   constructor(private missionsService: MissionsService) {}
-
-  onSearch(searchQuery: string) {
-    if (this.missionsList) {
-      this.missionsList.filterMissions(searchQuery);
-    }
+  onSearchQueryEvent(searchQuery: string) {
+    this.searchQuery = searchQuery;
   }
-
   fillForm(mission: Mission) {
     this.mission = mission;
     console.log(this.mission);
   }
-
+  onSelectedDateEvent(selectedDate: string) {
+    this.selectedDate = selectedDate;
+  }
   openAddPopup() {
     this.showAddPopup = true;
   }
@@ -55,8 +58,19 @@ export class MissionsPageComponent {
     this.selectedMission = { ...mission }; 
     this.showEditPopup = true; 
     this.showDetailsPopup = false;
+    
   }
-  
+  onSelectedPriorityEvent(selectedPriority: string) {
+    this.selectedPriority = selectedPriority;
+  }
+
+  onSelectedSkillEvent(selectedSkill: string) {
+    this.selectedSkill = selectedSkill;
+  }
+  onSelectedCollaboratorEvent(selectedCollaborator: string) {
+    this.selectedCollaborator = selectedCollaborator;
+  }
+
   closeEditPopup() {
     this.showEditPopup = false;
     this.selectedMission = null;

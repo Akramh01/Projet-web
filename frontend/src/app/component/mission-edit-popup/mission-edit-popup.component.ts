@@ -7,6 +7,7 @@ import { RequerirService, Requerir } from 'src/app/services/requerir.service';
 import { CompetenceService } from 'src/app/services/competences.service';
 import { AvoirService } from 'src/app/services/avoir.service';
 import { AffecterService } from 'src/app/services/affecter.service';
+import { MissionFormService } from 'src/app/services/mission-form.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -35,7 +36,8 @@ export class MissionEditPopupComponent {
     private requerirService: RequerirService,
     private competenceService: CompetenceService,
     private avoirService: AvoirService,
-    private affecterService: AffecterService
+    private affecterService: AffecterService,
+    private missionFormService: MissionFormService
   ) {}
 
   ngOnInit() {

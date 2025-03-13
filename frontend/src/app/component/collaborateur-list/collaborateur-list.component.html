@@ -13,17 +13,23 @@
           <img src="assets/loupe.svg" alt="Loupe">
         </button>
       </div>
-      <button class="add-person-button">Ajouter un collaborateur</button>
+      <button class="add-person-button" (click)="openAddPopup()">Ajouter un collaborateur</button>
     </div>
 </div>
   
 
 <div class="collaborateur-page">
   @for (collaborateur of collaborateurs; track collaborateur.idE) {
-    <app-collaborateur-card [collaborateur]="collaborateur"/>
+    <app-collaborateur-card 
+    [collaborateur]="collaborateur"
+    (delete)="onDeleteCollaborateur()"
+    />
   }
 </div>
 
-
-
-
+@if (showAddPopup) {
+  <app-ajouter-collaborateur
+    (close)="closeAddPopup()"
+    (collaborateurAdded)="onCollaborateurAdded()"
+  ></app-ajouter-collaborateur>
+}

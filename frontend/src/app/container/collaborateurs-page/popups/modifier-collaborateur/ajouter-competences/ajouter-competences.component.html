@@ -1,0 +1,23 @@
+<div class="dropdown-checkboxes">
+  <button (click)="toggleDropdown()">Choisissez des compétences</button>
+  <div class="dropdown-content" [class.hidden]="!isDropdownVisible">
+    @for (competence of competences; track competence.idC) {
+      <label>
+        <input type="checkbox" [value]="competence.idC" (change)="onCheckboxChange($event, competence)">
+        {{ competence.nom_fr }} (ID: {{ competence.idC }})
+      </label>
+    }
+  </div>
+</div>
+
+<div class="selected-list">
+  <h3>Compétences sélectionnées :</h3>
+  <ul>
+    @for (competence of selectedCompetencesDetails; track competence.idC) {
+      <li>
+        {{ competence.nom_fr }} (ID: {{ competence.idC }})
+        <span class="remove-btn" (click)="onRemoveCompetence(competence.idC)">×</span>
+      </li>
+    }
+  </ul>
+</div>

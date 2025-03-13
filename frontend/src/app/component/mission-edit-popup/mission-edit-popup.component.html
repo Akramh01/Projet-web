@@ -41,7 +41,7 @@
       <select [(ngModel)]="selectedCompetence">
         <option *ngFor="let comp of allCompetences" [value]="comp.idC">{{ comp.nom_fr }}</option>
       </select>
-      <button (click)="addCompetence()">Ajouter</button>
+      <button class = "btn-add" (click)="addCompetence()">Ajouter</button>
     </div>
 
     <!-- Section des recommandations -->

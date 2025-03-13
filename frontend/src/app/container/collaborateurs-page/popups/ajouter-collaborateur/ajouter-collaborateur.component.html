@@ -1,48 +1,45 @@
-<div class="popup">
-    <div class="avatar">
-        <a href="" class="back-link" (click)="$event.preventDefault(); router.navigate(['/'])">
-            <img src="assets/close.svg" alt="close">
-        </a>
-    </div>
-    <div class="modal-content">
-        <h2>Nouveau Collaborateur</h2>
-    </div>
-    <form [formGroup]="employeForm" (ngSubmit)="submitEmploye()">
-        <div>
-          <label for="prenom">Prénom :</label>
-          <input id="prenom" formControlName="prenom" placeholder="Prénom">
-          @if (employeForm.get('prenom')?.touched && employeForm.get('prenom')?.invalid) {
-            <div class="error-message">
-              Le prénom est requis
+       <div class="overlay" (click)="closeModal()">
+        <div class="popup" (click)="$event.stopPropagation()">
+          <div class="popup-header">
+            <button (click)="closeModal()" class="close-button">
+              <img src="assets/close.svg" alt="Fermer">
+            </button>
+          </div>
+          <div class="modal-content">
+            <h2>Nouveau Collaborateur</h2>
+          </div>
+          <form [formGroup]="employeForm" (ngSubmit)="submitEmploye()">
+            <div>
+              <label for="prenom">Prénom :</label>
+              <input id="prenom" formControlName="prenom" placeholder="Prénom">
+              @if (employeForm.get('prenom')?.touched && employeForm.get('prenom')?.invalid) {
+                <div class="error-message">
+                  Le prénom est requis
+                </div>
+              }
             </div>
-          }
-        </div>
-      
-        <div>
-          <label for="nom">Nom :</label>
-          <input id="nom" formControlName="nom" placeholder="Nom">
-          @if (employeForm.get('nom')?.touched && employeForm.get('nom')?.invalid) {
-            <div class="error-message">
-              Le nom est requis
+          
+            <div>
+              <label for="nom">Nom :</label>
+              <input id="nom" formControlName="nom" placeholder="Nom">
+              @if (employeForm.get('nom')?.touched && employeForm.get('nom')?.invalid) {
+                <div class="error-message">
+                  Le nom est requis
+                </div>
+              }
             </div>
-          }
-        </div>
-      
-        <div>
-          <label for="dateEmbauche">Date d'embauche :</label>
-          <input type="date" id="dateEmbauche" formControlName="dateEmbauche">
-          @if (employeForm.get('dateEmbauche')?.touched && employeForm.get('dateEmbauche')?.invalid) {
-            <div class="error-message">
-              La date d'embauche est requise
+          
+            <div>
+              <label for="dateEmbauche">Date d'embauche :</label>
+              <input type="date" id="dateEmbauche" formControlName="dateEmbauche">
+              @if (employeForm.get('dateEmbauche')?.touched && employeForm.get('dateEmbauche')?.invalid) {
+                <div class="error-message">
+                  La date d'embauche est requise
+                </div>
+              }
             </div>
-          }
+          
+            <button type="submit" [disabled]="employeForm.invalid">Confirmer</button>
+          </form>
         </div>
-      
-        <button type="submit" [disabled]="employeForm.invalid">Confirmer</button>
-      </form>
-        <app-ajouter-formulaire (competencesSelected)="onCompetencesSelected($event)"></app-ajouter-formulaire>
-<button>Lier </button>
-
-
-     
-      
+      </div>

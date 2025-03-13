@@ -5,7 +5,7 @@
                 <h3 class="column-title">{{ status }}</h3>
             </div>
             <div class="missions-list">
-                @for(mission of filteredMissions[status]; track mission.idM) {
+                @for(mission of getFilteredMissions(status); track mission.idM) {
                     <app-missions-card 
                     [mission]="mission" 
                     [fillForm]="fillForm" 
