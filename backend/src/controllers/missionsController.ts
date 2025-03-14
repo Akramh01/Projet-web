@@ -36,7 +36,6 @@ export const addMission = async (req: Request, res: Response) => {
           date_fin,
           statut:'préparation',
           priorite,
-          anomalies: "",
       });
 
       // Retourner la mission créée avec un statut 201 (Créé)

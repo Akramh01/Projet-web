@@ -22,24 +22,20 @@ export class MissionsService {
   constructor(private http: HttpClient) { }
 
   // Fonction pour convertir les chaînes de caractères en objets Date
-  private convertToDate(mission: any): Mission {
+ /*private convertToDate(mission: any): Mission {
     return {
       ...mission,
       date_debut: new Date(mission.date_debut),
       date_fin: new Date(mission.date_fin)
     };
-  }
+  }*/
 
   getMissions(): Observable<Mission[]> {
-    return this.http.get<Mission[]>(this.apiUrl).pipe(
-      map(missions => missions.map(this.convertToDate))
-    );
+    return this.http.get<Mission[]>(this.apiUrl);
   }
 
   getMissionWithName(titre: string): Observable<Mission[]> {
-    return this.http.get<Mission[]>(`${this.apiUrl}/name?nom_fr=${titre}`).pipe(
-      map(missions => missions.map(this.convertToDate))
-    );
+    return this.http.get<Mission[]>(`${this.apiUrl}/name?nom_fr=${titre}`);
   }
 
   addMission(mission: Mission): Observable<any> {

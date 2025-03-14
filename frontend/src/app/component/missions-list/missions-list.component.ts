@@ -60,6 +60,7 @@ export class MissionsListComponent implements OnInit, OnChanges {
     this.missionsService.getMissions().subscribe((data) => {
       this.allMissions = data;
       this.allInfosMission[0] = this.allMissions;
+      this.allInfoMissions.missions = this.allMissions;
       console.log("Missions récupérées :", this.allMissions);
 
       // Récupérer les compétences pour chaque mission
@@ -76,6 +77,7 @@ export class MissionsListComponent implements OnInit, OnChanges {
         this.affecterService.getCollaborateurByMission(mission.idM).subscribe((data) => {
           this.allCollaborateurs[mission.idM] = Array.isArray(data) ? data : [data];
           this.allInfosMission[2] = this.allCollaborateurs;
+          this.allInfoMissions.collaborateurs = this.allCollaborateurs;
           console.log(`Collaborateurs pour la mission ${mission.idM} :`, data);
         });
       });
@@ -89,7 +91,7 @@ export class MissionsListComponent implements OnInit, OnChanges {
   }
 
   filterMissions(): void {
-    this.filteredMissions = this.allInfosMission[0].filter((mission: Mission) => {
+    this.filteredMissions = this.allInfoMissions.missions.filter((mission: Mission) => {
       // Filtre par titre
       const matchesTitle = mission.titre.toLowerCase().includes(this.searchQuery.toLowerCase());
       console.log(`Mission ${mission.idM} - matchesTitle :`, matchesTitle);
@@ -104,11 +106,17 @@ export class MissionsListComponent implements OnInit, OnChanges {
 
       // Filtre par collaborateur
       const collaborateurs = this.allInfoMissions.collaborateurs[mission.idM] || [];
-      const matchesCollaborator = !this.selectedCollaborator || (Array.isArray(collaborateurs) && collaborateurs.some(collab => collab.idE === this.selectedCollaborator));
+      console.log(`Collaborateurs pour la mission ${mission.idM} :`, collaborateurs);
+      const matchesCollaborator = !this.selectedCollaborator || (Array.isArray(collaborateurs) && collaborateurs.some(collab => {
+        const isMatch = collab.idE === this.selectedCollaborator;
+        console.log(`Comparaison des identifiants : ${collab.idE} === ${this.selectedCollaborator} -> ${isMatch}`);
+        return isMatch;
+      }));
+      
       console.log(`Mission ${mission.idM} - matchesCollaborator :`, matchesCollaborator);
 
       // Combiner tous les filtres
-      return matchesTitle && matchesPriority && matchesDate && matchesCollaborator;
+      return matchesTitle && matchesPriority && matchesDate; //&& matchesCollaborator;
     });
     console.log("Missions filtrées :", this.filteredMissions);
   }
