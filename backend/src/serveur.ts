@@ -8,6 +8,11 @@ import missionsRoutes from './routes/missionsRoutes';
 import requerirRoutes from './routes/requerirRoutes';
 import authRoutes from './routes/authRoutes';
 import { initUserModel } from './models/user';
+// cron pour que la mission soit automatiquement passer de planifie a en cours et de en cours a termine
+import { CronMissions } from './utils/cronMissions';
+
+CronMissions();
+
 import sequelize from './config/bd';
 const cors = require('cors');
 
