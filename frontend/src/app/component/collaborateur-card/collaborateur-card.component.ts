@@ -3,6 +3,7 @@ import { SupprimerCollaborateurComponent } from 'src/app/container/collaborateur
 import { DetailCollaborateurComponent } from 'src/app/container/collaborateurs-page/popups/detail-collaborateur/detail-collaborateur.component';
 import { CollaborateurService } from 'src/app/services/collaborateur.service';
 import { ModifierCollaborateurComponent } from 'src/app/container/collaborateurs-page/popups/modifier-collaborateur/modifier-collaborateur.component';
+import { Mission } from 'src/app/services/missions.service';
 
 @Component({
   selector: 'app-collaborateur-card',
@@ -16,7 +17,8 @@ export class CollaborateurCardComponent {
   competences: any[] = [];
   @Output() delete = new EventEmitter<void>();
   showDeletePopup: boolean = false;
-  showDetailPopup: boolean = false; // Contrôle la visibilité du pop-up de détail
+  showDetailPopup: boolean = false; 
+  @Input() mission!: Mission; // Mission à afficher
   showModifierPopup: boolean = false;
 
   constructor(private collaborateurService: CollaborateurService) {}

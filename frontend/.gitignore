@@ -1,3 +1,7 @@
 /node_modules
-/.angular
+
+/.angular/*
+
+/package-lock.json
+
 

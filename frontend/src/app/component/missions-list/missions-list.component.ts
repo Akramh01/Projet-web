@@ -1,6 +1,6 @@
+import { Component, OnInit, Input, Output, EventEmitter,OnChanges, SimpleChanges } from '@angular/core';
+import { MissionsService, Mission } from '../../services/missions.service';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Mission, MissionsService } from '../../services/missions.service';
 import { MissionsCardComponent } from "../missions-card/missions-card.component";
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
@@ -15,8 +15,14 @@ dayjs.extend(utc);
   templateUrl: './missions-list.component.html',
   styleUrls: ['./missions-list.component.scss'] // Correction ici
 })
-export class MissionsListComponent implements OnInit, OnChanges  {
+export class MissionsListComponent implements OnInit {
+  @Input() changeMode: any;
+  @Input() fillForm: any;
+  @Input() missions: Mission[] = []; // Liste des missions
+  @Output() editMission = new EventEmitter<Mission>(); 
+  @Output() detailMission = new EventEmitter<Mission>();
 
+  // missions: Mission[] = [];
   allMissions: Mission[] = [];
   filteredMissions: Mission[] = [];
 
@@ -39,12 +45,19 @@ export class MissionsListComponent implements OnInit, OnChanges  {
       this.allMissions = data;
       this.filterMissions();
     });
-    /*this.requerirService.getCompetences().subscribe((data) => {
-      this.allCompetences = data;
-      console.log(this.allCompetences);
-    };*/
   }
 
+  onMissionClicked(mission: Mission){
+    this.detailMission.emit(mission);
+  }
+
+    // Méthode pour transmettre l'événement au parent
+  onEditMission(mission: Mission) {
+    this.editMission.emit(mission);
+    console.log("what");
+    }
+  
+  
   filterMissions(): void {
     this.filteredMissions = this.allMissions.filter(mission => {
       // Filtre par titre
@@ -100,11 +113,13 @@ export class MissionsListComponent implements OnInit, OnChanges  {
     return dayjs(date).isBetween(dateDebutSemaine, dateFinSemaine, 'day', '[]');
   }
 
+  trackByMission(index: number, mission: any): string {
+    return mission.id;
+  }
   getFilteredMissions(statut: any): Mission[] {
     return this.filteredMissions.filter(mission => mission.statut.toLowerCase() === statut.toLowerCase());
   }
-
-    dateMatch(date: Date): boolean {
+  dateMatch(date: Date): boolean {
     switch (this.selectedDate) {
       case "lastWeek":
         const isLastWeekResult = this.isLastWeek(date);
@@ -120,5 +135,7 @@ export class MissionsListComponent implements OnInit, OnChanges  {
         return true;
     }
   }
+
+
 
 }

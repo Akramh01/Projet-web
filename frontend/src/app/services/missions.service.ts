@@ -7,6 +7,7 @@ export interface Mission {
   titre: string;
   date_debut: Date;
   date_fin: Date;
+  description: string;
   priorite: string;
   statut: 'préparation' | 'plannifiée' | 'en cours' | 'terminée';
   anomalies: string;
@@ -17,6 +18,7 @@ export interface Mission {
 })
 export class MissionsService {
   private apiUrl = 'http://localhost:3000/missions';
+  private apiUrlRequerir = 'http://localhost:3000/requerir';
 
   constructor(private http: HttpClient) { }
 
@@ -32,7 +34,15 @@ export class MissionsService {
     return this.http.post(`${this.apiUrl}`, mission);
   }
 
+  addCompetence(competence: any): Observable<any> {
+    return this.http.post(`${this.apiUrlRequerir}/link`, competence);
+  }
+
   deleteMission(idM: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${idM}`)
   }
+
+  updateMission(mission: Mission): Observable<any> {
+  return this.http.put(`http://localhost:3000/missions/updatem/${mission.idM}`, mission);
+}
 }

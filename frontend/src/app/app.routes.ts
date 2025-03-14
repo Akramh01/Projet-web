@@ -4,8 +4,6 @@ import { MissionsPageComponent } from './container/missions-page/missions-page.c
 import { DashboardComponent } from './container/dashboard/dashboard.component';
 import { LoginRegisterComponent } from './container/login-register/login-register/login-register.component';
 
-
-
 export const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'collaborateurs-page', component: CollaborateursComponent },

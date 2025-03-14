@@ -5,9 +5,28 @@
 </app-missions-filters>
 <app-add-mission-button></app-add-mission-button>
 <app-missions-list #missionsList
+[missions]="mission"
+(editMission)="openEditPopup($event)"
+(detailMission)="openMissionDetails($event)"
 [searchQuery]="searchQuery"
 [selectedDate]="selectedDate"
 [selectedPriority]="selectedPriority"
 [selectedSkill]="selectedSkill"
 [selectedCollaborator]="selectedCollaborator"
 ></app-missions-list>
+<app-mission-form [mission]="mission" ></app-mission-form>
+
+@if(showEditPopup && selectedMission){
+  <app-mission-edit-popup
+  [mission]="selectedMission"  
+  (close)="closeEditPopup()"
+  (save)="saveMission($event)"
+  ></app-mission-edit-popup>}
+
+
+@if (showDetailsPopup && selectedMission) {
+  <app-mission-details-popup
+    [mission]="selectedMission"
+    (close)="closeMissionDetails()"
+  ></app-mission-details-popup>
+}
