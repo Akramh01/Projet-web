@@ -13,11 +13,16 @@
     gap: 20px; 
     padding: 20px; 
   }
-  
-  .stats-section {
-    flex: 1.5;
-  }
-  
-  .notifications-section {
-    flex: 1;
-  }
+   
+
+.left-section {
+    display: flex;
+    flex-direction: column; 
+    flex: 1; 
+    gap: 20px;
+}
+
+
+.forum-section {
+    flex: 1; 
+}

@@ -7,8 +7,11 @@ import employesRoutes from './routes/employesRoutes';
 import missionsRoutes from './routes/missionsRoutes';
 import requerirRoutes from './routes/requerirRoutes';
 import authRoutes from './routes/authRoutes';
-import { initUserModel } from './models/user';
+import forumRoutes from "./routes/forumRoutes";
+import { User } from './models/user';
 import sequelize from './config/bd';
+import { initDiscussionModel } from './models/discussion';
+import { initMessageModel } from './models/message';
 const cors = require('cors');
 
 const app = express();
@@ -35,6 +38,7 @@ app.use('/affecter', affecterRoutes);
 app.use('/missions', missionsRoutes);
 app.use('/requerir', requerirRoutes);
 app.use('/auth', authRoutes);
+app.use('/forum', forumRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -55,6 +59,8 @@ app.listen(port, () => {
 });
 
 sequelize.authenticate().then(async () => {
-  await initUserModel();
+  await User.sync();
+  await initDiscussionModel();
+  await initMessageModel();
 });
 
