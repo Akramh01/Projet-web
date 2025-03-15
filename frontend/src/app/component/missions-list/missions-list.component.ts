@@ -35,7 +35,7 @@ export class MissionsListComponent implements OnInit, OnChanges {
   @Input() selectedDate: string = '';
   @Input() selectedPriority: string = '';
   @Input() selectedSkill?: number;
-  @Input() selectedCollaborator?: number;
+  @Input() selectedCollaborator?: string ='';
 
   constructor(private missionsService: MissionsService,
     private affecterService: AffecterService) {
@@ -95,38 +95,58 @@ export class MissionsListComponent implements OnInit, OnChanges {
       // Filtre par titre
       const matchesTitle = mission.titre.toLowerCase().includes(this.searchQuery.toLowerCase());
       console.log(`Mission ${mission.idM} - matchesTitle :`, matchesTitle);
-
+  
       // Filtre par date
       const matchesDate = !this.selectedDate || this.dateMatch(mission.date_debut);
       console.log(`Mission ${mission.idM} - matchesDate :`, matchesDate);
-
+  
       // Filtre par priorité
       const matchesPriority = !this.selectedPriority.toLowerCase() || mission.priorite === this.selectedPriority.toLowerCase();
       console.log(`Mission ${mission.idM} - matchesPriority :`, matchesPriority);
-
+  
       // Filtre par collaborateur
-      const collaborateurs = this.allInfoMissions.collaborateurs[mission.idM] || [];
-      console.log(`Collaborateurs pour la mission ${mission.idM} :`, collaborateurs);
-      const matchesCollaborator = !this.selectedCollaborator || (Array.isArray(collaborateurs) && collaborateurs.some(collab => {
-        const isMatch = collab.idE === this.selectedCollaborator;
-        console.log(`Comparaison des identifiants : ${collab.idE} === ${this.selectedCollaborator} -> ${isMatch}`);
-        return isMatch;
-      }));
-      
+      // Si aucun collaborateur n'est sélectionné, matchesCollaborator est true
+      let matchesCollaborator = true;
+  
+      // Sinon, on vérifie uniquement les collaborateurs associés à la mission en cours
+      if (this.selectedCollaborator) {
+        // Récupère les collaborateurs pour la mission courante en utilisant mission.idM
+        const collaborateursForMission: any = this.allInfoMissions.collaborateurs[mission.idM];
+        if (Array.isArray(collaborateursForMission) && collaborateursForMission.length > 0) {
+          // Utilisation de some pour s'arrêter dès qu'un employé correspondant est trouvé
+           matchesCollaborator = collaborateursForMission.some((collab: any) => {
+            if (collab && collab.mission && Array.isArray(collab.mission.employes)) {
+              return collab.mission.employes.some((emp: any) => {
+                const isMatch = String(emp.idE) === String(this.selectedCollaborator);
+                console.log(`Mission ${mission.idM} - Comparaison: ${emp.idE} === ${this.selectedCollaborator} -> ${isMatch}`);
+                return isMatch;
+              });
+            }
+            return false;
+          });
+        } else {
+          matchesCollaborator = false;
+        }
+      } else if (!this.selectedCollaborator) {
+        matchesCollaborator = true;
+      }
       console.log(`Mission ${mission.idM} - matchesCollaborator :`, matchesCollaborator);
-
-      // Combiner tous les filtres
-      return matchesTitle && matchesPriority && matchesDate; //&& matchesCollaborator;
+  
+      // Retourne la mission uniquement si tous les filtres sont validés
+      return matchesTitle && matchesDate && matchesPriority && matchesCollaborator;
     });
     console.log("Missions filtrées :", this.filteredMissions);
   }
+  
+  
+  
 
   getStatusClass(status: string): string {
     switch (status) {
       case 'Préparation':
         return 'status-preparation';
-      case 'Plannifiée':
-        return 'status-plannifiee';
+      case 'Planifiée':
+        return 'status-planifiee';
       case 'En cours':
         return 'status-en-cours';
       case 'Terminée':
@@ -185,3 +205,43 @@ export class MissionsListComponent implements OnInit, OnChanges {
     }
   }
 }
+
+
+/*let matchesCollaborator = true;
+      if (this.allInfoMissions && this.allInfoMissions.collaborateurs) {
+        // Parcours de toutes les clés de l'objet collaborateurs (chaque clé correspond à l'id d'une mission)
+        Object.keys(this.allInfoMissions.collaborateurs).forEach(missionId => {
+          const collaborateursForMission: any = this.allInfoMissions.collaborateurs[missionId];
+      
+          if (Array.isArray(collaborateursForMission) && collaborateursForMission.length > 0) {
+            console.log(`Collaborateurs pour la mission ${missionId} :`, collaborateursForMission);
+      
+            collaborateursForMission.forEach((collab: any) => {
+              // Vérifie que la structure attendue est présente (collab.mission.employes)
+              if (collab && collab['mission'] && collab['mission']['employes'] && Array.isArray(collab['mission']['employes'])) {
+                const employes = collab['mission']['employes'];
+                employes.forEach((emp: any, index: number) => {
+                  console.log(`Mission ${missionId} - Employé ${index} - idE: ${emp['idE']}, nom: ${emp['nom']}, prenom: ${emp['prenom']}`);
+                  matchesCollaborator = !this.selectedCollaborator || emp['idE'] === Number(this.selectedCollaborator);
+                  console.log(`Comparaison des identifiants : ${emp['idE']} === ${this.selectedCollaborator} -> ${matchesCollaborator}`);
+                });
+              } else {
+                console.log(`Structure inattendue pour la mission ${missionId} :`, collab);
+              }
+            });
+          } else {
+            console.log(`Aucun collaborateur trouvé pour la mission ${missionId}.`);
+          }
+        });
+      } else {
+        console.log("La propriété 'collaborateurs' n'est pas définie dans allInfoMissions.");
+      }*/
+
+        // Filtre par collaborateur
+      /*const collaborateurs = this.allInfoMissions.collaborateurs[mission.idM] || [];
+      console.log(`Collaborateurs pour la mission ${mission.idM} :`, collaborateurs);
+      const matchesCollaborator = !this.selectedCollaborator || (Array.isArray(collaborateurs) && collaborateurs.some(collab => {
+        const isMatch = collab.idE === this.selectedCollaborator;
+        console.log(`Comparaison des identifiants : ${collab.idE} === ${this.selectedCollaborator} -> ${isMatch}`);
+        return isMatch;
+      }));*/

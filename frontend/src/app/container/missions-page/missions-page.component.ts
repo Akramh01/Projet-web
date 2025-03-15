@@ -22,7 +22,7 @@ export class MissionsPageComponent {
   selectedDate: string = '';
   selectedPriority: string = '';
   selectedSkill: number = 0;
-  selectedCollaborator: number = 0;
+  selectedCollaborator: string = '';
 
   onSearchQueryEvent(searchQuery: string) {
     this.searchQuery = searchQuery;
@@ -40,8 +40,8 @@ export class MissionsPageComponent {
     this.selectedSkill = selectedSkill;
   }
 
-  onSelectedCollaboratorEvent(selectedCollaborator: number) {
-    this.selectedCollaborator = selectedCollaborator;
+  onSelectedCollaboratorEvent(selectedCollaborator: string) {
+    this.selectedCollaborator = selectedCollaborator;  
   }
 }
 

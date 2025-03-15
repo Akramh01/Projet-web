@@ -1,5 +1,5 @@
 <div class="missions-container">
-    @for(status of ['Préparation', 'Plannifiée', 'En cours', 'Terminée']; track status) {
+    @for(status of ['Préparation', 'Planifiée', 'En cours', 'Terminée']; track status) {
         <div class="missions-column">
             <div class="missions-column-header" [ngClass]="getStatusClass(status)">
                 <h3 class="column-title">{{ status }}</h3>
