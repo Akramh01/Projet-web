@@ -17,6 +17,7 @@ export class MissionsFiltersComponent implements OnInit {
   @Output() selectedDateEvent = new EventEmitter<any>();
   @Output() selectedSkillEvent = new EventEmitter<any>();
   @Output() selectedCollaboratorEvent = new EventEmitter<any>();
+  
   allCompetences: Competence[] = [];
   allCollaborateurs: Employe[] = [];
 

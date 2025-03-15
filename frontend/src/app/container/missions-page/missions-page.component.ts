@@ -33,9 +33,11 @@ export class MissionsPageComponent {
   searchQuery: string = '';
   selectedDate: string = '';
   selectedPriority: string = '';
-  selectedSkill: number = 0;
+  selectedSkill: string = '';
   selectedCollaborator: string = '';
+
   constructor(private missionsService: MissionsService) {}
+
   onSearchQueryEvent(searchQuery: string) {
     this.searchQuery = searchQuery;
   }
@@ -64,7 +66,7 @@ export class MissionsPageComponent {
     this.selectedPriority = selectedPriority;
   }
 
-  onSelectedSkillEvent(selectedSkill: number) {
+  onSelectedSkillEvent(selectedSkill: string) {
     this.selectedSkill = selectedSkill;
   }
   onSelectedCollaboratorEvent(selectedCollaborator: string) {

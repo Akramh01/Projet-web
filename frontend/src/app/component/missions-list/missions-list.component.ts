@@ -27,8 +27,6 @@ export class MissionsListComponent implements OnInit, OnChanges {
   @Output() editMission = new EventEmitter<Mission>(); 
   @Output() detailMission = new EventEmitter<Mission>();
 
-  
-  // missions: Mission[] = [];
   allMissions: Mission[] = [];
   filteredMissions: Mission[] = [];
   allCompetences: { [key: number]: Requerir[] } = {};
@@ -36,30 +34,25 @@ export class MissionsListComponent implements OnInit, OnChanges {
 
   allInfoMissions : any;
 
-  allInfosMission: any[] = [];
-
   // Propriétés pour les critères de filtrage
   @Input() searchQuery: string = '';
   @Input() selectedDate: string = '';
   @Input() selectedPriority: string = '';
-  @Input() selectedSkill?: number;
-  @Input() selectedCollaborator?: string ='';
+  @Input() selectedSkill: string = '';
+  @Input() selectedCollaborator: string ='';
 
   constructor(private missionsService: MissionsService,
-    private affecterService: AffecterService) {
+    private affecterService: AffecterService, private requerirService: RequerirService) {
       this.allInfoMissions = {
         missions : this.allMissions,
         competences: this.allCompetences,
         collaborateurs: this.allCollaborateurs
       }
-    this.allInfosMission[0] = this.allMissions;
-    this.allInfosMission[1] = this.allCompetences;
-    this.allInfosMission[2] = this.allCollaborateurs;
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['searchQuery'] || changes['selectedDate'] || changes['selectedPriority'] || changes['selectedSkill'] || changes['selectedCollaborator']) {
+    if (changes['searchQuery'] || changes['selectedDate'] || changes['selectedPriority'] ||
+       changes['selectedSkill'] || changes['selectedCollaborator']) {
       this.filterMissions();
     }
   }
@@ -67,35 +60,33 @@ export class MissionsListComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.missionsService.getMissions().subscribe((data) => {
       this.allMissions = data;
-      this.allInfosMission[0] = this.allMissions;
       this.allInfoMissions.missions = this.allMissions;
       console.log("Missions récupérées :", this.allMissions);
 
       // Récupérer les compétences pour chaque mission
-      /*this.allMissions.forEach(mission => {
+      this.allMissions.forEach(mission => {
         this.requerirService.getcompetencesByIdMission(mission.idM).subscribe((data) => {
-          this.allCompetences[mission.idM] = data;
-          this.allInfosMission[1] = this.allCompetences;
+          this.allCompetences[mission.idM] = Array.isArray(data) ? data : [data];
+          this.allInfoMissions.competences = this.allCompetences;
           console.log(`Compétences pour la mission ${mission.idM} :`, data);
         });
-      });*/
+      });
 
       // Récupérer les collaborateurs pour chaque mission
       this.allMissions.forEach(mission => {
         this.affecterService.getCollaborateurByMission(mission.idM).subscribe((data) => {
           this.allCollaborateurs[mission.idM] = Array.isArray(data) ? data : [data];
-          this.allInfosMission[2] = this.allCollaborateurs;
           this.allInfoMissions.collaborateurs = this.allCollaborateurs;
           console.log(`Collaborateurs pour la mission ${mission.idM} :`, data);
         });
       });
       this.filterMissions();
       console.log("Voici le résultat du tableau souhaité :")
-      console.log(this.allInfosMission);
+      console.log(this.allInfoMissions);
     });
 
     console.log("Voici le résultat du tableau souhaité :")
-    console.log(this.allInfosMission);
+    console.log(this.allInfoMissions);
 
   }
 
@@ -103,12 +94,11 @@ export class MissionsListComponent implements OnInit, OnChanges {
     this.detailMission.emit(mission);
   }
 
-    // Méthode pour transmettre l'événement au parent
+  // Méthode pour transmettre l'événement au parent
   onEditMission(mission: Mission) {
     this.editMission.emit(mission);
     console.log("what");
     }
-  
   
   filterMissions(): void {
     this.filteredMissions = this.allInfoMissions.missions.filter((mission: Mission) => {
@@ -125,13 +115,15 @@ export class MissionsListComponent implements OnInit, OnChanges {
       console.log(`Mission ${mission.idM} - matchesPriority :`, matchesPriority);
   
       // Filtre par collaborateur
-      // Si aucun collaborateur n'est sélectionné, matchesCollaborator est true
       let matchesCollaborator = true;
   
       // Sinon, on vérifie uniquement les collaborateurs associés à la mission en cours
       if (this.selectedCollaborator) {
+
         // Récupère les collaborateurs pour la mission courante en utilisant mission.idM
         const collaborateursForMission: any = this.allInfoMissions.collaborateurs[mission.idM];
+        console.log(`Compétences pour la mission ${mission.idM} :`, collaborateursForMission);
+
         if (Array.isArray(collaborateursForMission) && collaborateursForMission.length > 0) {
           // Utilisation de some pour s'arrêter dès qu'un employé correspondant est trouvé
            matchesCollaborator = collaborateursForMission.some((collab: any) => {
@@ -150,16 +142,41 @@ export class MissionsListComponent implements OnInit, OnChanges {
       } else if (!this.selectedCollaborator) {
         matchesCollaborator = true;
       }
+
+      // Filtre par compétences
+      let matchesSkill = true;
+
+      if(this.selectedSkill) {
+
+        const competencesForMission: any = this.allInfoMissions.competences[mission.idM];
+        console.log(`Compétences pour la mission ${mission.idM} :`, competencesForMission);
+
+        if (Array.isArray(competencesForMission) && competencesForMission.length > 0) {
+          // Utilisation de some pour s'arrêter dès qu'une compétence correspondant est trouvé
+          matchesSkill = competencesForMission.some((skill: any) => {
+            if (skill && skill.competences && Array.isArray(skill.competences)) {
+              return skill.competences.some((cmp: any) => {
+                const isMatch = cmp.idC === this.selectedSkill;
+                console.log(`Mission ${mission.idM} - Comparaison: ${cmp.idC} === ${this.selectedSkill} -> ${isMatch}`);
+                return isMatch;
+              });
+            }
+            return false;
+          });
+        } else {
+          matchesSkill = false;
+        }
+      } else if (!this.selectedSkill) {
+        matchesSkill = true;
+      }
+
       console.log(`Mission ${mission.idM} - matchesCollaborator :`, matchesCollaborator);
   
       // Retourne la mission uniquement si tous les filtres sont validés
-      return matchesTitle && matchesDate && matchesPriority && matchesCollaborator;
+      return matchesTitle && matchesDate && matchesPriority && matchesCollaborator && matchesSkill;
     });
     console.log("Missions filtrées :", this.filteredMissions);
   }
-  
-  
-  
 
   getStatusClass(status: string): string {
     switch (status) {
@@ -228,44 +245,3 @@ export class MissionsListComponent implements OnInit, OnChanges {
     }
   }
 }
-
-
-/*let matchesCollaborator = true;
-      if (this.allInfoMissions && this.allInfoMissions.collaborateurs) {
-        // Parcours de toutes les clés de l'objet collaborateurs (chaque clé correspond à l'id d'une mission)
-        Object.keys(this.allInfoMissions.collaborateurs).forEach(missionId => {
-          const collaborateursForMission: any = this.allInfoMissions.collaborateurs[missionId];
-      
-          if (Array.isArray(collaborateursForMission) && collaborateursForMission.length > 0) {
-            console.log(`Collaborateurs pour la mission ${missionId} :`, collaborateursForMission);
-      
-            collaborateursForMission.forEach((collab: any) => {
-              // Vérifie que la structure attendue est présente (collab.mission.employes)
-              if (collab && collab['mission'] && collab['mission']['employes'] && Array.isArray(collab['mission']['employes'])) {
-                const employes = collab['mission']['employes'];
-                employes.forEach((emp: any, index: number) => {
-                  console.log(`Mission ${missionId} - Employé ${index} - idE: ${emp['idE']}, nom: ${emp['nom']}, prenom: ${emp['prenom']}`);
-                  matchesCollaborator = !this.selectedCollaborator || emp['idE'] === Number(this.selectedCollaborator);
-                  console.log(`Comparaison des identifiants : ${emp['idE']} === ${this.selectedCollaborator} -> ${matchesCollaborator}`);
-                });
-              } else {
-                console.log(`Structure inattendue pour la mission ${missionId} :`, collab);
-              }
-            });
-          } else {
-            console.log(`Aucun collaborateur trouvé pour la mission ${missionId}.`);
-          }
-        });
-      } else {
-        console.log("La propriété 'collaborateurs' n'est pas définie dans allInfoMissions.");
-      }*/
-
-        // Filtre par collaborateur
-      /*const collaborateurs = this.allInfoMissions.collaborateurs[mission.idM] || [];
-      console.log(`Collaborateurs pour la mission ${mission.idM} :`, collaborateurs);
-      const matchesCollaborator = !this.selectedCollaborator || (Array.isArray(collaborateurs) && collaborateurs.some(collab => {
-        const isMatch = collab.idE === this.selectedCollaborator;
-        console.log(`Comparaison des identifiants : ${collab.idE} === ${this.selectedCollaborator} -> ${isMatch}`);
-        return isMatch;
-      }));*/
-
