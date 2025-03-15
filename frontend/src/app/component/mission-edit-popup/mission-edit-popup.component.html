@@ -1,0 +1,88 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<div class="popup-overlay" (click)="closePopup()">
+  <div class="popup-content" (click)="$event.stopPropagation()">
+    <h2>Modifier la mission : {{ mission.titre }}</h2>
+
+    <!-- Formulaire de modification de la mission -->
+    <div class="form-group">
+      <label for="titre">Titre :</label>
+      <input id="titre" [(ngModel)]="mission.titre" />
+    </div>
+    <div class="form-group">
+      <label for="description">Description :</label>
+      <textarea id="description" [(ngModel)]="mission.description"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="date_debut">Date de début :</label>
+      <input id="date_debut" type="date" [(ngModel)]="mission.date_debut" />
+    </div>
+    <div class="form-group">
+      <label for="date_fin">Date de fin :</label>
+      <input id="date_fin" type="date" [(ngModel)]="mission.date_fin" />
+    </div>
+    <div class="form-group">
+      <label for="priorite">Priorité :</label>
+      <select id="priorite" [(ngModel)]="mission.priorite">
+        <option value="basse">Basse</option>
+        <option value="moyenne">Moyenne</option>
+        <option value="haute">Haute</option>
+      </select>
+    </div>
+
+    <!-- Section des compétences -->
+    <div class="competences-container">
+      <label>Compétences :</label>
+      <div class="tags">
+        <span *ngFor="let competence of competences" class="tag">
+          {{ competence.nom_fr }}
+          <button (click)="removeCompetence(competence.idC)">×</button>
+        </span>
+      </div>
+      <select [(ngModel)]="selectedCompetence">
+        <option *ngFor="let comp of allCompetences" [value]="comp.idC">{{ comp.nom_fr }}</option>
+      </select>
+      <button class = "btn-add" (click)="addCompetence()">Ajouter</button>
+    </div>
+
+    <!-- Section des recommandations -->
+    <h3>Recommandations de personnel</h3>
+    <div *ngIf="isLoading" class="loading-message">
+      <i class="fas fa-spinner fa-spin"></i> Chargement des recommandations en cours...
+    </div>
+
+    <div *ngIf="!isLoading && (!competences || competences.length === 0)" class="no-competences">
+      <p>Aucune compétence associée à cette mission. Veuillez ajouter des compétences pour obtenir des recommandations.</p>
+    </div>
+
+    <!-- Liste des recommandations avec scroll -->
+    <div *ngIf="!isLoading && recommendations.length > 0" class="recommendations-container">
+      <div *ngFor="let recommendation of recommendations" class="recommendation-item">
+        <div class="personnel-card" [class.selected]="selectedPersonnelId === recommendation.employe.idE" (click)="selectPersonnel(recommendation.employe.idE)">
+          <div class="card-header">
+            <h3>{{ recommendation.employe.prenom }} {{ recommendation.employe.nom }}</h3>
+            <span class="badge"><i class="fas fa-star"></i> {{ recommendation.competencesCorrespondantes }} compétences</span>
+          </div>
+          <div class="card-body">
+            <p><i class="fas fa-calendar-alt"></i> <strong>Date d'embauche :</strong> {{ recommendation.employe.date_embauche }}</p>
+            <p><i class="fas fa-user-tag"></i> <strong>Statut :</strong> {{ recommendation.employe.statut }}</p>
+          </div>
+          <div class="card-footer">
+            <button class="btn-view"><i class="fas fa-eye"></i> Voir le profil</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message si aucune recommandation -->
+    <div *ngIf="!isLoading && recommendations.length === 0" class="no-recommendations">
+      <p>Aucune recommandation trouvée pour cette mission.</p>
+    </div>
+
+    <!-- Boutons d'action -->
+    <div class="popup-buttons">
+      <button type="button" class="btn-save" (click)="addPersonnelToMission()">Ajouter à la mission</button>
+      <button type="button" class="btn-save" (click)="saveChanges()">Enregistrer</button>
+      <button type="button" class="btn-close" (click)="closePopup()">Fermer</button>
+    </div>
+  </div>
+</div>

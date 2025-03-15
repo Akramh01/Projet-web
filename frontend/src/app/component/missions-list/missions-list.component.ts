@@ -1,6 +1,6 @@
+import { Component, OnInit, Input, Output, EventEmitter,OnChanges, SimpleChanges } from '@angular/core';
+import { MissionsService, Mission } from '../../services/missions.service';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Mission, MissionsService } from '../../services/missions.service';
 import { MissionsCardComponent } from "../missions-card/missions-card.component";
 import { RequerirService, Requerir } from 'src/app/services/requerir.service';
 import { AffecterService, Affecter } from 'src/app/services/affecter.service';
@@ -21,6 +21,14 @@ dayjs.extend(utc);
 
 export class MissionsListComponent implements OnInit, OnChanges {
 
+  @Input() changeMode: any;
+  @Input() fillForm: any;
+  @Input() missions: Mission[] = []; // Liste des missions
+  @Output() editMission = new EventEmitter<Mission>(); 
+  @Output() detailMission = new EventEmitter<Mission>();
+
+  
+  // missions: Mission[] = [];
   allMissions: Mission[] = [];
   filteredMissions: Mission[] = [];
   allCompetences: { [key: number]: Requerir[] } = {};
@@ -88,8 +96,20 @@ export class MissionsListComponent implements OnInit, OnChanges {
 
     console.log("Voici le résultat du tableau souhaité :")
     console.log(this.allInfosMission);
+
   }
 
+  onMissionClicked(mission: Mission){
+    this.detailMission.emit(mission);
+  }
+
+    // Méthode pour transmettre l'événement au parent
+  onEditMission(mission: Mission) {
+    this.editMission.emit(mission);
+    console.log("what");
+    }
+  
+  
   filterMissions(): void {
     this.filteredMissions = this.allInfoMissions.missions.filter((mission: Mission) => {
       // Filtre par titre
@@ -184,6 +204,9 @@ export class MissionsListComponent implements OnInit, OnChanges {
     return result;
   }
 
+  trackByMission(index: number, mission: any): string {
+    return mission.id;
+  }
   getFilteredMissions(statut: any): Mission[] {
     return this.filteredMissions.filter(mission => mission.statut.toLowerCase() === statut.toLowerCase());
   }
@@ -245,3 +268,4 @@ export class MissionsListComponent implements OnInit, OnChanges {
         console.log(`Comparaison des identifiants : ${collab.idE} === ${this.selectedCollaborator} -> ${isMatch}`);
         return isMatch;
       }));*/
+

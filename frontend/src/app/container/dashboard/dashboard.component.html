@@ -1,8 +1,10 @@
 <div class="title">Dashboard</div>
+
 <div class="dashboard-container">
-    <app-dashboard-stats class="stats-section"></app-dashboard-stats>
-  
-    <app-dashboard-notifications class="notifications-section"></app-dashboard-notifications>
-  </div>
-<app-dashboard-missions/>
-<app-dashboard-diagramme/>
+    <div class="left-section">
+        <app-dashboard-stats class="stats-section"></app-dashboard-stats>
+        <app-dashboard-missions class="missions-section"></app-dashboard-missions>
+    </div>
+
+    <app-forum class="forum-section"></app-forum>
+</div>

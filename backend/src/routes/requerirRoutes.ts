@@ -2,7 +2,8 @@ import express from 'express';
 import { 
     linkMissionCompetence, 
     getCompetencesWithIdMission, 
-    deleteCompetence } 
+    deleteCompetence,
+    updateMissionCompetences } 
 from '../controllers/requerirController';
 
 const router = express.Router();
@@ -15,5 +16,8 @@ router.get('/competences', getCompetencesWithIdMission);
 
 // Dissocier une compétence d'une mission
 router.delete('/:idM/:idC', deleteCompetence);
+
+//update competences mission
+router.put('/update', updateMissionCompetences);
 
 export default router;
