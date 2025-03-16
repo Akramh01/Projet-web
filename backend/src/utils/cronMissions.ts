@@ -32,5 +32,5 @@ export function CronMissions() {
     }
   });
 
-  console.log("Tâches cron initialisées !");
+ 
 }
