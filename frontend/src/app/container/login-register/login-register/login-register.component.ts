@@ -16,6 +16,7 @@ export class LoginRegisterComponent {
   password: string = '';
   registerEmail: string = '';
   registerPassword: string = '';
+  errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -46,7 +47,7 @@ export class LoginRegisterComponent {
 
   login(): void {
     if (!this.email || !this.password) {
-      alert('Veuillez remplir tous les champs');
+      this.errorMessage = 'Veuillez remplir tous les champs.';
       return;
     }
 
@@ -57,6 +58,11 @@ export class LoginRegisterComponent {
         this.router.navigate(['/']).then(() => window.location.reload()); 
       },
       (error) => {
+        if (error.status === 401) {
+          this.errorMessage = "Identifiants incorrects. Veuillez réessayer.";
+        } else {
+          this.errorMessage = "Une erreur est survenue. Veuillez réessayer plus tard.";
+        }
         console.error('Erreur lors de la connexion', error);
       }
     );
