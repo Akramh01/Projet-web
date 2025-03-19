@@ -84,8 +84,8 @@ export class MissionsListComponent implements OnInit {
     switch (status) {
       case 'Préparation':
         return 'status-preparation';
-      case 'Plannifiée':
-        return 'status-plannifiee';
+      case 'Planifiée':
+        return 'status-planifiee';
       case 'En cours':
         return 'status-en-cours';
       case 'Terminée':

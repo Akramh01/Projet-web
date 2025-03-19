@@ -127,13 +127,13 @@ export const updateMissionStatut = async (req: Request, res: Response): Promise<
         }
 
         // Passer le statut à "planifiée"
-        mission.statut = 'plannifiée';
+        mission.statut = 'planifiée';
         await mission.save();
         res.status(200).json({ message: 'La mission a été planifiée avec succès.', mission });
         break;
       }
 
-      case 'plannifiée': {
+      case 'planifiée': {
         // Vérifier si la date de début est atteinte pour passer à "en cours"
         if (new Date() >= new Date(mission.date_debut)) {
           mission.statut = 'en cours';
