@@ -138,6 +138,80 @@ export const updateMissionStatut = async (req: Request, res: Response): Promise<
       const error = new Error(`Aucune personne ne possède la compétence requise: ${rcompetence.idC}`);
       (error as any).status = 400;
       throw error;
+
+    }
+
+    // Gestion automatique du statut en fonction des conditions et du statut actuel
+    switch (mission.statut) {
+      case 'préparation': {
+        // Vérifier que toutes les informations nécessaires sont présentes
+        if (!mission.titre || !mission.description || !mission.date_debut || !mission.date_fin) {
+          const error = new Error('La mission doit avoir toutes les informations complètes pour être planifiée.');
+          (error as any).status = 400;
+          throw error;
+        }
+
+        // Vérifier que des employés sont affectés à la mission
+        const affectations = await Affecter.findAll({ where: { idM }, include: [Employes] });
+        if (affectations.length === 0) {
+          const error = new Error('La mission doit avoir des employés affectés avant d\'être planifiée.');
+          (error as any).status = 400;
+          throw error;
+        }
+
+        // Passer le statut à "planifiée"
+        mission.statut = 'planifiée';
+        await mission.save();
+        res.status(200).json({ message: 'La mission a été planifiée avec succès.', mission });
+        break;
+      }
+
+      case 'planifiée': {
+        // Vérifier si la date de début est atteinte pour passer à "en cours"
+        if (new Date() >= new Date(mission.date_debut)) {
+          mission.statut = 'en cours';
+          await mission.save();
+          res.status(200).json({ message: 'La mission a commencé et est maintenant en cours.', mission });
+        } else {
+          const error = new Error('La mission ne peut pas être mise en cours avant la date de début.');
+          (error as any).status = 400;
+          throw error;
+        }
+        break;
+      }
+
+      case 'en cours': {
+        // Vérifier si la date de fin est atteinte pour passer à "terminée"
+        if (new Date() >= new Date(mission.date_fin)) {
+          mission.statut = 'terminée';
+          await mission.save();
+          res.status(200).json({ message: 'La mission est terminée.', mission });
+        } else {
+          const error = new Error('La mission ne peut pas être terminée avant la date de fin.');
+          (error as any).status = 400;
+          throw error;
+        }
+        break;
+      }
+
+      case 'terminée': {
+        const error = new Error('La mission est déjà terminée et ne peut pas être modifiée.');
+        (error as any).status = 400;
+        throw error;
+      }
+
+      default: {
+        const error = new Error('Statut de la mission non reconnu.');
+        (error as any).status = 400;
+        throw error;
+      }
+    }
+  } catch (error: any) {
+    // Si une erreur est levée, elle sera capturée ici.
+    console.error('Erreur lors de la mise à jour du statut de la mission:', error);
+
+    // Propager l'erreur pour qu'elle soit traitée par le middleware errorHandler
+    throw error;
   }
   }
 

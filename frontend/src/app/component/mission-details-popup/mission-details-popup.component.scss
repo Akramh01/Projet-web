@@ -1,52 +1,229 @@
+/* Overlay du popup */
 .popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent plus sombre */
+  backdrop-filter: blur(8px); /* Effet de flou */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out; /* Animation d'apparition */
+}
+
+.popup-content {
+  background-color: white;
+  padding: 24px; /* Plus d'espace intérieur */
+  border-radius: 12px; /* Bordures plus arrondies */
+  max-width: 600px;
+  width: 90%; /* Largeur relative */
+  max-height: 80vh; /* Hauteur maximale (80% de la hauteur de la vue) */
+  overflow-y: auto; /* Active le défilement vertical si nécessaire */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée */
+  animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Animation dynamique */
+}
+
+/* Titre du popup */
+.popup-content h2 {
+  margin-top: 0;
+  font-size: 1.8em; /* Taille de police plus grande */
+  color: #81689D; /* Violet pour le titre */
+  text-align: center;
+  font-weight: 600; /* Texte en gras */
+  padding-bottom: 12px;
+  border-bottom: 2px solid #81689D; /* Ligne de séparation violette */
+}
+
+/* Sections (détails, compétences, employés) */
+.mission-details,
+.competences-section,
+.employes-section {
+  margin-bottom: 24px; /* Plus d'espace entre les sections */
+}
+
+h2 {
+  font-size: 2em; /* Taille de police plus grande */
+  color: #81689D; /* Violet */
+  font-weight: 700; /* Texte en gras */
+  margin-bottom: 24px; /* Espace en dessous */
+  text-align: center;
+  position: relative;
+}
+
+h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #81689D; /* Ligne de séparation violette */
+  margin: 12px auto 0; /* Centrée et espacée du titre */
+}
+
+/* Titres des sous-sections */
+h3 {
+  font-size: 1.5em; /* Taille de police plus grande */
+  color: #81689D; /* Violet */
+  font-weight: 600; /* Texte en demi-gras */
+  margin-bottom: 16px; /* Espace en dessous */
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e0e0e0; /* Ligne de séparation subtile */
+}
+
+/* Éléments de détail */
+.detail-item {
+  margin-bottom: 12px; /* Plus d'espace entre les éléments */
+}
+
+.detail-item label {
+  font-size: 1.1em; /* Taille de police légèrement plus grande */
+  font-weight: 500; /* Texte en demi-gras */
+  color: #555; /* Gris foncé */
+  margin-right: 10px;
+}
+
+/* Valeurs des détails */
+.detail-item span {
+  font-size: 1em;
+  color: #333; /* Gris plus foncé */
+  font-weight: 400; /* Texte normal */
+}
+
+/* Conteneur des tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Espace entre les tags */
+  margin-bottom: 16px;
+}
+
+/* Style d'un tag individuel */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  background-color: #81689D; /* Violet */
+  padding: 6px 12px; /* Plus de rembourrage */
+  border-radius: 20px; /* Bordures arrondies */
+  font-size: 14px;
+  color: white; /* Texte en blanc */
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Animation au survol */
+}
+
+.tag:hover {
+  background-color: #6A4A7E; /* Violet plus foncé au survol */
+  transform: translateY(-2px); /* Légère élévation au survol */
+}
+
+/* Boutons du popup */
+.popup-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Espace entre les boutons */
+}
+
+.btn-close {
+  background-color: #81689D; /* Violet */
+  color: white;
+  border: none;
+  padding: 10px 20px; /* Plus de rembourrage */
+  border-radius: 6px; /* Bordures plus arrondies */
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500; /* Texte en demi-gras */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Animation au survol */
+}
+
+.btn-close:hover {
+  background-color: #6A4A7E; /* Violet plus foncé au survol */
+  transform: translateY(-2px); /* Légère élévation au survol */
+}
+
+/* Animation d'apparition du fond */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  .popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 600px;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  to {
+    opacity: 1;
   }
-  
-  .mission-details, .competences-section, .employes-section {
-    margin-bottom: 20px;
+}
+
+/* Animation d'apparition du contenu */
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
   }
-  
-  .detail-item {
-    margin-bottom: 10px;
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
-  
-  .detail-item label {
-    font-weight: bold;
-    margin-right: 10px;
-  }
-  
-  .popup-buttons {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .btn-close {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .btn-close:hover {
-    background-color: #d32f2f;
-  }
+}
+
+/* Section des employés */
+.employes-section {
+  margin-top: 24px;
+}
+
+.employes-section h3 {
+  font-size: 1.5em;
+  color: #81689D; /* Violet */
+  margin-bottom: 16px;
+  font-weight: 600;
+  border-bottom: 2px solid #81689D; /* Ligne de séparation violette */
+  padding-bottom: 8px;
+}
+
+/* Liste des employés */
+.employes-list {
+  display: grid;
+  gap: 16px; /* Espace entre les cartes */
+}
+
+/* Carte d'un employé */
+.employe-card {
+  background-color: #f9f9f9; /* Fond légèrement gris */
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0; /* Bordure subtile */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation au survol */
+}
+
+.employe-card:hover {
+  transform: translateY(-4px); /* Légère élévation au survol */
+  box-shadow: 0 6px 16px rgba(129, 104, 157, 0.2); /* Ombre violette au survol */
+}
+
+/* Informations de l'employé */
+.employe-info {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Espace entre l'icône et le texte */
+}
+
+.employe-info i {
+  font-size: 1.2em;
+  color: #81689D; /* Violet pour les icônes */
+}
+
+.employe-info span {
+  font-size: 1em;
+  color: #333;
+}
+
+/* Statut de l'employé */
+.employe-statut {
+  margin-top: 8px;
+  font-size: 0.9em;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.employe-statut i {
+  color: #81689D; /* Violet pour l'icône */
+}

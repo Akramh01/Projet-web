@@ -7,13 +7,13 @@ import { RequerirService, Requerir } from 'src/app/services/requerir.service';
 import { CompetenceService } from 'src/app/services/competences.service';
 import { AvoirService } from 'src/app/services/avoir.service';
 import { AffecterService } from 'src/app/services/affecter.service';
-import { MissionFormService } from 'src/app/services/mission-form.service';
+import { CollaborateurRecommedDetailComponent } from '../collaborateur-recommed-detail/collaborateur-recommed-detail.component'; 
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-mission-edit-popup',
   standalone: true, 
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, CollaborateurRecommedDetailComponent],   
   templateUrl: './mission-edit-popup.component.html',
   styleUrls: ['./mission-edit-popup.component.scss']
 })
@@ -29,6 +29,8 @@ export class MissionEditPopupComponent {
   isLoading = false;
   selectedPersonnelId: number | null = null; 
   date_affectation: string = '';
+  showCollaboratorDetailsPopup = false; 
+
   
 
 
@@ -37,7 +39,6 @@ export class MissionEditPopupComponent {
     private competenceService: CompetenceService,
     private avoirService: AvoirService,
     private affecterService: AffecterService,
-    private missionFormService: MissionFormService
   ) {}
 
   ngOnInit() {
@@ -51,6 +52,17 @@ export class MissionEditPopupComponent {
       }
     });
     this.date_affectation = this.getCurrentDate();
+  }
+
+  openCollaboratorDetailsPopup(idE: number): void {
+    if (idE) {
+      this.selectedPersonnelId = idE;
+      this.showCollaboratorDetailsPopup = true;
+    }
+  }
+
+  closeCollaboratorDetailsPopup(): void {
+    this.showCollaboratorDetailsPopup = false;
   }
 
   selectPersonnel(idE: number): void {
