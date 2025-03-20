@@ -18,7 +18,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./mission-edit-popup.component.scss']
 })
 export class MissionEditPopupComponent {
-  @Input() mission!: Mission; // Mission sélectionnée
+  @Input() mission!: Mission; 
+  @Input() statut!: string;
   @Output() close = new EventEmitter<void>(); 
   @Output() save = new EventEmitter<Mission>(); 
 
@@ -30,6 +31,8 @@ export class MissionEditPopupComponent {
   selectedPersonnelId: number | null = null; 
   date_affectation: string = '';
   showCollaboratorDetailsPopup = false; 
+  selectedPersonnelIds: number[] = []; // IDs des personnels sélectionnés
+  affectesPersonnel: any[] = [];
 
   
 
@@ -192,25 +195,30 @@ export class MissionEditPopupComponent {
     this.close.emit();
   }
 
-  saveChanges() {
-    // Récupérer les IDs des compétences sélectionnées
-    const competencesIds = this.competences.map(c => c.idC);
+  saveChanges(): void {
+    if (this.mission.statut === 'planifiée') {
+      // Cas d'une mission planifiée : enregistrer uniquement les modifications des employés
+      this.addPersonnelToMission(); // Ajouter l'employé sélectionné à la mission
+    } else {
+      // Cas d'une mission en préparation : enregistrer les compétences et autres détails
+      const competencesIds = this.competences.map(c => c.idC);
   
-    // Mettre à jour les liaisons dans la table `requerir`
-    this.requerirService.updateMissionCompetences(this.mission.idM, competencesIds).subscribe(
-      (response) => {
-        console.log('Liaisons mises à jour avec succès :', response);
+      // Mettre à jour les liaisons dans la table `requerir`
+      this.requerirService.updateMissionCompetences(this.mission.idM, competencesIds).subscribe(
+        (response) => {
+          console.log('Liaisons mises à jour avec succès :', response);
   
-        // Émettre un événement pour informer le composant parent
-        this.save.emit(this.mission);
+          // Émettre un événement pour informer le composant parent
+          this.save.emit(this.mission);
   
-        // Fermer le popup
-        this.closePopup();
-      },
-      (error) => {
-        console.error('Erreur lors de la mise à jour des liaisons :', error);
-      }
-    );
+          // Fermer le popup
+          this.closePopup();
+        },
+        (error) => {
+          console.error('Erreur lors de la mise à jour des liaisons :', error);
+        }
+      );
+    }
   }
   
 

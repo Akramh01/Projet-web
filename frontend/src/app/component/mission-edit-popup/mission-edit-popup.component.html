@@ -1,51 +1,52 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <div class="popup-overlay" (click)="closePopup()">
   <div class="popup-content" (click)="$event.stopPropagation()">
     <h2>Modifier la mission : {{ mission.titre }}</h2>
-
-    <div class="form-group">
-      <label for="titre">Titre :</label>
-      <input id="titre" [(ngModel)]="mission.titre" />
-    </div>
-    <div class="form-group">
-      <label for="description">Description :</label>
-      <textarea id="description" [(ngModel)]="mission.description"></textarea>
-    </div>
-    <div class="form-group">
-      <label for="date_debut">Date de début :</label>
-      <input id="date_debut" type="date" [(ngModel)]="mission.date_debut" />
-    </div>
-    <div class="form-group">
-      <label for="date_fin">Date de fin :</label>
-      <input id="date_fin" type="date" [(ngModel)]="mission.date_fin" />
-    </div>
-    <div class="form-group">
-      <label for="priorite">Priorité :</label>
-      <select id="priorite" [(ngModel)]="mission.priorite">
-        <option value="basse">Basse</option>
-        <option value="moyenne">Moyenne</option>
-        <option value="haute">Haute</option>
-      </select>
-    </div>
-
-    <div class="competences-container">
-      <label>Compétences :</label>
-      <div class="tags">
-        @for (competence of competences; track competence.idC) {
-          <span class="tag">
-            {{ competence.nom_fr }}
-            <button (click)="removeCompetence(competence.idC)">×</button>
-          </span>
-        }
+    @if (mission.statut !== 'planifiée') {
+      <div class="form-group">
+        <label for="titre">Titre :</label>
+        <input id="titre" [(ngModel)]="mission.titre" />
       </div>
-      <select [(ngModel)]="selectedCompetence">
-        @for (comp of allCompetences; track comp.idC) {
-          <option [value]="comp.idC">{{ comp.nom_fr }}</option>
-        }
-      </select>
-      <button class="btn-add" (click)="addCompetence()">Ajouter</button>
-    </div>
+      <div class="form-group">
+        <label for="description">Description :</label>
+        <textarea id="description" [(ngModel)]="mission.description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="date_debut">Date de début :</label>
+        <input id="date_debut" type="date" [(ngModel)]="mission.date_debut" />
+      </div>
+      <div class="form-group">
+        <label for="date_fin">Date de fin :</label>
+        <input id="date_fin" type="date" [(ngModel)]="mission.date_fin" />
+      </div>
+      <div class="form-group">
+        <label for="priorite">Priorité :</label>
+        <select id="priorite" [(ngModel)]="mission.priorite">
+          <option value="basse">Basse</option>
+          <option value="moyenne">Moyenne</option>
+          <option value="haute">Haute</option>
+        </select>
+      </div>
 
+      <div class="competences-container">
+        <label>Compétences :</label>
+        <div class="tags">
+          @for (competence of competences; track competence.idC) {
+            <span class="tag">
+              {{ competence.nom_fr }}
+              <button (click)="removeCompetence(competence.idC)">×</button>
+            </span>
+          }
+        </div>
+        <select [(ngModel)]="selectedCompetence">
+          @for (comp of allCompetences; track comp.idC) {
+            <option [value]="comp.idC">{{ comp.nom_fr }}</option>
+          }
+        </select>
+        <button class="btn-add" (click)="addCompetence()">Ajouter</button>
+      </div>
+    }
+
+    <!-- Afficher les recommandations de personnel -->
     <h3>Recommandations de personnel</h3>
     @if (isLoading) {
       <div class="loading-message">
