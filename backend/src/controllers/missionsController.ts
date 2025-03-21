@@ -99,46 +99,15 @@ export const getMissionWithTitle = async (req: Request, res: Response) => {
  
 "// Mise à jour du statut par défaut (préparation) pour le passer à planifié"
 export const updateMissionStatut = async (req: Request, res: Response): Promise<void> => {
-	try {
-    	const { idM } = req.params;
+  try {
+    const { idM } = req.params;
 
-    	// Récupération de la mission
-    	const mission = await Missions.findByPk(idM);
-    	if (!mission) {
-        	const error = new Error('Mission non trouvée.');
-        	(error as any).status = 404;
-        	throw error;
-    	}
-
-    	if (mission.statut !== 'préparation') {
-        	const error = new Error('Seules les missions en préparation peuvent être planifiées.');
-        	(error as any).status = 400;
-        	throw error;
-    	}
-        // vérification la présence de toute les données de la mission
-    	if (!mission.titre || !mission.description || !mission.date_debut || !mission.date_fin) {
-        	const error = new Error('Toutes les informations doivent être complètes pour planifier la mission.');
-        	(error as any).status = 400;
-        	throw error;
-    	}
-
-    	// Vérifier qu'au moins un employé est affecté
-    	const affectationsCollaborateurs = await Affecter.findAll({ where: { idM } });
-    	if (affectationsCollaborateurs.length === 0) {
-        	const error = new Error("Il faut au moins un employé affecté pour planifier la mission.");
-        	(error as any).status = 400;
-        	throw error;
-    	}
-
-    	// Vérifier que toutes les compétences requises sont couvertes
-	const rcompetences = await Requerir.findAll({ where: { idM } });
-	for (const  rcompetence of rcompetences) {
-  	const nbPersonnesAvecCompetence = await Avoir.count({ where: { idC: rcompetence.idC } });
-    if (nbPersonnesAvecCompetence === 0) {
-      const error = new Error(`Aucune personne ne possède la compétence requise: ${rcompetence.idC}`);
-      (error as any).status = 400;
+    // Récupérer la mission par son ID
+    const mission = await Missions.findByPk(idM);
+    if (!mission) {
+      const error = new Error('Mission non trouvée.');
+      (error as any).status = 404;
       throw error;
-
     }
 
     // Gestion automatique du statut en fonction des conditions et du statut actuel
@@ -213,17 +182,6 @@ export const updateMissionStatut = async (req: Request, res: Response): Promise<
     // Propager l'erreur pour qu'elle soit traitée par le middleware errorHandler
     throw error;
   }
-  }
-
-    	// Mettre à jour le statut de la mission
-    	mission.statut = 'planifiée';
-    	await mission.save();
-
-    	res.status(200).json({ message: 'Mission planifiée avec succès.', mission });
-	} catch (error) {
-    	console.error('Erreur mise à jour statut mission:', error);
-    
-	}
 };
 //modifier une mission 
 export const updateMission =  async (req: Request, res: Response) => {
