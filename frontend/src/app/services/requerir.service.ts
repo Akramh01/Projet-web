@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Competence } from './competences.service';
-
 
 export interface Requerir {
   idM: number;
@@ -20,7 +19,6 @@ export class RequerirService {
   linkMissionCompetence(data: Requerir): Observable<any> {
     return this.http.post(`${this.apiUrl}/link`, data);
   }
-
 
   getCompetencesWithIdMission(idM: number): Observable<Competence[]> {
     const params = new HttpParams().set('idM', idM.toString());
@@ -42,6 +40,4 @@ export class RequerirService {
   getcompetencesByIdMission(idM: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/competences?idM=${idM}`);
   }
-
-
 }
