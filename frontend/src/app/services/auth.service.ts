@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,11 @@ export class AuthService {
 
   // Connexion
   login(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { email, password });
+    return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
+      catchError(error => {
+        return throwError(() => error); // Propager l'erreur pour qu'elle soit gérée dans le composant
+      })
+    );
   }
 
   // Sauvegarde du token

@@ -4,6 +4,10 @@
             <button class = "edit-button" (click)="edit()"><img src="../../../assets/pencil.svg"></button>
             <button class="detail-button" (click)="openMissionDetails()"><img src="../../../assets/Eye.svg"></button>
         }
+
+        @if(mission.statut == "en cours" || mission.statut == "terminée") {
+            <button class="detail-button" (click)="openMissionDetails()"><img src="../../../assets/Eye.svg"></button>
+        }
         <h4>{{ mission.titre }}</h4>
     </div>
     <div class = "mission-info">

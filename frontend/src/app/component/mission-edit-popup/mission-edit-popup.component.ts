@@ -7,18 +7,19 @@ import { RequerirService, Requerir } from 'src/app/services/requerir.service';
 import { CompetenceService } from 'src/app/services/competences.service';
 import { AvoirService } from 'src/app/services/avoir.service';
 import { AffecterService } from 'src/app/services/affecter.service';
-import { MissionFormService } from 'src/app/services/mission-form.service';
+import { CollaborateurRecommedDetailComponent } from '../collaborateur-recommed-detail/collaborateur-recommed-detail.component'; 
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-mission-edit-popup',
   standalone: true, 
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, CollaborateurRecommedDetailComponent],   
   templateUrl: './mission-edit-popup.component.html',
   styleUrls: ['./mission-edit-popup.component.scss']
 })
 export class MissionEditPopupComponent {
-  @Input() mission!: Mission; // Mission sélectionnée
+  @Input() mission!: Mission; 
+  @Input() statut!: string;
   @Output() close = new EventEmitter<void>(); 
   @Output() save = new EventEmitter<Mission>(); 
 
@@ -29,6 +30,10 @@ export class MissionEditPopupComponent {
   isLoading = false;
   selectedPersonnelId: number | null = null; 
   date_affectation: string = '';
+  showCollaboratorDetailsPopup = false; 
+  selectedPersonnelIds: number[] = []; // IDs des personnels sélectionnés
+  affectesPersonnel: any[] = [];
+
   
 
 
@@ -37,7 +42,6 @@ export class MissionEditPopupComponent {
     private competenceService: CompetenceService,
     private avoirService: AvoirService,
     private affecterService: AffecterService,
-    private missionFormService: MissionFormService
   ) {}
 
   ngOnInit() {
@@ -51,6 +55,17 @@ export class MissionEditPopupComponent {
       }
     });
     this.date_affectation = this.getCurrentDate();
+  }
+
+  openCollaboratorDetailsPopup(idE: number): void {
+    if (idE) {
+      this.selectedPersonnelId = idE;
+      this.showCollaboratorDetailsPopup = true;
+    }
+  }
+
+  closeCollaboratorDetailsPopup(): void {
+    this.showCollaboratorDetailsPopup = false;
   }
 
   selectPersonnel(idE: number): void {
@@ -180,25 +195,30 @@ export class MissionEditPopupComponent {
     this.close.emit();
   }
 
-  saveChanges() {
-    // Récupérer les IDs des compétences sélectionnées
-    const competencesIds = this.competences.map(c => c.idC);
+  saveChanges(): void {
+    if (this.mission.statut === 'planifiée') {
+      // Cas d'une mission planifiée : enregistrer uniquement les modifications des employés
+      this.addPersonnelToMission(); // Ajouter l'employé sélectionné à la mission
+    } else {
+      // Cas d'une mission en préparation : enregistrer les compétences et autres détails
+      const competencesIds = this.competences.map(c => c.idC);
   
-    // Mettre à jour les liaisons dans la table `requerir`
-    this.requerirService.updateMissionCompetences(this.mission.idM, competencesIds).subscribe(
-      (response) => {
-        console.log('Liaisons mises à jour avec succès :', response);
+      // Mettre à jour les liaisons dans la table `requerir`
+      this.requerirService.updateMissionCompetences(this.mission.idM, competencesIds).subscribe(
+        (response) => {
+          console.log('Liaisons mises à jour avec succès :', response);
   
-        // Émettre un événement pour informer le composant parent
-        this.save.emit(this.mission);
+          // Émettre un événement pour informer le composant parent
+          this.save.emit(this.mission);
   
-        // Fermer le popup
-        this.closePopup();
-      },
-      (error) => {
-        console.error('Erreur lors de la mise à jour des liaisons :', error);
-      }
-    );
+          // Fermer le popup
+          this.closePopup();
+        },
+        (error) => {
+          console.error('Erreur lors de la mise à jour des liaisons :', error);
+        }
+      );
+    }
   }
   
 

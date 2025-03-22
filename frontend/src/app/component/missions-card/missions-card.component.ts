@@ -21,13 +21,11 @@ export class MissionsCardComponent {
   
   openMissionDetails(): void {
     this.detailMission.emit(this.mission);
-    console.log("here");
     this.missionFormService.openDetailForm();
   }
 
   edit() {
     this.editMission.emit(this.mission);
-    console.log("nice");
     this.missionFormService.openEditForm();
   }
 

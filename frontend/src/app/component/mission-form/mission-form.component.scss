@@ -4,14 +4,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #a192b0;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 12px; /* Bordures plus arrondies */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée */
   max-width: 400px; /* Largeur maximale */
   max-height: 80vh; /* Hauteur maximale (80% de la hauteur de la vue) */
   width: 90%; /* Largeur relative */
   overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
-  padding: 20px;
+  padding: 24px; /* Plus d'espace intérieur */
   z-index: 1000; /* Assure que le formulaire est au-dessus des autres éléments */
 }
 
@@ -22,27 +22,31 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent plus sombre */
+  backdrop-filter: blur(8px); /* Effet de flou */
   z-index: 999; /* Juste en dessous du formulaire */
 }
 
 /* Titre du formulaire */
 .popup-form h2 {
   margin-top: 0;
-  font-size: 1.5em;
-  color: #333;
+  font-size: 1.8em; /* Taille de police plus grande */
+  color: #81689D; /* Violet pour le titre */
   text-align: center;
+  font-weight: 600; /* Texte en gras */
+  padding-bottom: 12px;
+  border-bottom: 2px solid #81689D; /* Ligne de séparation violette */
 }
 
 /* Groupes de champs du formulaire */
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 20px; /* Plus d'espace entre les groupes */
 }
 
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  font-weight: bold;
+  font-weight: 500; /* Texte en demi-gras */
   color: #555;
 }
 
@@ -50,11 +54,19 @@
 .form-group textarea,
 .form-group select {
   width: 100%;
-  padding: 8px;
+  padding: 10px; /* Plus de rembourrage */
   box-sizing: border-box;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px; /* Bordures plus arrondies */
   font-size: 14px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Animation au focus */
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #81689D; /* Bordure violette au focus */
+  box-shadow: 0 0 8px rgba(129, 104, 157, 0.3); /* Ombre violette au focus */
 }
 
 .form-group textarea {
@@ -75,14 +87,16 @@
 
 /* Boutons */
 button {
-  background-color: #007bff;
+  background-color: #81689D; /* Violet */
   color: white;
-  padding: 10px 20px;
+  padding: 12px 24px; /* Plus de rembourrage */
   border: none;
-  border-radius: 4px;
+  border-radius: 6px; /* Bordures plus arrondies */
   cursor: pointer;
   font-size: 14px;
+  font-weight: 500; /* Texte en demi-gras */
   margin-right: 10px; /* Espace entre les boutons */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Animation au survol */
 }
 
 button:disabled {
@@ -99,24 +113,26 @@ button[type="button"]:hover {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #6A4A7E; /* Violet plus foncé au survol */
+  transform: translateY(-2px); /* Légère élévation au survol */
 }
 
 select[multiple] {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px; /* Bordures plus arrondies */
   background-color: white;
   font-size: 14px;
   height: 120px; /* Hauteur fixe pour afficher plusieurs options */
 }
 
 select[multiple]:focus {
-  border-color: #007bff;
+  border-color: #81689D; /* Bordure violette au focus */
   outline: none;
 }
 
+/* Conteneur des tags */
 .tags-container {
   display: flex;
   flex-wrap: wrap;
@@ -124,14 +140,14 @@ select[multiple]:focus {
   margin-top: 10px;
 }
 
+/* Style des tags */
 .tag {
-  margin-bottom: 8px;
   display: flex;
   align-items: center;
   padding: 6px 12px;
   border-radius: 20px; /* Bordures arrondies */
-  background-color: #1E1E1E; /* Couleur de fond par défaut */
-  color: white; /* Couleur du texte */
+  background-color: #81689D; /* Violet */
+  color: white; /* Texte en blanc */
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -139,10 +155,11 @@ select[multiple]:focus {
 }
 
 .tag:hover {
-  background-color: #67696b; /* Changement de couleur au survol */
+  background-color: #6A4A7E; /* Violet plus foncé au survol */
   transform: scale(1.05); /* Légère mise à l'échelle au survol */
 }
 
+/* Icône de suppression des tags */
 .remove-tag {
   margin-left: 8px;
   font-size: 16px;
@@ -151,9 +168,5 @@ select[multiple]:focus {
 }
 
 .remove-tag:hover {
-  color: #ff4444; /* Changement de couleur au survol */
+  color: #ff4444; /* Rouge au survol */
 }
-
-
-  
-  
