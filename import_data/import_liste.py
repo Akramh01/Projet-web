@@ -4,14 +4,14 @@ import pymysql
 connection = pymysql.connect(
     host="db-web-project.c7y2gyumqs5j.eu-north-1.rds.amazonaws.com",
     user="admin",
-    password="Karima-0102",
+    password="Akram__UV",
     database="db-web-project"
 )
 
 cursor = connection.cursor()
 
 # Chemin vers le fichier CSV
-csv_file = "C:/Users/akram/OneDrive/Etudes/L3/S2/Projet/Projet-web/Data/competences_personnel.csv"
+csv_file = "/Users/akramhamlat/Library/CloudStorage/OneDrive-Personnel/Etudes/L3/S2/Projet/Projet-web/Data/competences_personnel.csv"
 
 # Lecture et traitement du fichier CSV ligne par ligne
 records = []
@@ -30,12 +30,12 @@ with open(csv_file, 'r', encoding='utf-8') as file:
 
         # Créer une liste de tuples pour insertion
         for idC in competences:
-            records.append((idE, idC, 'débutant'))  # Par défaut, niveau "débutant"
+            records.append((idE, idC)) # (idE, idC)
 
 # Insérer les données dans la table Avoir
 sql = """
-INSERT INTO Avoir (idE, idC, niveau)
-VALUES (%s, %s, %s)
+INSERT INTO Avoir (idE, idC)
+VALUES (%s, %s)
 """
 
 for record in records:

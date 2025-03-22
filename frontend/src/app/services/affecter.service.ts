@@ -2,6 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 
+export interface Affecter {
+    idE: number;
+    idM: number;
+    date_affectation: Date;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +20,6 @@ export class AffecterService {
 
   constructor(private http: HttpClient) {}
 
-  
   linkMissionEmploye(idE: number, idM: number, date_affectation: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/link`, { idE, idM, date_affectation });
   }
@@ -22,8 +30,12 @@ export class AffecterService {
     );
   }
 
- 
   deleteAffectation(idE: number, idM: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${idE}/${idM}`);
   }
+
+  getCollaborateurByMission(idM: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/employes?idM=${idM}`);
+  }
 }
+

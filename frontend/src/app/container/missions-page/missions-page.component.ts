@@ -3,7 +3,7 @@ import { MissionsFiltersComponent } from "../../component/missions-filters/missi
 import { AddMissionButtonComponent } from "../../component/add-mission-button/add-mission-button.component";
 import { MissionsListComponent } from "../../component/missions-list/missions-list.component";
 import { Mission, MissionsService } from 'src/app/services/missions.service';
-import {MissionFormComponent, Mode} from 'src/app/component/mission-form/mission-form.component';
+import {MissionFormComponent} from 'src/app/component/mission-form/mission-form.component';
 import { MissionEditPopupComponent } from 'src/app/component/mission-edit-popup/mission-edit-popup.component';
 import { MissionDetailsPopupComponent } from 'src/app/component/mission-details-popup/mission-details-popup.component';
 import { CommonModule } from '@angular/common';
@@ -35,7 +35,9 @@ export class MissionsPageComponent {
   selectedPriority: string = '';
   selectedSkill: string = '';
   selectedCollaborator: string = '';
+
   constructor(private missionsService: MissionsService) {}
+
   onSearchQueryEvent(searchQuery: string) {
     this.searchQuery = searchQuery;
   }
@@ -68,7 +70,7 @@ export class MissionsPageComponent {
     this.selectedSkill = selectedSkill;
   }
   onSelectedCollaboratorEvent(selectedCollaborator: string) {
-    this.selectedCollaborator = selectedCollaborator;
+    this.selectedCollaborator = selectedCollaborator;  
   }
 
   closeEditPopup() {
@@ -123,3 +125,4 @@ export class MissionsPageComponent {
   }
 
 }
+
