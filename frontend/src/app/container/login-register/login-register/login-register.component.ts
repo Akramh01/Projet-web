@@ -55,7 +55,7 @@ export class LoginRegisterComponent {
       (response) => {
         console.log('Connexion réussie', response);
         localStorage.setItem('user', JSON.stringify(response));
-        this.router.navigate(['/']).then(() => window.location.reload()); 
+        this.router.navigate(['/dashboard']).then(() => window.location.reload()); 
       },
       (error) => {
         if (error.status === 401) {
