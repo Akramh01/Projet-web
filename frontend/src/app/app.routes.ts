@@ -5,7 +5,8 @@ import { DashboardComponent } from './container/dashboard/dashboard.component';
 import { LoginRegisterComponent } from './container/login-register/login-register/login-register.component';
 
 export const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '', component: LoginRegisterComponent },
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'collaborateurs-page', component: CollaborateursComponent },
   { path: 'missions-page', component: MissionsPageComponent },
   { path: 'login-register', component: LoginRegisterComponent },
