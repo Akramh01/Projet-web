@@ -246,6 +246,44 @@
   }
 }
 
+.recommendation-item {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  &.selected {
+    background-color: rgba(0, 123, 255, 0.2);
+    border: 1px solid rgba(0, 123, 255, 0.5);
+  }
+}
+
+.selected-personnel-actions {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  text-align: center;
+  
+  .btn-add-selected {
+    margin-top: 10px;
+    background-color: #81689D;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    
+    &:hover {
+      background-color: #81689D;
+    }
+  }
+}
+
 /* Message de chargement */
 .loading-message {
   text-align: center;

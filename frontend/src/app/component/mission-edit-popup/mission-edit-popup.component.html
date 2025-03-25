@@ -46,7 +46,6 @@
       </div>
     }
 
-    <!-- Afficher les recommandations de personnel -->
     <h3>Recommandations de personnel</h3>
     @if (isLoading) {
       <div class="loading-message">
@@ -63,8 +62,12 @@
     @if (!isLoading && recommendations.length > 0) {
       <div class="recommendations-container">
         @for (recommendation of recommendations; track recommendation.employe.idE) {
-          <div class="recommendation-item">
-            <div class="personnel-card" [class.selected]="selectedPersonnelId === recommendation.employe.idE" (click)="selectPersonnel(recommendation.employe.idE)">
+          <div 
+            class="recommendation-item" 
+            [class.selected]="selectedPersonnelIds.includes(recommendation.employe.idE)"
+            (click)="addPersonnelToMission(recommendation.employe.idE, $event)"
+          >
+            <div class="personnel-card">
               <div class="card-header">
                 <h3>{{ recommendation.employe.prenom }} {{ recommendation.employe.nom }}</h3>
                 <span class="badge"><i class="fas fa-star"></i> {{ recommendation.competencesCorrespondantes }} compétences</span>
@@ -74,7 +77,10 @@
                 <p><i class="fas fa-user-tag"></i> <strong>Statut :</strong> {{ recommendation.employe.statut }}</p>
               </div>
               <div class="card-footer">
-                <button class="btn-view" (click)="openCollaboratorDetailsPopup(recommendation.employe.idE)">
+                <button 
+                  class="btn-view" 
+                  (click)="openCollaboratorDetailsPopup(recommendation.employe.idE, $event)"
+                >
                   <i class="fas fa-eye"></i> Voir le profil
                 </button>
               </div>
@@ -82,7 +88,6 @@
           </div>
         }
       </div>
-    }
 
     @if (!isLoading && recommendations.length === 0) {
       <div class="no-recommendations">
@@ -90,8 +95,20 @@
       </div>
     }
 
+    @if (selectedPersonnelIds.length > 0) {
+      <div class="selected-personnel-actions">
+        <p>{{ selectedPersonnelIds.length }} collaborateur(s) sélectionné(s)</p>
+        <button 
+          class="btn-add-selected" 
+          (click)="addSelectedPersonnelToMission(); saveChanges()"
+        >
+          Ajouter les collaborateurs sélectionnés
+        </button>
+      </div>
+    }
+  }
+
     <div class="popup-buttons">
-      <button type="button" class="btn-save" (click)="addPersonnelToMission()">Ajouter à la mission</button>
       <button type="button" class="btn-save" (click)="saveChanges()">Enregistrer</button>
       <button type="button" class="btn-close" (click)="closePopup()">Fermer</button>
     </div>

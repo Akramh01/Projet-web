@@ -86,7 +86,11 @@ export class MissionsListComponent implements OnInit, OnChanges {
 
     console.log("Voici le résultat du tableau souhaité :")
     console.log(this.allInfoMissions);
+}
 
+  updateMissions(missions: Mission[]) {
+    this.allMissions = missions;
+    this.filterMissions();
   }
 
   onMissionClicked(mission: Mission){

@@ -7,6 +7,7 @@ import { RequerirService, Requerir } from 'src/app/services/requerir.service';
 import { CompetenceService } from 'src/app/services/competences.service';
 import { AvoirService } from 'src/app/services/avoir.service';
 import { AffecterService } from 'src/app/services/affecter.service';
+import { MissionsService } from 'src/app/services/missions.service';
 import { CollaborateurRecommedDetailComponent } from '../collaborateur-recommed-detail/collaborateur-recommed-detail.component'; 
 import { Observable } from 'rxjs';
 
@@ -42,6 +43,7 @@ export class MissionEditPopupComponent {
     private competenceService: CompetenceService,
     private avoirService: AvoirService,
     private affecterService: AffecterService,
+    private missionsService: MissionsService
   ) {}
 
   ngOnInit() {
@@ -55,13 +57,6 @@ export class MissionEditPopupComponent {
       }
     });
     this.date_affectation = this.getCurrentDate();
-  }
-
-  openCollaboratorDetailsPopup(idE: number): void {
-    if (idE) {
-      this.selectedPersonnelId = idE;
-      this.showCollaboratorDetailsPopup = true;
-    }
   }
 
   closeCollaboratorDetailsPopup(): void {
@@ -116,8 +111,6 @@ export class MissionEditPopupComponent {
   }
 
   loadRecommendations(): void {
-    console.log('Compétences de la mission :', this.competences); // Débogage
-  
     // Vérifier si la mission et ses compétences sont valides
     if (!this.mission || !this.mission.idM) {
       console.error('ID de mission non valide :', this.mission);
@@ -125,7 +118,7 @@ export class MissionEditPopupComponent {
     }
   
     if (!this.competences || !Array.isArray(this.competences) || this.competences.length === 0) {
-      console.error('Aucune compétence associée à la mission :', this.mission);
+      this.recommendations = [];
       return;
     }
   
@@ -137,9 +130,21 @@ export class MissionEditPopupComponent {
         this.affecterService.getEmployesWithIdMission(this.mission.idM).subscribe(
           (employesAffectes: any[]) => {
             const employesAffectesIds = employesAffectes.map((employe) => employe.idE);
+            
+            // Filter recommendations based on current competences
             this.recommendations = response.recommendations.filter(
-              (recommendation: any) => !employesAffectesIds.includes(recommendation.employe.idE)
+              (recommendation: any) => {
+                // Check if the recommendation matches the current competences
+                const matchingCompetences = this.competences.filter(
+                  comp => recommendation.competencesCorrespondantes > 0
+                );
+                
+                // Only include if not already affected and has matching competences
+                return !employesAffectesIds.includes(recommendation.employe.idE) && 
+                       matchingCompetences.length > 0;
+              }
             );
+            
             this.isLoading = false;
           },
           (error) => {
@@ -154,26 +159,62 @@ export class MissionEditPopupComponent {
       }
     );
   }
+
   
 
-  addPersonnelToMission(): void {
-    if (this.selectedPersonnelId && this.date_affectation) {
-      this.affecterService
-        .linkMissionEmploye(this.selectedPersonnelId, this.mission.idM, this.date_affectation)
-        .subscribe(
-          (response) => {
-            console.log('Employé ajouté à la mission avec succès :', response);
-            this.selectedPersonnelId = null;
-            this.save.emit(this.mission); // Mettre à jour la mission
-            
-          },
-          (error) => {
-            console.error('Erreur lors de l\'ajout de l\'employé à la mission :', error);
-            console.log('date affectation :', this.date_affectation);
-          }
-        );
+  addPersonnelToMission(idE: number, event?: Event): void {
+    if (event) {
+      event.stopPropagation(); // Empêche la propagation de l'événement
+    }
+
+    // Vérifier si l'employé est déjà sélectionné
+    const index = this.selectedPersonnelIds.indexOf(idE);
+    if (index > -1) {
+      // Si déjà sélectionné, le retirer
+      this.selectedPersonnelIds.splice(index, 1);
     } else {
-      console.error('Veuillez sélectionner un employé.');
+      // Sinon, l'ajouter
+      this.selectedPersonnelIds.push(idE);
+    }
+  }
+
+  addSelectedPersonnelToMission(): void {
+    if (this.selectedPersonnelIds.length === 0) {
+      console.error('Aucun employé sélectionné');
+      return;
+    }
+
+    // Processus d'ajout de chaque employé sélectionné
+    const addPromises = this.selectedPersonnelIds.map(idE => 
+      this.affecterService.linkMissionEmploye(idE, this.mission.idM, this.date_affectation).toPromise()
+    );
+
+    Promise.all(addPromises)
+      .then(() => {
+        console.log('Tous les employés ont été ajoutés à la mission');
+        
+        // Filtrer les recommandations pour retirer les employés ajoutés
+        this.recommendations = this.recommendations.filter(
+          (recommendation) => !this.selectedPersonnelIds.includes(recommendation.employe.idE)
+        );
+
+        // Réinitialiser la sélection
+        this.selectedPersonnelIds = [];
+        
+        // Émettre l'événement de sauvegarde
+        this.save.emit(this.mission);
+      })
+      .catch(error => {
+        console.error('Erreur lors de l\'ajout des employés à la mission :', error);
+      });
+  }
+
+  
+  openCollaboratorDetailsPopup(idE: number, event: Event): void {
+    event.stopPropagation();
+    if (idE) {
+      this.selectedPersonnelId = idE;
+      this.showCollaboratorDetailsPopup = true;
     }
   }
 
@@ -182,44 +223,100 @@ export class MissionEditPopupComponent {
       const competence = this.allCompetences.find(c => c.idC === this.selectedCompetence);
       if (competence && !this.competences.some(c => c.idC === competence.idC)) {
         this.competences.push(competence);
+        
+        this.selectedCompetence = null;
+        
+        this.loadRecommendations();
       }
     }
   }
 
   removeCompetence(idC: string) {
     this.competences = this.competences.filter(c => c.idC !== idC);
+    
+   
+    if (this.competences.length === 0) {
+      this.recommendations = [];
+      return;
+    }
+    
+    this.loadRecommendations();
   }
 
-  // Méthode pour fermer le popup
   closePopup() {
     this.close.emit();
   }
 
-  saveChanges(): void {
-    if (this.mission.statut === 'planifiée') {
-      // Cas d'une mission planifiée : enregistrer uniquement les modifications des employés
-      this.addPersonnelToMission(); // Ajouter l'employé sélectionné à la mission
-    } else {
-      // Cas d'une mission en préparation : enregistrer les compétences et autres détails
-      const competencesIds = this.competences.map(c => c.idC);
-  
-      // Mettre à jour les liaisons dans la table `requerir`
-      this.requerirService.updateMissionCompetences(this.mission.idM, competencesIds).subscribe(
-        (response) => {
-          console.log('Liaisons mises à jour avec succès :', response);
-  
-          // Émettre un événement pour informer le composant parent
-          this.save.emit(this.mission);
-  
-          // Fermer le popup
-          this.closePopup();
-        },
-        (error) => {
-          console.error('Erreur lors de la mise à jour des liaisons :', error);
-        }
-      );
+  updateMissionStatut(): void {
+    if (!this.mission.idM) {
+      console.error('ID de mission manquant');
+      return;
     }
+  
+    // Vérifier si des employés sont affectés à la mission
+    this.affecterService.getEmployesWithIdMission(this.mission.idM).subscribe(
+      (employesAffectes) => {
+        if (employesAffectes.length === 0) {
+          alert('La mission doit avoir des employés affectés avant d\'être planifiée.');
+          return;
+        }
+  
+        // Si des employés sont affectés, mettre à jour le statut
+        this.missionsService.updateMissionStatut(this.mission.idM).subscribe(
+          (response) => {
+            console.log('Statut de la mission mis à jour avec succès :', response);
+            this.save.emit(response); 
+            this.closePopup(); 
+          },
+          (error) => {
+            console.error('Erreur lors de la mise à jour du statut de la mission :', error);
+          }
+        );
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des employés affectés :', error);
+      }
+    );
   }
+
+  saveChanges(): void {
+  if (this.mission.statut === 'planifiée') {
+    // Cas d'une mission planifiée : vérifier que des employés sont affectés
+    this.affecterService.getEmployesWithIdMission(this.mission.idM).subscribe(
+      (employesAffectes) => {
+        if (employesAffectes.length === 0) {
+          alert('La mission doit avoir des employés affectés avant d\'être planifiée.');
+          return;
+        }
+
+        // Si des employés sont affectés, mettre à jour le statut
+        this.updateMissionStatut();
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des employés affectés :', error);
+      }
+    );
+  } else {
+    // Cas d'une mission en préparation : enregistrer les compétences et autres détails
+    const competencesIds = this.competences.map(c => c.idC);
+
+    // Mettre à jour les liaisons dans la table `requerir`
+    this.requerirService.updateMissionCompetences(this.mission.idM, competencesIds).subscribe(
+      (response) => {
+        console.log('Liaisons mises à jour avec succès :', response);
+        this.updateMissionStatut();
+
+        // Émettre un événement pour informer le composant parent
+        this.save.emit(this.mission);
+
+        this.closePopup();
+      },
+      (error) => {
+        console.error('Erreur lors de la mise à jour des liaisons :', error);
+      }
+    );
+  }
+}
   
 
 }
