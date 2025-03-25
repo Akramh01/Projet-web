@@ -33,9 +33,6 @@ app.use(cors({
   credentials: true, // IMPORTANT : Permet l'envoi des cookies et des tokens
 }));
 
-
-
-
 // Routes
 app.use('/employes', employesRoutes);
 app.use('/competences', competenceRoutes);

@@ -36,7 +36,9 @@ export class MissionsPageComponent {
   selectedPriority: string = '';
   selectedSkill: string = '';
   selectedCollaborator: string = '';
+
   constructor(private missionsService: MissionsService) {}
+
   onSearchQueryEvent(searchQuery: string) {
     this.searchQuery = searchQuery;
   }
@@ -69,7 +71,7 @@ export class MissionsPageComponent {
     this.selectedSkill = selectedSkill;
   }
   onSelectedCollaboratorEvent(selectedCollaborator: string) {
-    this.selectedCollaborator = selectedCollaborator;
+    this.selectedCollaborator = selectedCollaborator;  
   }
 
   closeEditPopup() {
@@ -130,3 +132,4 @@ export class MissionsPageComponent {
   }
 
 }
+

@@ -9,7 +9,6 @@ export class Missions extends Model {
   public date_fin!: Date;
   public statut!: 'préparation' | 'planifiée' | 'en cours' | 'terminée';
   public priorite!: 'basse' | 'moyenne' | 'haute';
-  
 }
 
 Missions.init(
@@ -43,7 +42,6 @@ Missions.init(
       type: DataTypes.ENUM('basse', 'moyenne', 'haute'),
       defaultValue: 'moyenne',
     },
-    
   },
   {
     sequelize,

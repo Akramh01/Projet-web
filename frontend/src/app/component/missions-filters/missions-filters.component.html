@@ -12,11 +12,13 @@
         <option value="haute">Haute</option>
     </select>
     <select #collaborateurInput class="filter-select" (change)="this.selectedCollaboratorEvent.emit(collaborateurInput.value)">
-        <option>Collaborateurs</option>
-        <option *ngFor="let collaborateur of allCollaborateurs" [value]="collaborateur.idE">{{ collaborateur.nom }} {{ collaborateur.prenom }}</option>
+        <option value="">Collaborateurs</option>
+        <option *ngFor="let collaborateur of allCollaborateurs" [value]="collaborateur.idE.toString()">
+            {{ collaborateur.nom }} {{ collaborateur.prenom }}
+        </option>
     </select>
     <select #skillInput class="filter-select" (change)="this.selectedSkillEvent.emit(skillInput.value)">
-        <option>Compétences</option>
+        <option value="">Compétences</option>
         <option *ngFor="let competence of allCompetences" [value]="competence.idC">{{ competence.nom_fr }}</option>
     </select>
     <div class="search-bar">
@@ -26,5 +28,6 @@
         </button>
     </div>
 </div>
+
 
 

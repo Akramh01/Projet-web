@@ -12,7 +12,7 @@
 [selectedDate]="selectedDate"
 [selectedPriority]="selectedPriority"
 [selectedSkill]="selectedSkill"
-[selectedCollaborator]="selectedCollaborator"
+[selectedCollaborator]="selectedCollaborator">
 ></app-missions-list>
 
 <app-mission-form 
@@ -26,7 +26,6 @@
   (close)="closeEditPopup()"
   (save)="saveMission($event)"
   ></app-mission-edit-popup>}
-
 
 @if (showDetailsPopup && selectedMission) {
   <app-mission-details-popup

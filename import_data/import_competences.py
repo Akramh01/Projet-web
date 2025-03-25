@@ -4,7 +4,7 @@ import pandas as pd
 # Configuration de la connexion MySQL
 host = "db-web-project.c7y2gyumqs5j.eu-north-1.rds.amazonaws.com"
 user = "admin"
-password = "Karima-0102"
+password = "Akram__UV"
 database = "db-web-project"
 
 # Connexion à la base de données MySQL
@@ -16,7 +16,7 @@ connection = pymysql.connect(
 )
 
 # Charger le fichier CSV
-csv_file = 'C:/Users/akram/OneDrive/Etudes/L3/S2/Projet/Projet-web/Data/liste_competences.csv'
+csv_file = '/Users/akramhamlat/Library/CloudStorage/OneDrive-Personnel/Etudes/L3/S2/Projet/Projet-web/Data/liste_competences.csv'
 competences_df = pd.read_csv(csv_file, sep=';', encoding='utf-8')
 
 # Transformation des données si nécessaire

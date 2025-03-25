@@ -22,8 +22,8 @@ export class MissionsService {
 
   constructor(private http: HttpClient) { }
 
-  getMissions(): Observable<any>{
-    return this.http.get(this.apiUrl);
+  getMissions(): Observable<Mission[]> {
+    return this.http.get<Mission[]>(this.apiUrl);
   }
 
   getMissionWithId(idM: number): Observable<Mission> {
@@ -43,14 +43,14 @@ export class MissionsService {
   }
 
   deleteMission(idM: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${idM}`)
+    return this.http.delete(`${this.apiUrl}/${idM}`);
   }
-
+  
   updateMission(mission: Mission): Observable<any> {
     return this.http.put(`http://localhost:3000/missions/updatem/${mission.idM}`, mission);
-}
+  }
 
   updateMissionStatut(idM: number): Observable<Mission> {
     return this.http.put<Mission>(`${this.apiUrl}/${idM}`, {});
-}
+  }
 }
