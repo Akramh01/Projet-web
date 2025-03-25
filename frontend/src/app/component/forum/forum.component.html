@@ -1,1 +1,41 @@
-<p>forum works!</p>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Forum Basique</title>
+</head>
+<body>
+    <div class="forum-container">
+        <h1>Forum </h1>
+
+        <div class="topic">
+            <strong>Sujet :</strong> Présentation des missions <br>
+            <small>Posté par Alice</small>
+        </div>
+
+        <div class="topic">
+            <strong>Sujet :</strong> Vos outils de développement préférés<br>
+            <small>Posté par Bob</small>
+        </div>
+
+        <div class="topic">
+            <strong>Sujet :</strong> Nouveauté<br>
+            <small>Posté par Clara</small>
+        </div>
+
+        <form>
+            <h2>Ajouter une disussion </h2>
+            <label for="title">Titre :</label>
+            <input type="text" id="title" name="title" placeholder="Ex: Mon premier post">
+
+            <label for="author">Votre nom :</label>
+            <input type="text" id="author" name="author" placeholder="Ex: Jean">
+
+            <label for="message">Message :</label>
+            <textarea id="message" name="message" rows="4" placeholder="Contenu du message..."></textarea>
+
+            <input type="submit" value="Poster">
+        </form>
+    </div>
+</body>
+</html>
