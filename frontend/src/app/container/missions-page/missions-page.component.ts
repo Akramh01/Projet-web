@@ -3,7 +3,7 @@ import { MissionsFiltersComponent } from "../../component/missions-filters/missi
 import { AddMissionButtonComponent } from "../../component/add-mission-button/add-mission-button.component";
 import { MissionsListComponent } from "../../component/missions-list/missions-list.component";
 import { Mission, MissionsService } from 'src/app/services/missions.service';
-import {MissionFormComponent, Mode} from 'src/app/component/mission-form/mission-form.component';
+import {MissionFormComponent} from 'src/app/component/mission-form/mission-form.component';
 import { MissionEditPopupComponent } from 'src/app/component/mission-edit-popup/mission-edit-popup.component';
 import { MissionDetailsPopupComponent } from 'src/app/component/mission-details-popup/mission-details-popup.component';
 import { CommonModule } from '@angular/common';
@@ -23,10 +23,11 @@ import { CommonModule } from '@angular/common';
   styleUrl: './missions-page.component.scss'
 })
 export class MissionsPageComponent {
+  missions: Mission[] = [];
   showAddPopup = false;
   showEditPopup = false;
   showDetailsPopup = false;
-  mission : any;
+  mission : Mission | null = null;
   selectedMission: Mission | null = null;
   @ViewChild(MissionsListComponent) missionsList!: MissionsListComponent;
 
@@ -78,27 +79,33 @@ export class MissionsPageComponent {
   
   saveMission(updatedMission: Mission) {
     console.log('Mission mise à jour :', updatedMission);
-    if (updatedMission.idM) {
-      this.missionsService.updateMission(updatedMission).subscribe(
-        (response) => {
-          console.log('Mission mise à jour avec succès :', response);
-          this.closeEditPopup(); // Fermer le popup
-          this.loadMissions();
-          // Rafraîchir la liste des missions si nécessaire
-        },
-        (error) => {
-          console.error('Erreur lors de la mise à jour de la mission :', error);
-        }
-      );
+  
+    // Trouver l'index de la mission mise à jour dans la liste
+    const index = this.missions.findIndex(m => m.idM === updatedMission.idM);
+  
+    if (index !== -1) {
+      // Mettre à jour la mission dans la liste locale
+      this.missions[index] = updatedMission;
     } else {
-      console.error('ID de mission manquant');
+      // Si la mission n'existe pas dans la liste, l'ajouter
+      this.missions.push(updatedMission);
     }
+  
+    // Optionnel : Recharger la liste des missions depuis le serveur
+    this.loadMissions();
+  
+    // Fermer le popup
+    this.closeEditPopup();
   }
 
   loadMissions() {
     this.missionsService.getMissions().subscribe(
       (missions) => {
-        this.mission = missions; // Mettre à jour la liste des missions
+        this.missions = missions; // Correctly update the missions array
+        // Optional: If you have a reference to the missions list component, you can directly update it
+        if (this.missionsList) {
+          this.missionsList.updateMissions(missions);
+        }
       },
       (error) => {
         console.error('Erreur lors du chargement des missions :', error);

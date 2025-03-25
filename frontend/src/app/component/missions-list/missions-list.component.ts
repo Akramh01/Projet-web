@@ -41,10 +41,22 @@ export class MissionsListComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.missionsService.getMissions().subscribe((data) => {
-      this.allMissions = data;
+    if (this.missions.length > 0) {
+      // If missions are passed as input, use them
+      this.allMissions = this.missions;
       this.filterMissions();
-    });
+    } else {
+      // Otherwise, fetch missions from the service
+      this.missionsService.getMissions().subscribe((data) => {
+        this.allMissions = data;
+        this.filterMissions();
+      });
+    }
+  }
+
+  updateMissions(missions: Mission[]) {
+    this.allMissions = missions;
+    this.filterMissions();
   }
 
   onMissionClicked(mission: Mission){

@@ -53,7 +53,7 @@
 
       <!-- Zone d'affichage des tags -->
       <div class="tags-container">
-        @for (competence of selectedCompetences; track competence.id) {
+        @for (competence of selectedCompetences; track competence.idC) {
           <div class="tag" [style.backgroundColor]="competence.color">
             {{ competence.nom_fr }}
             <span class="remove-tag" (click)="removeCompetence(competence)">×</span>

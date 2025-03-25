@@ -26,6 +26,10 @@ export class MissionsService {
     return this.http.get(this.apiUrl);
   }
 
+  getMissionWithId(idM: number): Observable<Mission> {
+    return this.http.get<Mission>(`${this.apiUrl}/?idM=${idM}`);
+  }
+
   getMissionWithName(titre: string): Observable<Mission[]> {
     return this.http.get<Mission[]>(`${this.apiUrl}/name?nom_fr=${titre}`);
   }
@@ -43,6 +47,10 @@ export class MissionsService {
   }
 
   updateMission(mission: Mission): Observable<any> {
-  return this.http.put(`http://localhost:3000/missions/updatem/${mission.idM}`, mission);
+    return this.http.put(`http://localhost:3000/missions/updatem/${mission.idM}`, mission);
+}
+
+  updateMissionStatut(idM: number): Observable<Mission> {
+    return this.http.put<Mission>(`${this.apiUrl}/${idM}`, {});
 }
 }
