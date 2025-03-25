@@ -1,0 +1,15 @@
+<!-- collaborateur-recommed-detail.component.html -->
+<div class="popup-overlay" (click)="closePopup()">
+  <div class="popup-content" (click)="$event.stopPropagation()">
+    @if (collaborateur) {
+      <h4>{{ collaborateur.nom }} {{ collaborateur.prenom }}</h4>
+      <p><strong>Date d'embauche :</strong> {{ collaborateur.date_embauche }}</p>
+      <p><strong>Statut :</strong> {{ collaborateur.statut }}</p>
+    } @else {
+      <div class="loading-message">
+        <i class="fas fa-spinner fa-spin"></i> Chargement des détails du collaborateur...
+      </div>
+    }
+    <button class="btn-close" (click)="closePopup()">Fermer</button>
+  </div>
+</div>

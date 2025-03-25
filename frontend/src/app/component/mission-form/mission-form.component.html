@@ -1,62 +1,68 @@
-<div class="overlay" *ngIf="isOpen" (click)="closeForm()"></div>
-<div class="popup-form" *ngIf="isOpen">
-  <h2>Nouvelle mission</h2>
-  <form [formGroup]="missionForm" (ngSubmit)="onSubmit()" >
-    <div class="form-group">
-      <div>{{ mission }}</div>
-      <label for="titre">Nom mission</label>
-      <input id="titre" type="text" formControlName="titre" required />
-    </div>
-
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea id="description" formControlName="description" required></textarea>
-    </div>
-
-    <div class="form-group">
-      <label for="date_debut">Date Début</label>
-      <input id="date_debut" type="date" formControlName="date_debut" required />
-    </div>
-
-    <div class="form-group">
-      <label for="date_fin">Date Fin</label>
-      <input id="date_fin" type="date" formControlName="date_fin" required />
-    </div>
-
-    <div class="form-group">
-      <label>Priorité</label>
-      <div class="radio-group">
-        <label>
-          <input type="radio" formControlName="priorite" value="basse" /> Basse
-        </label>
-        <label>
-          <input type="radio" formControlName="priorite" value="moyenne" /> Moyenne
-        </label>
-        <label>
-          <input type="radio" formControlName="priorite" value="haute" /> Haute
-        </label>
+@if (isOpen) {
+  <div class="overlay" (click)="closeForm()"></div>
+  <div class="popup-form">
+    <h2>Nouvelle mission</h2>
+    <form [formGroup]="missionForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <div>{{ mission }}</div>
+        <label for="titre">Nom mission</label>
+        <input id="titre" type="text" formControlName="titre" required />
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="competences">Compétences</label>
-      <select id="competences" (change)="onCompetenceChange($event)">
-        <option value="">Sélectionnez une compétence</option>
-        <option *ngFor="let competence of competences" [value]="competence.id">
-          {{ competence.nom_fr }} <!-- Afficher le nom de la compétence -->
-        </option>
-      </select>
-    </div>
-
-    <!-- Zone d'affichage des tags -->
-    <div class="tags-container">
-      <div *ngFor="let competence of selectedCompetences" class="tag" [style.backgroundColor]="competence.color">
-        {{ competence.nom_fr }}
-        <span class="remove-tag" (click)="removeCompetence(competence)">×</span>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" required></textarea>
       </div>
-    </div>
 
-    <button type="submit" [disabled]="missionForm.invalid">Confirmer</button>
-    <button type="button" (click)="closeForm()">Fermer</button>
-  </form>
-</div>
+      <div class="form-group">
+        <label for="date_debut">Date Début</label>
+        <input id="date_debut" type="date" formControlName="date_debut" required />
+      </div>
+
+      <div class="form-group">
+        <label for="date_fin">Date Fin</label>
+        <input id="date_fin" type="date" formControlName="date_fin" required />
+      </div>
+
+      <div class="form-group">
+        <label>Priorité</label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" formControlName="priorite" value="basse" /> Basse
+          </label>
+          <label>
+            <input type="radio" formControlName="priorite" value="moyenne" /> Moyenne
+          </label>
+          <label>
+            <input type="radio" formControlName="priorite" value="haute" /> Haute
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="competences">Compétences</label>
+        <select id="competences" (change)="onCompetenceChange($event)">
+          <option value="">Sélectionnez une compétence</option>
+          @for (competence of competences; track competence.id+ '-' + competence.nom_fr) {
+            <option [value]="competence.id">
+              {{ competence.nom_fr }} <!-- Afficher le nom de la compétence -->
+            </option>
+          }
+        </select>
+      </div>
+
+      <!-- Zone d'affichage des tags -->
+      <div class="tags-container">
+        @for (competence of selectedCompetences; track competence.id) {
+          <div class="tag" [style.backgroundColor]="competence.color">
+            {{ competence.nom_fr }}
+            <span class="remove-tag" (click)="removeCompetence(competence)">×</span>
+          </div>
+        }
+      </div>
+
+      <button type="submit" [disabled]="missionForm.invalid">Confirmer</button>
+      <button type="button" (click)="closeForm()">Fermer</button>
+    </form>
+  </div>
+}

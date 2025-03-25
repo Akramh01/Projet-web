@@ -4,6 +4,7 @@ import { Affecter} from '../models/affecter';
 import {Employes} from '../models/employes';
 import {Requerir} from '../models/requerir';
 import { Avoir } from '../models/avoir';
+
 // Récupération de toutes les missions
 export const getMissions = async (req: Request, res: Response) => {
 	try {
@@ -17,35 +18,35 @@ export const getMissions = async (req: Request, res: Response) => {
 
 // Ajout d'une mission avec le statut par defaut  sera en preparation et aucune anomalie 
 export const addMission = async (req: Request, res: Response) => {
-    try {
-        const { titre, description, date_debut, date_fin, priorite} = req.body;
- 
- 
-        // Validation des champs requis
-        if (!titre || !description || !date_debut || !date_fin || !priorite) {
-            const error = new Error('Tous les champs requis (titre, description, date_debut, date_fin, priorite) doivent être fournis.');
-            (error as any).status = 400;
-            throw error;
-        }
- 
-        // Création de la nouvelle mission avec le statut par défaut et anomalies vides
-        const newMission = await Missions.create({
-            titre,
-            description,
-            date_debut,
-            date_fin,
-            statut:'préparation',
-            priorite,
-            anomalies: "",
-        });
- 
-        // Retourner la mission créée avec un statut 201 (Créé)
-        res.status(201).json(newMission);
-    } catch (error) {
-        console.error('Erreur lors de l’ajout de la mission:', error);
-        res.status(500).json({ error: 'Erreur lors de l’ajout de la mission.' });
-    }
- };
+  try {
+      const { titre, description, date_debut, date_fin, priorite} = req.body;
+
+
+      // Validation des champs requis
+      if (!titre || !description || !date_debut || !date_fin || !priorite) {
+          const error = new Error('Tous les champs requis (titre, description, date_debut, date_fin, priorite) doivent être fournis.');
+          (error as any).status = 400;
+          throw error;
+      }
+
+      // Création de la nouvelle mission avec le statut par défaut et anomalies vides
+      const newMission = await Missions.create({
+          titre,
+          description,
+          date_debut,
+          date_fin,
+          statut:'préparation',
+          priorite,
+      });
+
+      // Retourner la mission créée avec un statut 201 (Créé)
+      res.status(201).json(newMission);
+  } catch (error) {
+      console.error('Erreur lors de l’ajout de la mission:', error);
+      res.status(500).json({ error: 'Erreur lors de l’ajout de la mission.' });
+  }
+};
+
 
 // Récupération d'une mission par ID
 export const getMissionWithId = async (req: Request, res: Response) => {
@@ -99,57 +100,89 @@ export const getMissionWithTitle = async (req: Request, res: Response) => {
  
 "// Mise à jour du statut par défaut (préparation) pour le passer à planifié"
 export const updateMissionStatut = async (req: Request, res: Response): Promise<void> => {
-	try {
-    	const { idM } = req.params;
+  try {
+    const { idM } = req.params;
 
-    	// Récupération de la mission
-    	const mission = await Missions.findByPk(idM);
-    	if (!mission) {
-        	const error = new Error('Mission non trouvée.');
-        	(error as any).status = 404;
-        	throw error;
-    	}
-
-    	if (mission.statut !== 'préparation') {
-        	const error = new Error('Seules les missions en préparation peuvent être planifiées.');
-        	(error as any).status = 400;
-        	throw error;
-    	}
-        // vérification la présence de toute les données de la mission
-    	if (!mission.titre || !mission.description || !mission.date_debut || !mission.date_fin) {
-        	const error = new Error('Toutes les informations doivent être complètes pour planifier la mission.');
-        	(error as any).status = 400;
-        	throw error;
-    	}
-
-    	// Vérifier qu'au moins un employé est affecté
-    	const affectationsCollaborateurs = await Affecter.findAll({ where: { idM } });
-    	if (affectationsCollaborateurs.length === 0) {
-        	const error = new Error("Il faut au moins un employé affecté pour planifier la mission.");
-        	(error as any).status = 400;
-        	throw error;
-    	}
-
-    	// Vérifier que toutes les compétences requises sont couvertes
-	const rcompetences = await Requerir.findAll({ where: { idM } });
-	for (const  rcompetence of rcompetences) {
-  	const nbPersonnesAvecCompetence = await Avoir.count({ where: { idC: rcompetence.idC } });
-    if (nbPersonnesAvecCompetence === 0) {
-      const error = new Error(`Aucune personne ne possède la compétence requise: ${rcompetence.idC}`);
-      (error as any).status = 400;
+    // Récupérer la mission par son ID
+    const mission = await Missions.findByPk(idM);
+    if (!mission) {
+      const error = new Error('Mission non trouvée.');
+      (error as any).status = 404;
       throw error;
-  }
-  }
+    }
 
-    	// Mettre à jour le statut de la mission
-    	mission.statut = 'planifiée';
-    	await mission.save();
+    // Gestion automatique du statut en fonction des conditions et du statut actuel
+    switch (mission.statut) {
+      case 'préparation': {
+        // Vérifier que toutes les informations nécessaires sont présentes
+        if (!mission.titre || !mission.description || !mission.date_debut || !mission.date_fin) {
+          const error = new Error('La mission doit avoir toutes les informations complètes pour être planifiée.');
+          (error as any).status = 400;
+          throw error;
+        }
 
-    	res.status(200).json({ message: 'Mission planifiée avec succès.', mission });
-	} catch (error) {
-    	console.error('Erreur mise à jour statut mission:', error);
-    
-	}
+        // Vérifier que des employés sont affectés à la mission
+        const affectations = await Affecter.findAll({ where: { idM }, include: [Employes] });
+        if (affectations.length === 0) {
+          const error = new Error('La mission doit avoir des employés affectés avant d\'être planifiée.');
+          (error as any).status = 400;
+          throw error;
+        }
+
+        // Passer le statut à "planifiée"
+        mission.statut = 'planifiée';
+        await mission.save();
+        res.status(200).json({ message: 'La mission a été planifiée avec succès.', mission });
+        break;
+      }
+
+      case 'planifiée': {
+        // Vérifier si la date de début est atteinte pour passer à "en cours"
+        if (new Date() >= new Date(mission.date_debut)) {
+          mission.statut = 'en cours';
+          await mission.save();
+          res.status(200).json({ message: 'La mission a commencé et est maintenant en cours.', mission });
+        } else {
+          const error = new Error('La mission ne peut pas être mise en cours avant la date de début.');
+          (error as any).status = 400;
+          throw error;
+        }
+        break;
+      }
+
+      case 'en cours': {
+        // Vérifier si la date de fin est atteinte pour passer à "terminée"
+        if (new Date() >= new Date(mission.date_fin)) {
+          mission.statut = 'terminée';
+          await mission.save();
+          res.status(200).json({ message: 'La mission est terminée.', mission });
+        } else {
+          const error = new Error('La mission ne peut pas être terminée avant la date de fin.');
+          (error as any).status = 400;
+          throw error;
+        }
+        break;
+      }
+
+      case 'terminée': {
+        const error = new Error('La mission est déjà terminée et ne peut pas être modifiée.');
+        (error as any).status = 400;
+        throw error;
+      }
+
+      default: {
+        const error = new Error('Statut de la mission non reconnu.');
+        (error as any).status = 400;
+        throw error;
+      }
+    }
+  } catch (error: any) {
+    // Si une erreur est levée, elle sera capturée ici.
+    console.error('Erreur lors de la mise à jour du statut de la mission:', error);
+
+    // Propager l'erreur pour qu'elle soit traitée par le middleware errorHandler
+    throw error;
+  }
 };
 //modifier une mission 
 export const updateMission =  async (req: Request, res: Response) => {
